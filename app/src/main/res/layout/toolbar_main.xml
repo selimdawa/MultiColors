@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="?colorOnBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <io.selimdawa.multicolors.MultiColorButton
+        android:layout_width="34dp"
+        android:layout_height="34dp" />
+
+</LinearLayout>

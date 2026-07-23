@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="mc_bg" format="reference|color" />
+    <attr name="mc_track" format="color" />
+    <attr name="mc_tick" format="color" />
+</resources>
