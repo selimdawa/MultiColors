@@ -1,6 +1,7 @@
 package io.selimdawa.multicolors
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
@@ -37,8 +38,19 @@ class MultiColorButton @JvmOverloads constructor(
 
     private fun setupListeners() {
         setOnClickListener {
-            (context as? AppCompatActivity)?.let { MultiColorManager.showThemeDialog(it) }
+            findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
         }
+    }
+
+    private fun findAppCompatActivity(context: Context): AppCompatActivity? {
+        var currentContext = context
+        while (currentContext is ContextWrapper) {
+            if (currentContext is AppCompatActivity) {
+                return currentContext
+            }
+            currentContext = currentContext.baseContext
+        }
+        return null
     }
 
     override fun onAttachedToWindow() {

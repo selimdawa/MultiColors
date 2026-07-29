@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.LruCache
 import android.util.TypedValue
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -117,29 +116,38 @@ object MultiColorManager {
         val values = themeMap.keys.toTypedArray()
         val themeResIds = themeMap.values.toIntArray()
 
-        val themeBackgrounds = themeResIds.map { resId ->
-            val customTheme = activity.resources.newTheme()
-            customTheme.applyStyle(resId, true)
-            getThemeBackground(activity, customTheme, resId)
-        }
-
-        val adapter = ThemeAdapter(activity, names, themeBackgrounds)
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
-
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
-        val width = (activity.resources.displayMetrics.widthPixels * 0.85).toInt()
+        val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
         dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        dialogBinding.listView.adapter = adapter
-        dialogBinding.listView.setOnItemClickListener { _, _, which, _ ->
-            activity.lifecycleScope.launch {
-                activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = values[which] }
+        values.forEachIndexed { index, key ->
+            val resId = themeResIds[index]
+            val name = names[index]
+
+            val itemBinding = ItemThemeBinding.inflate(activity.layoutInflater)
+            itemBinding.themeNameText.text = name
+
+            val customTheme = activity.resources.newTheme()
+            customTheme.applyStyle(resId, true)
+            itemBinding.themeColorView.background = getThemeBackground(activity, customTheme, resId)
+
+            itemBinding.root.setOnClickListener {
+                activity.lifecycleScope.launch {
+                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = key }
+                }
+                dialog.dismiss()
             }
-            dialog.dismiss()
+
+            if (key.contains("GRADUAL", ignoreCase = true)) {
+                dialogBinding.gradientFlexbox.addView(itemBinding.root)
+            } else {
+                dialogBinding.solidFlexbox.addView(itemBinding.root)
+            }
         }
     }
 
@@ -174,25 +182,5 @@ object MultiColorManager {
             drawableCache.put(cacheKey, drawable)
         }
         return drawable
-    }
-
-    private class ThemeAdapter(
-        context: Context,
-        private val entries: Array<String>,
-        private val backgrounds: List<Drawable>
-    ) : ArrayAdapter<String>(context, 0, entries) {
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val binding: ItemThemeBinding = if (convertView == null) {
-                ItemThemeBinding.inflate(LayoutInflater.from(context), parent, false)
-            } else {
-                ItemThemeBinding.bind(convertView)
-            }
-
-            binding.themeNameText.text = entries[position]
-            binding.themeColorView.background = backgrounds[position]
-
-            return binding.root
-        }
     }
 }

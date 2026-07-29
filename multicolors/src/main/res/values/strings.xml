@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">Select Theme</string>
+    <string name="mc_solid_colors">Solid Colors</string>
+    <string name="mc_gradient_colors">Gradient Colors</string>
 
     <!-- Theme Names -->
     <string name="mc_theme_one">Basic</string>

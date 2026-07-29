@@ -1,29 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/mc_dialog_bg"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:background="@drawable/mc_dialog_bg">
 
-    <TextView
-        android:id="@+id/dialogTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/mc_select_theme"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@null" />
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/mc_select_theme"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/mc_solid_colors"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/solidFlexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            xmlns:tools="http://schemas.android.com/tools">
+
+            <!-- Sample Items for Preview Only -->
+            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
+            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
+            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/mc_gradient_colors"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/gradientFlexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            xmlns:tools="http://schemas.android.com/tools">
+
+            <!-- Sample Items for Preview Only -->
+            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
+            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </LinearLayout>
+
+</ScrollView>
