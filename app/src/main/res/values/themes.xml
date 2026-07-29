@@ -1,0 +1,8 @@
+<resources>
+    <!-- Custom theme created by the developer using the library -->
+    <style name="Theme.App.CustomRed" parent="MC_Base_Theme">
+        <item name="mc_bg">#FF0000</item> <!-- Solid Red -->
+        <item name="mc_tick">#880000</item>
+        <item name="mc_track">#FF4444</item>
+    </style>
+</resources>

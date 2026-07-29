@@ -63,7 +63,32 @@ MultiColorManager.showThemeDialog(activity)
 
 ## Customization
 
-You can provide your own theme map during initialization:
+### Adding Custom Themes
+
+You can add your own themes without replacing the default ones. 
+
+1. Define your theme in `themes.xml` inheriting from `MC_Base_Theme`:
+```xml
+<style name="Theme.App.CustomRed" parent="MC_Base_Theme">
+    <item name="mc_bg">#FF0000</item>
+    <item name="mc_tick">#880000</item>
+    <item name="mc_track">#FF4444</item>
+</style>
+```
+
+2. Register it in your `Application` class before calling `init`:
+```kotlin
+MultiColorManager.registerTheme(
+    id = "CUSTOM_RED",
+    styleRes = R.style.Theme_App_CustomRed,
+    name = "Custom Red"
+)
+MultiColorManager.init(this)
+```
+
+### Replacing All Themes
+
+You can also provide your own theme map during initialization to replace default themes entirely:
 
 ```kotlin
 val myThemes = mapOf(

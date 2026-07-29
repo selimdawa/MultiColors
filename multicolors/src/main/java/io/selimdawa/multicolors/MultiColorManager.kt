@@ -62,9 +62,32 @@ object MultiColorManager {
     private val _currentTheme = MutableStateFlow("")
     val currentTheme: StateFlow<String> = _currentTheme.asStateFlow()
 
+    private val extraThemeMap = mutableMapOf<String, Int>()
+    private val extraThemeNames = mutableMapOf<String, String>()
+
+    /**
+     * Registers a custom theme that will be added to the selection dialog.
+     * @param id A unique identifier for the theme (e.g., "CUSTOM_RED").
+     * @param styleRes The style resource ID (e.g., R.style.MyCustomTheme).
+     * @param name The display name of the theme.
+     */
+    fun registerTheme(id: String, styleRes: Int, name: String) {
+        extraThemeMap[id] = styleRes
+        extraThemeNames[id] = name
+    }
+
+    private fun getMergedThemeMap(themeMap: Map<String, Int>): Map<String, Int> {
+        return if (themeMap === defaultThemeMap) {
+            defaultThemeMap + extraThemeMap
+        } else {
+            themeMap
+        }
+    }
+
     fun init(application: Application, themeMap: Map<String, Int> = defaultThemeMap) {
+        val finalMap = getMergedThemeMap(themeMap)
         managerScope.launch {
-            application.multiColorDataStore.data.map { it[themeKey] ?: themeMap.keys.first() }
+            application.multiColorDataStore.data.map { it[themeKey] ?: finalMap.keys.first() }
                 .collectLatest { _currentTheme.value = it }
         }
 
@@ -101,10 +124,11 @@ object MultiColorManager {
     }
 
     fun applyTheme(context: Context, themeMap: Map<String, Int> = defaultThemeMap) {
+        val finalMap = getMergedThemeMap(themeMap)
         val option = runBlocking {
-            context.multiColorDataStore.data.map { it[themeKey] ?: themeMap.keys.first() }.first()
+            context.multiColorDataStore.data.map { it[themeKey] ?: finalMap.keys.first() }.first()
         }
-        context.setTheme(themeMap[option] ?: themeMap.values.first())
+        context.setTheme(finalMap[option] ?: finalMap.values.first())
     }
 
     fun showThemeDialog(
@@ -112,9 +136,20 @@ object MultiColorManager {
         themeMap: Map<String, Int> = defaultThemeMap,
         themeNames: Array<String>? = null
     ) {
-        val names = themeNames ?: activity.resources.getStringArray(R.array.mc_theme_entries)
-        val values = themeMap.keys.toTypedArray()
-        val themeResIds = themeMap.values.toIntArray()
+        val finalMap = getMergedThemeMap(themeMap)
+        val defaultNames = activity.resources.getStringArray(R.array.mc_theme_entries)
+        
+        val values = finalMap.keys.toTypedArray()
+        val themeResIds = finalMap.values.toIntArray()
+        
+        // Prepare names: merge default names with extra names
+        val names = values.mapIndexed { index, key ->
+            if (index < defaultNames.size && themeMap === defaultThemeMap) {
+                defaultNames[index]
+            } else {
+                extraThemeNames[key] ?: themeNames?.getOrNull(index) ?: key
+            }
+        }.toTypedArray()
 
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
