@@ -63,44 +63,45 @@
     </style>
 
     <style name="Theme.MC.Gradient.One" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_1</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner</item>
         <item name="mc_track">@color/mc_night_corner_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Two" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_2</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_one</item>
         <item name="mc_track">@color/mc_night_corner_one_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Three" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_two</item>
         <item name="mc_track">@color/mc_night_corner_two_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Four" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_three</item>
         <item name="mc_track">@color/mc_night_corner_three_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Five" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_5</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_four</item>
         <item name="mc_track">@color/mc_night_corner_four_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Six" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_6</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_five</item>
         <item name="mc_track">@color/mc_night_corner_five_2</item>
     </style>
 
     <style name="Theme.MC.Gradient.Seven" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_7</item>
+        <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_six</item>
         <item name="mc_track">@color/mc_night_corner_six_2</item>
     </style>
+
 </resources>
