@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Color
+import androidx.core.graphics.drawable.toDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -56,15 +57,15 @@ class MultiColorButton @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
-            MultiColorManager.currentTheme.collectLatest {
+            MultiColorManager.currentThemeId.collectLatest {
                 updateAppearance()
             }
         }
     }
 
     private fun updateAppearance() {
-        binding.mcInnerColor.background =
-            MultiColorManager.getThemeBackground(context, context.theme)
+        val theme = MultiColorManager.getCurrentTheme(context)
+        binding.mcInnerColor.background = MultiColorManager.getThemeBackground(context, theme)
     }
 
     private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(

@@ -7,8 +7,8 @@
 - ✅ **Reactive Architecture**: Built with Kotlin Flow and Coroutines for real-time theme updates.
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
 - ✅ **Gradient Support**: Full support for both solid colors and gradient themes.
-- ✅ **Pre-built Components**: Includes `MultiColorButton` and a customizable selection dialog.
-- ✅ **Easy Integration**: Automatically handles Activity recreation and theme application.
+- ✅ **Dynamic Themes**: Register themes directly from Kotlin code without XML.
+- ✅ **Modular Registry**: Separate Registry for managing themes cleanly.
 
 ## Installation
 
@@ -32,12 +32,34 @@ dependencies {
 
 ## Usage
 
-### 1. Initialize in Application Class
+### 1. Initialize and Register Themes
+
+In your `Application` class:
 
 ```kotlin
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        
+        // 1. Register Kotlin-based (Dynamic) themes
+        ThemeRegistry.register(
+            MultiColorTheme.Dynamic(
+                id = "MY_COLOR",
+                name = "Ocean Blue",
+                backgroundColor = Color.parseColor("#0077CC")
+            )
+        )
+
+        // 2. Register XML-based themes (Optional)
+        ThemeRegistry.register(
+            MultiColorTheme.Xml(
+                id = "NIGHT_MODE",
+                name = "Night",
+                styleRes = R.style.MyNightTheme
+            )
+        )
+
+        // 3. Initialize the manager
         MultiColorManager.init(this)
     }
 }
@@ -45,7 +67,7 @@ class MyApp : Application() {
 
 ### 2. Add to your Layout
 
-You can use the built-in `MultiColorButton` which opens the theme selection dialog automatically:
+Use the `MultiColorButton` to let users switch themes:
 
 ```xml
 <io.selimdawa.multicolors.MultiColorButton
@@ -53,51 +75,9 @@ You can use the built-in `MultiColorButton` which opens the theme selection dial
     android:layout_height="wrap_content" />
 ```
 
-### 3. Show Dialog Manually
-
-If you want to trigger the dialog from a custom action:
-
-```kotlin
-MultiColorManager.showThemeDialog(activity)
-```
-
 ## Customization
 
-### Adding Custom Themes
-
-You can add your own themes without replacing the default ones. 
-
-1. Define your theme in `themes.xml` inheriting from `MC_Base_Theme`:
-```xml
-<style name="Theme.App.CustomRed" parent="MC_Base_Theme">
-    <item name="mc_bg">#FF0000</item>
-    <item name="mc_tick">#880000</item>
-    <item name="mc_track">#FF4444</item>
-</style>
-```
-
-2. Register it in your `Application` class before calling `init`:
-```kotlin
-MultiColorManager.registerTheme(
-    id = "CUSTOM_RED",
-    styleRes = R.style.Theme_App_CustomRed,
-    name = "Custom Red"
-)
-MultiColorManager.init(this)
-```
-
-### Replacing All Themes
-
-You can also provide your own theme map during initialization to replace default themes entirely:
-
-```kotlin
-val myThemes = mapOf(
-    "LIGHT" to R.style.MyLightTheme,
-    "DARK" to R.style.MyDarkTheme
-)
-
-MultiColorManager.init(this, myThemes)
-```
+You can replace all default themes by clearing the registry or simply adding your own. The library components will automatically react to any theme registered in `ThemeRegistry`.
 
 ## License
 
