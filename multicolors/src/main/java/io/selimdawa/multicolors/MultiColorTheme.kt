@@ -1,30 +1,31 @@
 package io.selimdawa.multicolors
 
+import androidx.annotation.StyleRes
+
+/**
+ * Represents a theme in the MultiColors library.
+ */
 sealed class MultiColorTheme {
     abstract val id: String
     abstract val name: String
-    
-    abstract val mc_bg: Int
-    abstract val mc_track: Int
-    abstract val mc_tick: Int
 
+    /**
+     * A theme defined in XML styles (same as library defaults).
+     * This is the most powerful type as it supports gradients and native Android styles.
+     */
     data class Xml(
         override val id: String,
         override val name: String,
-        val styleRes: Int
-    ) : MultiColorTheme() {
-        override val mc_bg: Int = 0
-        override val mc_track: Int = 0
-        override val mc_tick: Int = 0
-    }
+        @StyleRes val styleRes: Int
+    ) : MultiColorTheme()
 
+    /**
+     * A theme defined dynamically with a single color.
+     * The library will automatically apply this color to mc_bg, mc_track, and mc_tick.
+     */
     data class Dynamic(
         override val id: String,
         override val name: String,
         val solidColor: Int
-    ) : MultiColorTheme() {
-        override val mc_bg: Int get() = solidColor
-        override val mc_track: Int get() = solidColor
-        override val mc_tick: Int get() = solidColor
-    }
+    ) : MultiColorTheme()
 }

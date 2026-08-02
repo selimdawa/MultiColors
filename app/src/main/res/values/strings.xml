@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">Multi Colors</string>
+
+    <string name="delete">Delete</string>
+    <string name="sort_by">Sort By</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="size">Size</string>
+    <string name="zero_zero">0:00</string>
+    <string name="song_title">Song Title</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="play_or_pause">Play or Pause</string>
+    <string name="next_song">Next Song</string>
+    <string name="folder_name">Folder Name</string>
+    <string name="songs">Songs</string>
+    <string name="_12_songs_storage_emulated_0_music_songs">12 songs | /storage/emulated/0/Music/Songs/</string>
+    <string name="ace_marino">Ace Marino</string>
+    <string name="_1_song">1 song</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="folders">Folders</string>
+    <string name="song_details_format">%1$s | %2$s</string>
+    <string name="favorite">Favorite</string>
+    <string name="cycle">Cycle</string>
+    <string name="favourites">Favourites</string>
+    <string name="playlists">Playlists</string>
+    <string name="recent">Recent</string>
+    <string name="search">Search…</string>
+    <string name="sort_songs">Sort songs</string>
+    <string name="by_adding_time">By adding time</string>
+    <string name="by_name">By Name</string>
+    <string name="by_play_count">By the number of time played</string>
+    <string name="by_release_date">By release date</string>
+    <string name="by_size">By size</string>
+    <string name="shuffle_playback">Shuffle playback</string>
+    <string name="no_items_found">No Items Found</string>
 </resources>

@@ -10,7 +10,7 @@ class Application : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Registering themes directly from Kotlin (Dynamic Colors) - Using attrs names
+        //Registering themes directly from Kotlin (Dynamic Colors) - Using attrs names
         //ThemeRegistry.register(MultiColorTheme.Dynamic("KOTLIN_PURPLE", "Kotlin Purple", Color.parseColor("#9C27B0")))
         //ThemeRegistry.register(MultiColorTheme.Dynamic("KOTLIN_RED", "Kotlin Red", Color.RED))
         ThemeRegistry.register(MultiColorTheme.Dynamic("BLUE", "Ocean Blue", Color.BLUE))

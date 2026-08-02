@@ -52,6 +52,15 @@
             android:layout_marginTop="10dp"
             android:background="?mc_bg" />
 
+        <Button
+            android:id="@+id/trans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="?mc_bg"
+            android:text="Test Music UI"
+            android:textColor="?colorOnError" />
+
     </LinearLayout>
 
 </LinearLayout>
