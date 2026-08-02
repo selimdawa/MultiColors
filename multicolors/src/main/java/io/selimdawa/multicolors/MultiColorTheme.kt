@@ -18,14 +18,4 @@ sealed class MultiColorTheme {
         override val name: String,
         @StyleRes val styleRes: Int
     ) : MultiColorTheme()
-
-    /**
-     * A theme defined dynamically with a single color.
-     * The library will automatically apply this color to mc_bg, mc_track, and mc_tick.
-     */
-    data class Dynamic(
-        override val id: String,
-        override val name: String,
-        val solidColor: Int
-    ) : MultiColorTheme()
 }

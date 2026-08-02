@@ -54,7 +54,7 @@
                         android:layout_gravity="center"
                         android:contentDescription="@null"
                         android:scaleType="centerCrop"
-                        android:src="?mc_bg"
+                        android:src="@color/image_profile"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImage" />
 
                 </FrameLayout>

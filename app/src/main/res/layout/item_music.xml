@@ -22,7 +22,7 @@
                 android:id="@+id/image"
                 android:layout_width="50dp"
                 android:scaleType="centerCrop"
-                android:src="?mc_bg"
+                android:background="?mc_bg"
                 android:layout_height="0dp"
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
