@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Color
-import androidx.core.graphics.drawable.toDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater

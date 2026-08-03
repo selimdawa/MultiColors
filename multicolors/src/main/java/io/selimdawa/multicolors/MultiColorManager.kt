@@ -41,10 +41,22 @@ object MultiColorManager {
     val currentThemeId: StateFlow<String> = _currentThemeId.asStateFlow()
 
     fun init(application: Application) {
+        // Read initial value synchronously to avoid race condition on first activity startup
+        val savedThemeId = runBlocking {
+            application.multiColorDataStore.data.map {
+                it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
+            }.first()
+        }
+        _currentThemeId.value = savedThemeId
+
         managerScope.launch {
             application.multiColorDataStore.data.map {
                 it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
-            }.collectLatest { _currentThemeId.value = it }
+            }.collectLatest { themeId ->
+                if (_currentThemeId.value != themeId) {
+                    _currentThemeId.value = themeId
+                }
+            }
         }
 
         application.registerActivityLifecycleCallbacks(object :
@@ -56,21 +68,22 @@ object MultiColorManager {
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 (activity as? AppCompatActivity)?.let { appCompatActivity ->
-                    var lastThemeId = ""
+                    val themeAtCreation = _currentThemeId.value
                     appCompatActivity.lifecycleScope.launch {
                         currentThemeId.collectLatest { themeId ->
-                            if (lastThemeId.isNotEmpty() && lastThemeId != themeId) {
-                                lastThemeId = themeId
-                                activity.recreate()
-                            } else {
-                                lastThemeId = themeId
+                            // Only recreate if the theme has actually changed since this activity was created
+                            if (themeAtCreation.isNotEmpty() && themeAtCreation != themeId) {
+                                ThemeAnimationHelper.startThemeChangeAnimation(activity)
                             }
                         }
                     }
                 }
             }
 
-            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityStarted(activity: Activity) {
+                ThemeAnimationHelper.checkAndPerformRevealAnimation(activity)
+            }
+
             override fun onActivityResumed(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivityStopped(activity: Activity) {}
@@ -111,11 +124,19 @@ object MultiColorManager {
             itemBinding.themeNameText.text = theme.name
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
 
-            itemBinding.root.setOnClickListener {
-                val newThemeId = theme.id
-                _currentThemeId.value = newThemeId
-                managerScope.launch {
-                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+            itemBinding.root.setOnClickListener { view ->
+                val location = IntArray(2)
+                view.getLocationInWindow(location)
+                ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
+                ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
+
+                dialog.setOnDismissListener {
+                    ThemeAnimationHelper.captureScreenshot(activity)
+                    val newThemeId = theme.id
+                    _currentThemeId.value = newThemeId
+                    managerScope.launch {
+                        activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+                    }
                 }
                 dialog.dismiss()
             }
