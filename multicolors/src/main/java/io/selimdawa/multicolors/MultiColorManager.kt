@@ -150,7 +150,7 @@ object MultiColorManager {
     fun getThemeBackground(context: Context, theme: MultiColorTheme): Drawable {
         val themeId = theme.id
         val attrId = R.attr.mc_bg
-        
+
         MultiColorCache.getDrawable(themeId, attrId)?.let { return it }
 
         val drawable = when (theme) {
@@ -163,30 +163,6 @@ object MultiColorManager {
 
         MultiColorCache.putDrawable(themeId, attrId, drawable)
         return drawable
-    }
-
-    /**
-     * Resolves a color attribute for the current theme with caching.
-     */
-    fun getColor(context: Context, attrId: Int): Int {
-        val currentTheme = getCurrentTheme(context)
-        
-        MultiColorCache.getColor(currentTheme.id, attrId)?.let { return it }
-
-        val typedValue = TypedValue()
-        val theme = context.theme
-        val color = if (theme.resolveAttribute(attrId, typedValue, true)) {
-            if (typedValue.resourceId != 0) {
-                ResourcesCompat.getColor(context.resources, typedValue.resourceId, theme)
-            } else {
-                typedValue.data
-            }
-        } else {
-            ResourcesCompat.getColor(context.resources, R.color.mc_fallback_color, theme)
-        }
-
-        MultiColorCache.putColor(currentTheme.id, attrId, color)
-        return color
     }
 
     private fun resolveThemeDrawable(

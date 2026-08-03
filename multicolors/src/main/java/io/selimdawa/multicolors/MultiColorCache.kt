@@ -6,6 +6,7 @@ import android.util.LruCache
 /**
  * A centralized cache for resolved colors and drawables to improve performance.
  */
+@Suppress("unused")
 object MultiColorCache {
     // Cache for Drawables (e.g., backgrounds, gradients)
     private val drawableCache = LruCache<String, Drawable>(32)

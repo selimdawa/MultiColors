@@ -63,14 +63,27 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <Button
+        <FrameLayout
             android:id="@+id/trans"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="?mc_bg"
-            android:text="Test Music UI"
-            android:textColor="?colorOnError" />
+            android:background="@drawable/background_border"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/test_music_ui"
+                android:textColor="?mc_track"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
