@@ -35,4 +35,6 @@
     <string name="shuffle_playback">Shuffle playback</string>
     <string name="no_items_found">No Items Found</string>
     <string name="test_music_ui">Test Music UI</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode">Light Mode</string>
 </resources>
