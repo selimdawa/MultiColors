@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.LruCache
 import android.util.TypedValue
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -34,7 +33,6 @@ val Context.multiColorDataStore by preferencesDataStore(name = "multicolor_prefs
 
 object MultiColorManager {
     private val themeKey = stringPreferencesKey("color_option")
-    private val drawableCache = LruCache<String, Drawable>(16)
     private val managerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private val _currentThemeId = MutableStateFlow("")
@@ -150,18 +148,45 @@ object MultiColorManager {
     }
 
     fun getThemeBackground(context: Context, theme: MultiColorTheme): Drawable {
-        drawableCache.get(theme.id)?.let { return it }
+        val themeId = theme.id
+        val attrId = R.attr.mc_bg
+        
+        MultiColorCache.getDrawable(themeId, attrId)?.let { return it }
 
         val drawable = when (theme) {
             is MultiColorTheme.Xml -> {
                 val customTheme = context.resources.newTheme()
                 customTheme.applyStyle(theme.styleRes, true)
-                resolveThemeDrawable(context, customTheme, R.attr.mc_bg)
+                resolveThemeDrawable(context, customTheme, attrId)
             }
         }
 
-        drawableCache.put(theme.id, drawable)
+        MultiColorCache.putDrawable(themeId, attrId, drawable)
         return drawable
+    }
+
+    /**
+     * Resolves a color attribute for the current theme with caching.
+     */
+    fun getColor(context: Context, attrId: Int): Int {
+        val currentTheme = getCurrentTheme(context)
+        
+        MultiColorCache.getColor(currentTheme.id, attrId)?.let { return it }
+
+        val typedValue = TypedValue()
+        val theme = context.theme
+        val color = if (theme.resolveAttribute(attrId, typedValue, true)) {
+            if (typedValue.resourceId != 0) {
+                ResourcesCompat.getColor(context.resources, typedValue.resourceId, theme)
+            } else {
+                typedValue.data
+            }
+        } else {
+            ResourcesCompat.getColor(context.resources, R.color.mc_fallback_color, theme)
+        }
+
+        MultiColorCache.putColor(currentTheme.id, attrId, color)
+        return color
     }
 
     private fun resolveThemeDrawable(
