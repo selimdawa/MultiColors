@@ -24,6 +24,13 @@
     <color name="mc_red">#F44336</color>
     <color name="mc_basic_three">#8BC34A</color>
 
+    <color name="mc_cyan">#00FFFF</color>
+    <color name="mc_magenta">#FF00FF</color>
+    <color name="mc_yellow">#FFFF00</color>
+    <color name="mc_teal">#008080</color>
+    <color name="mc_purple">#800080</color>
+    <color name="mc_navy">#000080</color>
+
     <!-- Night Theme Colors -->
     <color name="mc_night_corner">#ef7462</color>
     <color name="mc_night_corner_2">#ed3559</color>

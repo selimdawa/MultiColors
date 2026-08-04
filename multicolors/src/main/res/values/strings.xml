@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">Select Theme</string>
+    <string name="mc_manage_themes">Manage Themes</string>
+    <string name="mc_edit">Edit</string>
     <string name="mc_solid_colors">Solid Colors</string>
-    <string name="mc_gradient_colors">Gradient Colors</string>
+    <string name="mc_gradient_2_colors">2 Colors Gradients</string>
+    <string name="mc_gradient_3_colors">3 Colors Gradients</string>
+    <string name="mc_gradient_4_colors">4 Colors Gradients</string>
+    <string name="mc_gradient_colors">Gradients</string>
 
     <!-- Theme Names -->
     <string name="mc_theme_one">Basic</string>

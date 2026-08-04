@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/mc_colorPrimary</item>
         <item name="colorOnBackground">@color/mc_white</item>
         <item name="colorError">@color/mc_dark</item>
+        <item name="mc_bg">@color/mc_basic_2</item>
+        <item name="mc_tick">@color/mc_basic_2</item>
+        <item name="mc_track">@color/mc_basic_2</item>
+        <item name="mc_center">@color/mc_basic_2</item>
+        <item name="mc_extra">@color/mc_basic_2</item>
     </style>
 
     <style name="Theme.MC.One" parent="MC_Base_Theme">
@@ -102,6 +107,283 @@
         <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_six</item>
         <item name="mc_track">@color/mc_night_corner_six_2</item>
+    </style>
+
+    <style name="Theme.MC.Black" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_black</item>
+        <item name="mc_tick">@color/mc_black</item>
+        <item name="mc_track">@color/mc_black</item>
+    </style>
+
+    <style name="Theme.MC.White" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_white</item>
+        <item name="mc_tick">@color/mc_white</item>
+        <item name="mc_track">@color/mc_white</item>
+    </style>
+
+    <style name="Theme.MC.Cyan" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_cyan</item>
+        <item name="mc_tick">@color/mc_cyan</item>
+        <item name="mc_track">@color/mc_cyan</item>
+    </style>
+
+    <style name="Theme.MC.Magenta" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_magenta</item>
+        <item name="mc_tick">@color/mc_magenta</item>
+        <item name="mc_track">@color/mc_magenta</item>
+    </style>
+
+    <style name="Theme.MC.Yellow" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_yellow</item>
+        <item name="mc_tick">@color/mc_yellow</item>
+        <item name="mc_track">@color/mc_yellow</item>
+    </style>
+
+    <style name="Theme.MC.Teal" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_teal</item>
+        <item name="mc_tick">@color/mc_teal</item>
+        <item name="mc_track">@color/mc_teal</item>
+    </style>
+
+    <style name="Theme.MC.Purple" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_purple</item>
+        <item name="mc_tick">@color/mc_purple</item>
+        <item name="mc_track">@color/mc_purple</item>
+    </style>
+
+    <style name="Theme.MC.Navy" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_navy</item>
+        <item name="mc_tick">@color/mc_navy</item>
+        <item name="mc_track">@color/mc_navy</item>
+    </style>
+
+    <!-- 2-Color Gradients -->
+    <style name="Theme.MC.G2_1" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#FF512F</item>
+        <item name="mc_tick">#DD2476</item>
+    </style>
+    <style name="Theme.MC.G2_2" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#2193b0</item>
+        <item name="mc_tick">#6dd5ed</item>
+    </style>
+    <style name="Theme.MC.G2_3" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#ffe259</item>
+        <item name="mc_tick">#ffa751</item>
+    </style>
+    <style name="Theme.MC.G2_4" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#7028e4</item>
+        <item name="mc_tick">#e5e230</item>
+    </style>
+    <style name="Theme.MC.G2_5" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#ED4264</item>
+        <item name="mc_tick">#FFEDBC</item>
+    </style>
+    <style name="Theme.MC.G2_6" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#a18cd1</item>
+        <item name="mc_tick">#fbc2eb</item>
+    </style>
+    <style name="Theme.MC.G2_7" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#000000</item>
+        <item name="mc_tick">#434343</item>
+    </style>
+    <style name="Theme.MC.G2_8" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#bdc3c7</item>
+        <item name="mc_tick">#2c3e50</item>
+    </style>
+    <style name="Theme.MC.G2_9" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#11998e</item>
+        <item name="mc_tick">#38ef7d</item>
+    </style>
+    <style name="Theme.MC.G2_10" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#614385</item>
+        <item name="mc_tick">#516395</item>
+    </style>
+    <style name="Theme.MC.G2_11" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#30cfd0</item>
+        <item name="mc_tick">#330867</item>
+    </style>
+    <style name="Theme.MC.G2_12" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#203a43</item>
+        <item name="mc_tick">#2c5364</item>
+    </style>
+    <style name="Theme.MC.G2_13" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#b79891</item>
+        <item name="mc_tick">#94716b</item>
+    </style>
+    <style name="Theme.MC.G2_14" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#9622d1</item>
+        <item name="mc_tick">#411d31</item>
+    </style>
+    <style name="Theme.MC.G2_15" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#0b486b</item>
+        <item name="mc_tick">#f56217</item>
+    </style>
+    <style name="Theme.MC.G2_16" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#003973</item>
+        <item name="mc_tick">#E5E5BE</item>
+    </style>
+    <style name="Theme.MC.G2_17" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#000000</item>
+        <item name="mc_tick">#0f9b0f</item>
+    </style>
+    <style name="Theme.MC.G2_18" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#f85032</item>
+        <item name="mc_tick">#e73827</item>
+    </style>
+    <style name="Theme.MC.G2_19" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#7ed56f</item>
+        <item name="mc_tick">#28b485</item>
+    </style>
+    <style name="Theme.MC.G2_20" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#000428</item>
+        <item name="mc_tick">#004e92</item>
+    </style>
+    <style name="Theme.MC.G2_21" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#a8e063</item>
+        <item name="mc_tick">#56ab2f</item>
+    </style>
+    <style name="Theme.MC.G2_22" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#13547a</item>
+        <item name="mc_tick">#80d0c7</item>
+    </style>
+    <style name="Theme.MC.G2_23" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#e52d27</item>
+        <item name="mc_tick">#b31217</item>
+    </style>
+    <style name="Theme.MC.G2_24" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#2980b9</item>
+        <item name="mc_tick">#6dd5ed</item>
+    </style>
+    <style name="Theme.MC.G2_25" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#1565C0</item>
+        <item name="mc_tick">#b92b27</item>
+    </style>
+    <style name="Theme.MC.G2_26" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#355C7D</item>
+        <item name="mc_tick">#6C5B7B</item>
+    </style>
+    <style name="Theme.MC.G2_27" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#c21500</item>
+        <item name="mc_tick">#ffc500</item>
+    </style>
+    <style name="Theme.MC.G2_28" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#396afc</item>
+        <item name="mc_tick">#2948ff</item>
+    </style>
+
+    <!-- 3-Color Gradients -->
+    <style name="Theme.MC.G3_1" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#FF0000</item>
+        <item name="mc_center">#FFFF00</item>
+        <item name="mc_tick">#00FF00</item>
+    </style>
+    <style name="Theme.MC.G3_2" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#21D4FD</item>
+        <item name="mc_center">#B721FF</item>
+        <item name="mc_tick">#FF00D4</item>
+    </style>
+    <style name="Theme.MC.G3_3" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#020024</item>
+        <item name="mc_center">#090979</item>
+        <item name="mc_tick">#00d4ff</item>
+    </style>
+    <style name="Theme.MC.G3_4" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#f5af19</item>
+        <item name="mc_center">#f12711</item>
+        <item name="mc_tick">#800000</item>
+    </style>
+    <style name="Theme.MC.G3_5" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#8E2DE2</item>
+        <item name="mc_center">#4A00E0</item>
+        <item name="mc_tick">#000000</item>
+    </style>
+    <style name="Theme.MC.G3_6" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#ff9a9e</item>
+        <item name="mc_center">#fad0c4</item>
+        <item name="mc_tick">#fad0c4</item>
+    </style>
+    <style name="Theme.MC.G3_7" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#fbed96</item>
+        <item name="mc_center">#abecd6</item>
+        <item name="mc_tick">#abecd6</item>
+    </style>
+    <style name="Theme.MC.G3_8" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">#a1c4fd</item>
+        <item name="mc_center">#c2e9fb</item>
+        <item name="mc_tick">#c2e9fb</item>
+    </style>
+
+    <!-- 4-Color Gradients -->
+    <style name="Theme.MC.G4_1" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_track">#1a1a2e</item>
+        <item name="mc_center">#16213e</item>
+        <item name="mc_extra">#0f3460</item>
+        <item name="mc_tick">#e94560</item>
+    </style>
+    <style name="Theme.MC.G4_2" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_track">#FF0000</item>
+        <item name="mc_center">#FFFF00</item>
+        <item name="mc_extra">#00FF00</item>
+        <item name="mc_tick">#0000FF</item>
+    </style>
+    <style name="Theme.MC.G4_3" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_track">#ff00cc</item>
+        <item name="mc_center">#333399</item>
+        <item name="mc_extra">#ff00cc</item>
+        <item name="mc_tick">#333399</item>
+    </style>
+    <style name="Theme.MC.G4_4" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_track">#E1F5FE</item>
+        <item name="mc_center">#B3E5FC</item>
+        <item name="mc_extra">#81D4FA</item>
+        <item name="mc_tick">#4FC3F7</item>
+    </style>
+    <style name="Theme.MC.G4_5" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_4</item>
+        <item name="mc_track">#000522</item>
+        <item name="mc_center">#000d3d</item>
+        <item name="mc_extra">#00155a</item>
+        <item name="mc_tick">#001d77</item>
     </style>
 
 </resources>

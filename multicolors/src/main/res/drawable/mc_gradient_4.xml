@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- First half of the gradient -->
+    <item android:bottom="50dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:endColor="?mc_center"
+                android:startColor="?mc_track"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Second half of the gradient -->
+    <item android:top="50dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:endColor="?mc_tick"
+                android:startColor="?mc_extra"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

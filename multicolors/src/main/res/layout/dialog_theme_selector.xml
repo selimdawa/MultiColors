@@ -11,18 +11,48 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/dialogTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="@string/mc_select_theme"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                android:src="@android:drawable/ic_menu_revert"
+                android:visibility="gone"
+                app:tint="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/dialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_marginStart="8dp"
+                android:text="@string/mc_select_theme"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditThemes"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/mc_edit"
+                app:icon="@android:drawable/ic_menu_edit" />
+
+        </RelativeLayout>
 
         <TextView
+            android:id="@+id/tvSolid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -37,38 +67,60 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:flexWrap="wrap"
-            app:justifyContent="flex_start"
-            xmlns:tools="http://schemas.android.com/tools">
-
-            <!-- Sample Items for Preview Only -->
-            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
-            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
-            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
-
-        </com.google.android.flexbox.FlexboxLayout>
+            app:justifyContent="flex_start" />
 
         <TextView
+            android:id="@+id/tvGradient2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/mc_gradient_colors"
+            android:text="@string/mc_gradient_2_colors"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/gradientFlexbox"
+            android:id="@+id/gradient2Flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start" />
+
+        <TextView
+            android:id="@+id/tvGradient3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/mc_gradient_3_colors"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/gradient3Flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start" />
+
+        <TextView
+            android:id="@+id/tvGradient4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/mc_gradient_4_colors"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/gradient4Flexbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:flexWrap="wrap"
-            app:justifyContent="flex_start"
-            xmlns:tools="http://schemas.android.com/tools">
-
-            <!-- Sample Items for Preview Only -->
-            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
-            <include layout="@layout/item_theme" android:visibility="gone" tools:visibility="visible" />
-
-        </com.google.android.flexbox.FlexboxLayout>
+            app:justifyContent="flex_start" />
 
     </LinearLayout>
 
