@@ -19,9 +19,11 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import io.selimdawa.multicolors.databinding.DialogColorPickerBinding
 import io.selimdawa.multicolors.databinding.DialogThemeSelectorBinding
 import io.selimdawa.multicolors.databinding.ItemThemeBinding
 import io.selimdawa.multicolors.databinding.ItemThemeManageBinding
+import io.selimdawa.multicolors.pickcolor.ColorWheelView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -105,8 +107,9 @@ object MultiColorManager {
             }
         }
         val theme = ThemeRegistry.getTheme(themeId)
-        if (theme.styleRes != null) {
-            context.setTheme(theme.styleRes)
+        val styleRes = theme.styleRes
+        if (styleRes != null) {
+            context.setTheme(styleRes)
         } else {
             context.setTheme(R.style.MC_Base_Theme)
         }
@@ -180,6 +183,54 @@ object MultiColorManager {
         dialogBinding.btnEditThemes.setOnClickListener {
             dialog.dismiss()
             showManageThemesDialog(activity)
+        }
+
+        dialogBinding.btnCustomTheme.setOnClickListener {
+            dialog.dismiss()
+            showColorPickerDialog(activity)
+        }
+    }
+
+    private fun showColorPickerDialog(activity: AppCompatActivity) {
+        val dialogBinding = DialogColorPickerBinding.inflate(activity.layoutInflater)
+        val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
+        dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val colorWheel = dialogBinding.colorWheelView
+        val preview = dialogBinding.colorPreview
+        val hexInput = dialogBinding.hexEditText
+
+        // Initialize with current color if it's custom
+        val currentTheme = getCurrentTheme(activity)
+        if (currentTheme.id.startsWith("CUSTOM_")) {
+            val color = currentTheme.colors[0]
+            colorWheel.setColor(color)
+            preview.setBackgroundColor(color)
+            hexInput.setText(String.format("#%06X", (0xFFFFFF and color)))
+        }
+
+        colorWheel.setOnColorChangeListener { color ->
+            preview.setBackgroundColor(color)
+            hexInput.setText(String.format("#%06X", (0xFFFFFF and color)))
+        }
+
+        dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
+
+        dialogBinding.btnSave.setOnClickListener {
+            val color = colorWheel.getColor()
+            val hex = String.format("%06X", (0xFFFFFF and color))
+            val newThemeId = "CUSTOM_$hex"
+            
+            ThemeAnimationHelper.captureScreenshot(activity)
+            _currentThemeId.value = newThemeId
+            managerScope.launch {
+                activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+            }
+            dialog.dismiss()
         }
     }
 
@@ -276,15 +327,16 @@ object MultiColorManager {
 
         MultiColorCache.getDrawable(themeId, attrId)?.let { return it }
 
+        val styleRes = theme.styleRes
         val drawable = when {
             theme.colors.isNotEmpty() -> {
                 GradientDrawable(theme.orientation, theme.colors.toIntArray())
             }
 
-            theme.styleRes != null -> {
+            styleRes != null -> {
                 if (theme.id.startsWith("G3_")) {
                     val typedValue = TypedValue()
-                    val c = context.resources.newTheme().apply { applyStyle(theme.styleRes, true) }
+                    val c = context.resources.newTheme().apply { applyStyle(styleRes, true) }
 
                     val colors = IntArray(3)
                     val attrs = intArrayOf(R.attr.mc_track, R.attr.mc_center, R.attr.mc_tick)
@@ -298,7 +350,7 @@ object MultiColorManager {
                     GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors)
                 } else {
                     val customTheme = context.resources.newTheme()
-                    customTheme.applyStyle(theme.styleRes, true)
+                    customTheme.applyStyle(styleRes, true)
                     resolveThemeDrawable(context, customTheme, attrId)
                 }
             }

@@ -90,6 +90,15 @@ object ThemeRegistry {
     }
 
     fun getTheme(id: String): MultiColorTheme {
+        if (id.startsWith("CUSTOM_")) {
+            try {
+                val colorHex = id.substringAfter("CUSTOM_")
+                val color = android.graphics.Color.parseColor("#$colorHex")
+                return MultiColorTheme(id, "Custom", colors = listOf(color, color))
+            } catch (e: Exception) {
+                // Fallback
+            }
+        }
         return themes[id] ?: themes.values.first()
     }
 

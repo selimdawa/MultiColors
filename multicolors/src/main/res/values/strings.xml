@@ -7,6 +7,11 @@
     <string name="mc_gradient_2_colors">2 Colors Gradients</string>
     <string name="mc_gradient_3_colors">3 Colors Gradients</string>
     <string name="mc_gradient_colors">Gradients</string>
+    <string name="mc_custom_color">Custom Color</string>
+    <string name="mc_pick_color">Pick a Color</string>
+    <string name="mc_save_theme">Save Theme</string>
+    <string name="mc_hex_code">Hex Code</string>
+    <string name="mc_cancel">Cancel</string>
 
     <!-- Theme Names -->
     <string name="mc_theme_one">Basic</string>
