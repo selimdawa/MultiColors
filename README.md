@@ -6,9 +6,10 @@
 
 - ✅ **Reactive Architecture**: Built with Kotlin Flow and Coroutines for real-time theme updates.
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
-- ✅ **Gradient Support**: Full support for both solid colors and gradient themes.
-- ✅ **Dynamic Themes**: Register themes directly from Kotlin code without XML.
-- ✅ **Modular Registry**: Separate Registry for managing themes cleanly.
+- ✅ **Gradient Support**: Full support for both solid colors and smooth 3-color gradients.
+- ✅ **MultiColorView & Button**: Pre-built components that react to theme changes automatically.
+- ✅ **Unified Theme API**: Simplified theme registration with a single data class.
+- ✅ **Edge-to-Edge Ready**: Built-in support for status and navigation bar color synchronization.
 
 ## Installation
 
@@ -41,21 +42,22 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         
-        // 1. Register Kotlin-based (Dynamic) themes
+        // 1. Register XML-based themes (Best for Gradients)
         ThemeRegistry.register(
-            MultiColorTheme.Dynamic(
-                id = "MY_COLOR",
-                name = "Ocean Blue",
-                backgroundColor = Color.parseColor("#0077CC")
+            MultiColorTheme(
+                id = "NIGHT_MODE",
+                name = "Night",
+                styleRes = R.style.Theme_MC_Black
             )
         )
 
-        // 2. Register XML-based themes (Optional)
+        // 2. Register Programmatic Gradient themes
         ThemeRegistry.register(
-            MultiColorTheme.Xml(
-                id = "NIGHT_MODE",
-                name = "Night",
-                styleRes = R.style.MyNightTheme
+            MultiColorTheme(
+                id = "SUNSET",
+                name = "Sunset",
+                colors = listOf(Color.RED, Color.YELLOW, Color.BLUE),
+                orientation = GradientDrawable.Orientation.TOP_BOTTOM
             )
         )
 
@@ -67,17 +69,24 @@ class MyApp : Application() {
 
 ### 2. Add to your Layout
 
-Use the `MultiColorButton` to let users switch themes:
+Use `MultiColorButton` for a clickable theme selector, or `MultiColorView` for a themed container:
 
 ```xml
+<!-- Clickable button that opens the theme dialog -->
 <io.selimdawa.multicolors.MultiColorButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:layout_width="40dp"
+    android:layout_height="40dp" />
+
+<!-- A view that automatically updates its background color/gradient -->
+<io.selimdawa.multicolors.MultiColorView
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:cardCornerRadius="16dp" />
 ```
 
 ## Customization
 
-You can replace all default themes by clearing the registry or simply adding your own. The library components will automatically react to any theme registered in `ThemeRegistry`.
+You can replace all default themes by clearing the registry or simply adding your own. The library components will automatically react to any theme change without needing any manual code in your Activities.
 
 ## License
 

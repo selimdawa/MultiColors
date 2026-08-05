@@ -105,7 +105,7 @@ object MultiColorManager {
             }
         }
         val theme = ThemeRegistry.getTheme(themeId)
-        if (theme is MultiColorTheme.Xml) {
+        if (theme.styleRes != null) {
             context.setTheme(theme.styleRes)
         } else {
             context.setTheme(R.style.MC_Base_Theme)
@@ -159,11 +159,11 @@ object MultiColorManager {
             }
 
             val targetFlexbox = when {
-                (theme is MultiColorTheme.Gradient && theme.colors.size == 3) || theme.id.startsWith(
+                theme.colors.size == 3 || theme.id.startsWith(
                     "G3_"
                 ) -> dialogBinding.gradient3Flexbox
 
-                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme is MultiColorTheme.Gradient && theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
             }
             targetFlexbox.addView(itemBinding.root)
@@ -216,11 +216,11 @@ object MultiColorManager {
 
             val root = itemBinding.root
             val targetFlexbox = when {
-                (theme is MultiColorTheme.Gradient && theme.colors.size == 3) || theme.id.startsWith(
+                theme.colors.size == 3 || theme.id.startsWith(
                     "G3_"
                 ) -> dialogBinding.gradient3Flexbox
 
-                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme is MultiColorTheme.Gradient && theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
             }
             targetFlexbox.addView(root)
@@ -276,8 +276,12 @@ object MultiColorManager {
 
         MultiColorCache.getDrawable(themeId, attrId)?.let { return it }
 
-        val drawable = when (theme) {
-            is MultiColorTheme.Xml -> {
+        val drawable = when {
+            theme.colors.isNotEmpty() -> {
+                GradientDrawable(theme.orientation, theme.colors.toIntArray())
+            }
+
+            theme.styleRes != null -> {
                 if (theme.id.startsWith("G3_")) {
                     val typedValue = TypedValue()
                     val c = context.resources.newTheme().apply { applyStyle(theme.styleRes, true) }
@@ -299,8 +303,10 @@ object MultiColorManager {
                 }
             }
 
-            is MultiColorTheme.Gradient -> {
-                GradientDrawable(theme.orientation, theme.colors.toIntArray())
+            else -> {
+                ResourcesCompat.getColor(
+                    context.resources, R.color.mc_fallback_color, context.theme
+                ).toDrawable()
             }
         }
 
