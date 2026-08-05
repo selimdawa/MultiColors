@@ -6,22 +6,12 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import com.google.android.material.card.MaterialCardView
-import io.selimdawa.multicolors.databinding.McButtonThemeBinding
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class MultiColorButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : MaterialCardView(context, attrs, defStyleAttr) {
-
-    private val binding: McButtonThemeBinding =
-        McButtonThemeBinding.inflate(LayoutInflater.from(context), this)
+) : MultiColorView(context, attrs, defStyleAttr) {
 
     init {
         setupDefaultStyle()
@@ -51,20 +41,6 @@ class MultiColorButton @JvmOverloads constructor(
             currentContext = currentContext.baseContext
         }
         return null
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
-            MultiColorManager.currentThemeId.collectLatest {
-                updateAppearance()
-            }
-        }
-    }
-
-    private fun updateAppearance() {
-        val theme = MultiColorManager.getCurrentTheme(context)
-        binding.mcInnerColor.background = MultiColorManager.getThemeBackground(context, theme)
     }
 
     private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(

@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         updateNightModeButton()
 
         binding.btnNightMode.setOnClickListener {
-            val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            val isNightMode =
+                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
             if (isNightMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             } else {
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateNightModeButton() {
-        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-        binding.tvNightMode.text = if (isNightMode) getString(R.string.light_mode) else getString(R.string.dark_mode)
+        val isNightMode =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        binding.tvNightMode.text =
+            if (isNightMode) getString(R.string.light_mode) else getString(R.string.dark_mode)
     }
 }

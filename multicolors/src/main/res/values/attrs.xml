@@ -4,5 +4,4 @@
     <attr name="mc_track" format="color" />
     <attr name="mc_tick" format="color" />
     <attr name="mc_center" format="color" />
-    <attr name="mc_extra" format="color" />
 </resources>

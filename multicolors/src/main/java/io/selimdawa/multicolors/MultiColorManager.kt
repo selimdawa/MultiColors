@@ -3,7 +3,9 @@ package io.selimdawa.multicolors
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.ViewGroup
@@ -13,10 +15,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import io.selimdawa.multicolors.databinding.DialogThemeSelectorBinding
 import io.selimdawa.multicolors.databinding.ItemThemeBinding
+import io.selimdawa.multicolors.databinding.ItemThemeManageBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -33,6 +37,7 @@ val Context.multiColorDataStore by preferencesDataStore(name = "multicolor_prefs
 
 object MultiColorManager {
     private val themeKey = stringPreferencesKey("color_option")
+    private val mainThemesKey = stringSetPreferencesKey("main_themes")
     private val managerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private val _currentThemeId = MutableStateFlow("")
@@ -107,7 +112,6 @@ object MultiColorManager {
     }
 
     fun showThemeDialog(activity: AppCompatActivity) {
-        val themes = ThemeRegistry.getAllThemes()
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
 
@@ -117,7 +121,21 @@ object MultiColorManager {
         val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
         dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        themes.forEach { theme ->
+        val allThemes = ThemeRegistry.getAllThemes()
+        val defaultIds = allThemes.filter { !it.id.contains("GRADUAL") }.take(3).map { it.id }
+            .toSet() + allThemes.filter { it.id.contains("GRADUAL") }.take(3).map { it.id }.toSet()
+
+        // Load main themes from DataStore
+        val savedThemeIds = runBlocking {
+            activity.multiColorDataStore.data.map {
+                it[mainThemesKey]
+            }.first()
+        }
+
+        val effectiveIds = savedThemeIds ?: defaultIds
+        val themesToShow = allThemes.filter { effectiveIds.contains(it.id) }
+
+        themesToShow.forEach { theme ->
             val itemBinding = ItemThemeBinding.inflate(activity.layoutInflater)
             itemBinding.themeNameText.text = theme.name
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
@@ -139,10 +157,114 @@ object MultiColorManager {
                 dialog.dismiss()
             }
 
-            if (theme.id.contains("GRADUAL", ignoreCase = true)) {
-                dialogBinding.gradientFlexbox.addView(itemBinding.root)
-            } else {
-                dialogBinding.solidFlexbox.addView(itemBinding.root)
+            val targetFlexbox = when {
+                (theme is MultiColorTheme.Gradient && theme.colors.size == 3) || theme.id.startsWith(
+                    "G3_"
+                ) -> dialogBinding.gradient3Flexbox
+
+                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme is MultiColorTheme.Gradient && theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                else -> dialogBinding.solidFlexbox
+            }
+            targetFlexbox.addView(itemBinding.root)
+        }
+
+        // Hide empty categories
+        dialogBinding.tvSolid.visibility =
+            if (dialogBinding.solidFlexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+        dialogBinding.tvGradient2.visibility =
+            if (dialogBinding.gradient2Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+        dialogBinding.tvGradient3.visibility =
+            if (dialogBinding.gradient3Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+
+        dialogBinding.btnEditThemes.setOnClickListener {
+            dialog.dismiss()
+            showManageThemesDialog(activity)
+        }
+    }
+
+    private fun showManageThemesDialog(activity: AppCompatActivity) {
+        val allThemes = ThemeRegistry.getAllThemes()
+        val defaultIds = allThemes.filter { !it.id.contains("GRADUAL") }.take(3).map { it.id }
+            .toSet() + allThemes.filter { it.id.contains("GRADUAL") }.take(3).map { it.id }.toSet()
+
+        val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
+        dialogBinding.dialogTitle.text = activity.getString(R.string.mc_manage_themes)
+        dialogBinding.btnEditThemes.visibility = android.view.View.GONE
+        dialogBinding.btnBack.visibility = android.view.View.VISIBLE
+
+        val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+
+        dialogBinding.btnBack.setOnClickListener {
+            showThemeDialog(activity)
+            dialog.dismiss()
+        }
+
+        val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
+        dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        // Optimized approach: Create views once, then update states
+        val itemViews = mutableMapOf<String, ItemThemeManageBinding>()
+
+        allThemes.forEach { theme ->
+            val itemBinding = ItemThemeManageBinding.inflate(activity.layoutInflater)
+            itemBinding.themeNameText.text = theme.name
+            itemBinding.themeColorView.background = getThemeBackground(activity, theme)
+            itemViews[theme.id] = itemBinding
+
+            val root = itemBinding.root
+            val targetFlexbox = when {
+                (theme is MultiColorTheme.Gradient && theme.colors.size == 3) || theme.id.startsWith(
+                    "G3_"
+                ) -> dialogBinding.gradient3Flexbox
+
+                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme is MultiColorTheme.Gradient && theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                else -> dialogBinding.solidFlexbox
+            }
+            targetFlexbox.addView(root)
+
+            itemBinding.themeClickArea.setOnClickListener {
+                managerScope.launch {
+                    activity.multiColorDataStore.edit { p ->
+                        val currentSet =
+                            p[mainThemesKey]?.toMutableSet() ?: defaultIds.toMutableSet()
+                        if (currentSet.contains(theme.id)) {
+                            currentSet.remove(theme.id)
+                        } else {
+                            currentSet.add(theme.id)
+                        }
+                        p[mainThemesKey] = currentSet
+                    }
+                }
+            }
+        }
+
+        activity.lifecycleScope.launch {
+            activity.multiColorDataStore.data.collectLatest { prefs ->
+                val savedThemeIds = prefs[mainThemesKey]
+                val effectiveIds = savedThemeIds ?: defaultIds
+
+                allThemes.forEach { theme ->
+                    val itemBinding = itemViews[theme.id] ?: return@forEach
+                    val isMain = effectiveIds.contains(theme.id)
+
+                    // Update ONLY the state, extremely fast!
+                    itemBinding.themeItemCard.strokeColor = if (isMain) Color.GREEN else Color.RED
+                    itemBinding.statusIcon.setImageResource(
+                        if (isMain) android.R.drawable.ic_delete
+                        else android.R.drawable.ic_input_add
+                    )
+                    itemBinding.statusIcon.setColorFilter(if (isMain) Color.RED else Color.GREEN)
+                }
+
+                // Update headers visibility once
+                dialogBinding.tvSolid.visibility =
+                    if (dialogBinding.solidFlexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+                dialogBinding.tvGradient2.visibility =
+                    if (dialogBinding.gradient2Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+                dialogBinding.tvGradient3.visibility =
+                    if (dialogBinding.gradient3Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
             }
         }
     }
@@ -155,9 +277,29 @@ object MultiColorManager {
 
         val drawable = when (theme) {
             is MultiColorTheme.Xml -> {
-                val customTheme = context.resources.newTheme()
-                customTheme.applyStyle(theme.styleRes, true)
-                resolveThemeDrawable(context, customTheme, attrId)
+                if (theme.id.startsWith("G3_")) {
+                    val typedValue = TypedValue()
+                    val c = context.resources.newTheme().apply { applyStyle(theme.styleRes, true) }
+
+                    val colors = IntArray(3)
+                    val attrs = intArrayOf(R.attr.mc_track, R.attr.mc_center, R.attr.mc_tick)
+
+                    attrs.forEachIndexed { i, attr ->
+                        c.resolveAttribute(attr, typedValue, true)
+                        colors[i] = if (typedValue.resourceId != 0) ResourcesCompat.getColor(
+                            context.resources, typedValue.resourceId, c
+                        ) else typedValue.data
+                    }
+                    GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors)
+                } else {
+                    val customTheme = context.resources.newTheme()
+                    customTheme.applyStyle(theme.styleRes, true)
+                    resolveThemeDrawable(context, customTheme, attrId)
+                }
+            }
+
+            is MultiColorTheme.Gradient -> {
+                GradientDrawable(theme.orientation, theme.colors.toIntArray())
             }
         }
 

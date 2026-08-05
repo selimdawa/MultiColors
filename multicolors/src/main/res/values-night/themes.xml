@@ -1,7 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="MC_Base_Theme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/mc_dark</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/mc_dark</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowBackground">?colorOnBackground</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="colorPrimary">@color/mc_colorPrimary</item>
         <item name="colorOnBackground">@color/mc_dark</item>
         <item name="colorError">@color/mc_white</item>

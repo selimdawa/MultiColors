@@ -101,24 +101,6 @@
             android:id="@+id/gradient3Flexbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:flexWrap="wrap"
-            app:justifyContent="flex_start" />
-
-        <TextView
-            android:id="@+id/tvGradient4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/mc_gradient_4_colors"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/gradient4Flexbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             app:flexWrap="wrap"
             app:justifyContent="flex_start" />
 

@@ -16,4 +16,14 @@ sealed class MultiColorTheme {
     data class Xml(
         override val id: String, override val name: String, @StyleRes val styleRes: Int
     ) : MultiColorTheme()
+
+    /**
+     * A theme created programmatically with multiple gradient colors.
+     */
+    data class Gradient(
+        override val id: String,
+        override val name: String,
+        val colors: List<Int>,
+        val orientation: android.graphics.drawable.GradientDrawable.Orientation = android.graphics.drawable.GradientDrawable.Orientation.TL_BR
+    ) : MultiColorTheme()
 }

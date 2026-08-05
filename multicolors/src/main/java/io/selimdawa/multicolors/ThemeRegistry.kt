@@ -78,13 +78,11 @@ object ThemeRegistry {
             MultiColorTheme.Xml("G3_6", "Pastel", R.style.Theme_MC_G3_6),
             MultiColorTheme.Xml("G3_7", "Lemonade", R.style.Theme_MC_G3_7),
             MultiColorTheme.Xml("G3_8", "Winter 3", R.style.Theme_MC_G3_8),
-
-            // 4-Color Gradients
-            MultiColorTheme.Xml("G4_1", "Galaxy", R.style.Theme_MC_G4_1),
-            MultiColorTheme.Xml("G4_2", "Spectrum", R.style.Theme_MC_G4_2),
-            MultiColorTheme.Xml("G4_3", "Candy", R.style.Theme_MC_G4_3),
-            MultiColorTheme.Xml("G4_4", "Winter", R.style.Theme_MC_G4_4),
-            MultiColorTheme.Xml("G4_5", "Deep Sea", R.style.Theme_MC_G4_5)
+            MultiColorTheme.Xml("G3_9", "Galaxy", R.style.Theme_MC_G3_9),
+            MultiColorTheme.Xml("G3_10", "Spectrum", R.style.Theme_MC_G3_10),
+            MultiColorTheme.Xml("G3_11", "Candy", R.style.Theme_MC_G3_11),
+            MultiColorTheme.Xml("G3_12", "Winter", R.style.Theme_MC_G3_12),
+            MultiColorTheme.Xml("G3_13", "Deep Sea", R.style.Theme_MC_G3_13)
         )
         defaultThemes.forEach { register(it) }
     }
