@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- When in Night Mode, the Basic Theme (Theme 1) uses the night variant color -->
-    <color name="mc_basic_2">@color/mc_basic_night</color>
+    <color name="mc_basic_light">@color/mc_basic_night</color>
 </resources>

@@ -14,7 +14,7 @@ sealed class MultiColorTheme {
      * This is the most powerful type as it supports gradients and native Android styles.
      */
     data class Xml(
-        override val id: String, override val name: String, @StyleRes val styleRes: Int
+        override val id: String, override val name: String, @get:StyleRes val styleRes: Int
     ) : MultiColorTheme()
 
     /**

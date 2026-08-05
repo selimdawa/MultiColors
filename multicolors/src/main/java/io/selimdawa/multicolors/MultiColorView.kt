@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.view.isEmpty
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
@@ -22,7 +23,7 @@ open class MultiColorView @JvmOverloads constructor(
 
     init {
         setCardBackgroundColor(Color.TRANSPARENT)
-        if (childCount == 0) {
+        if (isEmpty()) {
             addView(mcInnerView)
         }
     }

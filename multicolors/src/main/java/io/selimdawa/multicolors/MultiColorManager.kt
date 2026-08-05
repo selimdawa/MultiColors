@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isNotEmpty
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
@@ -170,11 +171,11 @@ object MultiColorManager {
 
         // Hide empty categories
         dialogBinding.tvSolid.visibility =
-            if (dialogBinding.solidFlexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.solidFlexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
         dialogBinding.tvGradient2.visibility =
-            if (dialogBinding.gradient2Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.gradient2Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
         dialogBinding.tvGradient3.visibility =
-            if (dialogBinding.gradient3Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.gradient3Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
 
         dialogBinding.btnEditThemes.setOnClickListener {
             dialog.dismiss()
@@ -260,11 +261,11 @@ object MultiColorManager {
 
                 // Update headers visibility once
                 dialogBinding.tvSolid.visibility =
-                    if (dialogBinding.solidFlexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.solidFlexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
                 dialogBinding.tvGradient2.visibility =
-                    if (dialogBinding.gradient2Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.gradient2Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
                 dialogBinding.tvGradient3.visibility =
-                    if (dialogBinding.gradient3Flexbox.childCount > 0) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.gradient3Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
             }
         }
     }

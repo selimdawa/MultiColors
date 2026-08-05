@@ -1,7 +1,5 @@
 package io.selimdawa.multicolors
 
-import android.graphics.Color
-
 object ThemeRegistry {
     private val themes = mutableMapOf<String, MultiColorTheme>()
 
