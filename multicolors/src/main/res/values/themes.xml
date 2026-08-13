@@ -424,15 +424,6 @@
         <item name="mc_tick">#001d77</item>
     </style>
 
-    <style name="Theme.MC.Minimalist" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_minimalist_bg</item>
-        <item name="mc_tick">@color/mc_minimalist_fg</item>
-        <item name="mc_track">@color/mc_minimalist_fg</item>
-        <item name="android:windowBackground">@color/mc_minimalist_bg</item>
-        <item name="android:statusBarColor">@color/mc_minimalist_bg</item>
-        <item name="android:navigationBarColor">@color/mc_minimalist_bg</item>
-    </style>
-
     <!-- Define the checkbox specific theme override -->
     <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
         <!-- This will tint the checkbox to black -->
