@@ -31,7 +31,7 @@ android {
 }
 
 mavenPublishing {
-    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.0.4")
+    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.0.5")
 
     // publishToMavenCentral(automaticRelease = true)
 

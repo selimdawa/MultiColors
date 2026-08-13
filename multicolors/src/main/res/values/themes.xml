@@ -7,6 +7,8 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowBackground">?colorOnBackground</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="colorControlActivated">@color/mc_dark</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
         <item name="colorPrimary">@color/mc_colorPrimary</item>
         <item name="colorOnBackground">@color/mc_white</item>
         <item name="colorError">@color/mc_dark</item>
@@ -420,6 +422,21 @@
         <item name="mc_track">#000522</item>
         <item name="mc_center">#000d3d</item>
         <item name="mc_tick">#001d77</item>
+    </style>
+
+    <style name="Theme.MC.Minimalist" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_minimalist_bg</item>
+        <item name="mc_tick">@color/mc_minimalist_fg</item>
+        <item name="mc_track">@color/mc_minimalist_fg</item>
+        <item name="android:windowBackground">@color/mc_minimalist_bg</item>
+        <item name="android:statusBarColor">@color/mc_minimalist_bg</item>
+        <item name="android:navigationBarColor">@color/mc_minimalist_bg</item>
+    </style>
+
+    <!-- Define the checkbox specific theme override -->
+    <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <!-- This will tint the checkbox to black -->
+        <item name="buttonTint">@color/mc_dark</item>
     </style>
 
 </resources>

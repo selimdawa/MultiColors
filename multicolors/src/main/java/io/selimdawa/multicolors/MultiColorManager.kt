@@ -23,7 +23,6 @@ import io.selimdawa.multicolors.databinding.DialogColorPickerBinding
 import io.selimdawa.multicolors.databinding.DialogThemeSelectorBinding
 import io.selimdawa.multicolors.databinding.ItemThemeBinding
 import io.selimdawa.multicolors.databinding.ItemThemeManageBinding
-import io.selimdawa.multicolors.pickcolor.ColorWheelView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -224,7 +223,7 @@ object MultiColorManager {
             val color = colorWheel.getColor()
             val hex = String.format("%06X", (0xFFFFFF and color))
             val newThemeId = "CUSTOM_$hex"
-            
+
             ThemeAnimationHelper.captureScreenshot(activity)
             _currentThemeId.value = newThemeId
             managerScope.launch {
