@@ -5,12 +5,35 @@
     <attr name="mc_tick" format="color" />
     <attr name="mc_center" format="color" />
 
+    <attr name="mc_border_thickness" format="dimension" />
+    <attr name="mc_use_rainbow" format="boolean" />
+
     <declare-styleable name="MultiColorAvatarView">
-        <attr name="mc_border_thickness" format="dimension" />
-        <attr name="mc_use_rainbow" format="boolean" />
+        <attr name="mc_border_thickness" />
+        <attr name="mc_use_rainbow" />
         <attr name="mc_border_rotation_duration" format="integer" />
         <attr name="mc_image_rotation_duration" format="integer" />
         <attr name="mc_animate_border" format="boolean" />
         <attr name="mc_animate_image" format="boolean" />
+        <attr name="mc_glow_radius" format="dimension" />
+        <attr name="mc_glow_alpha" format="float" />
+        <attr name="mc_image_corner_radius" format="dimension" />
+        <attr name="mc_image_scale_type">
+            <enum name="matrix" value="0" />
+            <enum name="fitXY" value="1" />
+            <enum name="fitStart" value="2" />
+            <enum name="fitCenter" value="3" />
+            <enum name="fitEnd" value="4" />
+            <enum name="center" value="5" />
+            <enum name="centerCrop" value="6" />
+            <enum name="centerInside" value="7" />
+        </attr>
+        <attr name="mc_image_src" format="reference" />
+        <attr name="mc_image_background" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiColorCircleBorderView">
+        <attr name="mc_border_thickness" />
+        <attr name="mc_use_rainbow" />
     </declare-styleable>
 </resources>

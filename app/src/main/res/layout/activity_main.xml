@@ -22,17 +22,21 @@
             android:orientation="vertical"
             android:paddingBottom="40dp">
 
-            <!-- Demo of the New All-in-One MultiColorAvatarView -->
             <io.selimdawa.multicolors.MultiColorAvatarView
                 android:id="@+id/colorfulAvatar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
                 android:layout_marginTop="20dp"
                 app:mc_animate_border="true"
+                app:mc_image_scale_type="centerCrop"
                 app:mc_animate_image="false"
                 app:mc_border_rotation_duration="3000"
                 app:mc_border_thickness="6dp"
-                app:mc_use_rainbow="true" />
+                app:mc_use_rainbow="true"
+                app:mc_glow_radius="10dp"
+                app:mc_glow_alpha="0.6"
+                app:mc_image_src="@color/image_profile"
+                app:mc_image_background="?mc_track" />
 
             <TextView
             android:layout_width="wrap_content"

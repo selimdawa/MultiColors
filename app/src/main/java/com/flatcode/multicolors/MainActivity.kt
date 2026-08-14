@@ -3,7 +3,6 @@ package com.flatcode.multicolors
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import coil.load
@@ -18,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Load image into the colorful avatar
-        binding.colorfulAvatar.avatarImage.load("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80")
+        binding.colorfulAvatar.imageView.load("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80")
 
-        // Example of controlling thickness programmatically
-        binding.colorfulAvatar.colorfulBorder.setBorderThickness(TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics
-        ))
+        binding.colorfulAvatar.setOnClickListener {
+            val nextAnimState = !binding.colorfulAvatar.isAnimatingImage
+            binding.colorfulAvatar.setAnimateImage(nextAnimState)
+            binding.colorfulAvatar.setAnimateBorder(nextAnimState)
+        }
 
         binding.trans.setOnClickListener {
             val intent = Intent(this, TestActivity::class.java)

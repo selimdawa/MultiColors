@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 /**
  * A circular view that draws a gradient border based on the current theme.
- * Allows controlling the thickness of the border.
+ * Allows controlling the thickness of the border and adds a neon glow effect.
  */
 class MultiColorCircleBorderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -21,31 +21,57 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
 
     private var borderThickness = dpToPx(4f)
     private var useRainbow = false
+    private var glowRadius = 0f
+    private var glowAlpha = 0.5f
+
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
     }
 
+    private val glowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
+    }
+
     init {
+        setLayerType(LAYER_TYPE_SOFTWARE, null) // Required for BlurMaskFilter
         context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.MultiColorCircleBorderView,
+            R.styleable.MultiColorAvatarView,
             0, 0
         ).apply {
             try {
                 borderThickness = getDimension(
-                    R.styleable.MultiColorCircleBorderView_mc_border_thickness,
-                    borderThickness
+                    R.styleable.MultiColorAvatarView_mc_border_thickness,
+                    dpToPx(4f)
                 )
                 useRainbow = getBoolean(
-                    R.styleable.MultiColorCircleBorderView_mc_use_rainbow,
+                    R.styleable.MultiColorAvatarView_mc_use_rainbow,
                     false
+                )
+                glowRadius = getDimension(
+                    R.styleable.MultiColorAvatarView_mc_glow_radius,
+                    0f
+                )
+                glowAlpha = getFloat(
+                    R.styleable.MultiColorAvatarView_mc_glow_alpha,
+                    0.5f
                 )
             } finally {
                 recycle()
             }
         }
         paint.strokeWidth = borderThickness
+        updateGlowSettings()
+    }
+
+    private fun updateGlowSettings() {
+        if (glowRadius > 0) {
+            glowPaint.strokeWidth = borderThickness + (glowRadius * 0.5f)
+            glowPaint.maskFilter = BlurMaskFilter(glowRadius, BlurMaskFilter.Blur.NORMAL)
+            glowPaint.alpha = (glowAlpha * 255).toInt()
+        }
     }
 
     override fun onAttachedToWindow() {
@@ -63,7 +89,17 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     fun setBorderThickness(thicknessInPx: Float) {
         borderThickness = thicknessInPx
         paint.strokeWidth = borderThickness
+        updateGlowSettings()
         updateAppearance()
+    }
+
+    /**
+     * Sets the glow radius for the neon effect.
+     */
+    fun setGlowRadius(radiusInPx: Float) {
+        glowRadius = radiusInPx
+        updateGlowSettings()
+        invalidate()
     }
 
     /**
@@ -98,10 +134,15 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
                 val matrix = Matrix()
                 matrix.postRotate(-90f, width / 2f, height / 2f)
                 gradient.setLocalMatrix(matrix)
+                
                 paint.shader = gradient
+                glowPaint.shader = gradient
             } else {
                 paint.shader = null
-                paint.color = if (colors.isNotEmpty()) colors[0] else Color.GRAY
+                glowPaint.shader = null
+                val color = if (colors.isNotEmpty()) colors[0] else Color.GRAY
+                paint.color = color
+                glowPaint.color = color
             }
         }
         invalidate()
@@ -162,7 +203,11 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val radius = (Math.min(width, height) - borderThickness) / 2f
+        val radius = (Math.min(width, height) - borderThickness - (glowRadius * 2)) / 2f
+        
+        if (glowRadius > 0) {
+            canvas.drawCircle(width / 2f, height / 2f, radius, glowPaint)
+        }
         canvas.drawCircle(width / 2f, height / 2f, radius, paint)
     }
 
