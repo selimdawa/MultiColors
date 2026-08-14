@@ -18,6 +18,14 @@
         <attr name="mc_image_rotation_duration" format="integer" />
         <attr name="mc_animate_border" format="boolean" />
         <attr name="mc_animate_image" format="boolean" />
+        <attr name="mc_border_rotation_direction">
+            <enum name="clockwise" value="1" />
+            <enum name="counter_clockwise" value="-1" />
+        </attr>
+        <attr name="mc_image_rotation_direction">
+            <enum name="clockwise" value="1" />
+            <enum name="counter_clockwise" value="-1" />
+        </attr>
         <attr name="mc_glow_radius" format="dimension" />
         <attr name="mc_glow_alpha" format="float" />
         <attr name="mc_image_corner_radius" format="dimension" />

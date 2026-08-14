@@ -2,6 +2,7 @@ package com.flatcode.multicolors
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -19,10 +20,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.colorfulAvatar.imageView.load("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80")
 
-        binding.colorfulAvatar.setOnClickListener {
-            val nextAnimState = !binding.colorfulAvatar.isAnimatingImage
-            binding.colorfulAvatar.setAnimateImage(nextAnimState)
-            binding.colorfulAvatar.setAnimateBorder(nextAnimState)
+        val myCustomColors = listOf(
+            Color.parseColor("#FF0000"), // أحمر
+            Color.parseColor("#FF7F00"), // برتقالي
+            Color.parseColor("#FFFF00"), // أصفر
+            Color.parseColor("#00FF00"), // أخضر
+            Color.parseColor("#0000FF"), // أزرق
+            Color.parseColor("#4B0082"), // نيلي
+            Color.parseColor("#8B00FF"), // بنفسجي
+            Color.parseColor("#FF1493"), // وردي
+            Color.parseColor("#00FFFF"), // سماوي
+            Color.parseColor("#ADFF2F"), // ليموني
+        )
+        binding.colorfulAvatar.setColors(myCustomColors)
+
+        // Reset to theme colors on LONG click
+        binding.colorfulAvatar.setOnLongClickListener {
+            binding.colorfulAvatar.resetToThemeColors()
+            true
         }
 
         binding.trans.setOnClickListener {

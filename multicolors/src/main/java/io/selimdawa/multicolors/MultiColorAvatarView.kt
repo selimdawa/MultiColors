@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package io.selimdawa.multicolors
 
 import android.animation.ObjectAnimator
@@ -26,6 +28,8 @@ class MultiColorAvatarView @JvmOverloads constructor(
         private set
     private var borderDuration = 3000L
     private var imageDuration = 5000L
+    private var borderDirection = 1
+    private var imageDirection = 1
     private var glowRadius = 0f
     private var imageCornerRadius = -1f
 
@@ -49,6 +53,10 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 imageDuration = getInteger(
                     R.styleable.MultiColorAvatarView_mc_image_rotation_duration, 5000
                 ).toLong()
+                borderDirection =
+                    getInt(R.styleable.MultiColorAvatarView_mc_border_rotation_direction, 1)
+                imageDirection =
+                    getInt(R.styleable.MultiColorAvatarView_mc_image_rotation_direction, 1)
                 glowRadius = getDimension(R.styleable.MultiColorAvatarView_mc_glow_radius, 0f)
                 imageCornerRadius =
                     getDimension(R.styleable.MultiColorAvatarView_mc_image_corner_radius, -1f)
@@ -76,13 +84,15 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 val useRainbow = getBoolean(R.styleable.MultiColorAvatarView_mc_use_rainbow, false)
                 borderView.setUseRainbow(useRainbow)
 
-                val alwaysWhite = getBoolean(R.styleable.MultiColorAvatarView_mc_always_white, false)
+                val alwaysWhite =
+                    getBoolean(R.styleable.MultiColorAvatarView_mc_always_white, false)
                 borderView.setAlwaysWhite(alwaysWhite)
 
                 val contrastSize = getFloat(R.styleable.MultiColorAvatarView_mc_contrast_size, 0.3f)
                 borderView.setContrastSize(contrastSize)
 
-                val showContrast = getBoolean(R.styleable.MultiColorAvatarView_mc_show_contrast, false)
+                val showContrast =
+                    getBoolean(R.styleable.MultiColorAvatarView_mc_show_contrast, false)
                 borderView.setShowContrast(showContrast)
 
                 val margin = (thickness + glowRadius).toInt()
@@ -130,7 +140,9 @@ class MultiColorAvatarView @JvmOverloads constructor(
         // Border Animation
         borderAnimator?.cancel()
         if (isAnimatingBorder) {
-            borderAnimator = ObjectAnimator.ofFloat(borderView, "rotation", 0f, 360f).apply {
+            val start = 0f
+            val end = 360f * borderDirection
+            borderAnimator = ObjectAnimator.ofFloat(borderView, "rotation", start, end).apply {
                 duration = borderDuration
                 repeatCount = ValueAnimator.INFINITE
                 interpolator = LinearInterpolator()
@@ -141,13 +153,22 @@ class MultiColorAvatarView @JvmOverloads constructor(
         // Image Animation
         imageAnimator?.cancel()
         if (isAnimatingImage) {
-            imageAnimator = ObjectAnimator.ofFloat(imageView, "rotation", 0f, 360f).apply {
+            val start = 0f
+            val end = 360f * imageDirection
+            imageAnimator = ObjectAnimator.ofFloat(imageView, "rotation", start, end).apply {
                 duration = imageDuration
                 repeatCount = ValueAnimator.INFINITE
                 interpolator = LinearInterpolator()
                 start()
             }
         }
+    }
+
+    /**
+     * Resets the border to use theme or rainbow colors.
+     */
+    fun resetToThemeColors() {
+        borderView.resetToThemeColors()
     }
 
     fun setAnimateBorder(animate: Boolean) {
@@ -158,6 +179,20 @@ class MultiColorAvatarView @JvmOverloads constructor(
     fun setAnimateImage(animate: Boolean) {
         isAnimatingImage = animate
         updateAnimations()
+    }
+
+    /**
+     * Sets a custom list of colors (from 2 to 10) for the border.
+     */
+    fun setColors(colors: IntArray) {
+        borderView.setColors(colors)
+    }
+
+    /**
+     * Sets a custom list of colors (from 2 to 10) for the border.
+     */
+    fun setColors(colors: List<Int>) {
+        borderView.setColors(colors)
     }
 
     private fun dpToPx(dp: Float): Float = android.util.TypedValue.applyDimension(

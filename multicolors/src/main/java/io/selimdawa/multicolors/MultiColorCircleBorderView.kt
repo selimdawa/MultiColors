@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package io.selimdawa.multicolors
 
 import android.content.Context
@@ -31,6 +33,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     private var alwaysWhite = false
     private var showContrast = false
     private var contrastSize = 0.3f
+    private var customColors: IntArray? = null
     private var glowRadius = 0f
     private var glowAlpha = 0.5f
 
@@ -140,6 +143,34 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     /**
+     * Sets a custom list of colors (strictly from 2 to 10) for the border.
+     * If the list size is outside this range, the call is ignored.
+     */
+    fun setColors(colors: IntArray) {
+        if (colors.size in 2..10) {
+            this.customColors = colors
+            this.useRainbow = false
+            updateAppearance()
+        }
+    }
+
+    /**
+     * Sets a custom list of colors (from 2 to 10) for the border.
+     * This will override the current theme colors.
+     */
+    fun setColors(colors: List<Int>) {
+        setColors(colors.toIntArray())
+    }
+
+    /**
+     * Resets the border to use theme or rainbow colors.
+     */
+    fun resetToThemeColors() {
+        this.customColors = null
+        updateAppearance()
+    }
+
+    /**
      * If true, forces the border to use rainbow colors instead of the theme colors.
      */
     fun setUseRainbow(rainbow: Boolean) {
@@ -148,7 +179,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     private fun updateAppearance() {
-        val colors = if (useRainbow) {
+        val colors = customColors ?: if (useRainbow) {
             getRainbowColors()
         } else {
             val theme = MultiColorManager.getCurrentTheme(context)
