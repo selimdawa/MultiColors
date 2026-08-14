@@ -3,8 +3,10 @@ package com.flatcode.multicolors
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import coil.load
 import com.flatcode.multicolors.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Load image into the colorful avatar
+        binding.colorfulAvatar.avatarImage.load("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80")
+
+        // Example of controlling thickness programmatically
+        binding.colorfulAvatar.colorfulBorder.setBorderThickness(TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics
+        ))
 
         binding.trans.setOnClickListener {
             val intent = Intent(this, TestActivity::class.java)

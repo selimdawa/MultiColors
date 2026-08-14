@@ -4,4 +4,13 @@
     <attr name="mc_track" format="color" />
     <attr name="mc_tick" format="color" />
     <attr name="mc_center" format="color" />
+
+    <declare-styleable name="MultiColorAvatarView">
+        <attr name="mc_border_thickness" format="dimension" />
+        <attr name="mc_use_rainbow" format="boolean" />
+        <attr name="mc_border_rotation_duration" format="integer" />
+        <attr name="mc_image_rotation_duration" format="integer" />
+        <attr name="mc_animate_border" format="boolean" />
+        <attr name="mc_animate_image" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
+    <!-- The colorful border -->
+    <io.selimdawa.multicolors.MultiColorCircleBorderView
+        android:id="@+id/colorfulBorder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:mc_border_thickness="5dp"
+        app:mc_use_rainbow="true" />
+
+    <!-- The Avatar Image (Clipped to circle) -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/CircleShape" />
+
+</FrameLayout>

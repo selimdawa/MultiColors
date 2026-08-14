@@ -16,7 +16,5 @@ class TestActivity : AppCompatActivity() {
 
         // Loading images from URL using Coil
         binding.toolbar2.ivFavourites.load("https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&q=80")
-        //binding.toolbar2.ivPlaylists.load("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&q=80")
-        //binding.toolbar2.ivRecent.load("https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=500&q=80")
     }
 }
