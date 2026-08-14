@@ -7,6 +7,7 @@
 
     <attr name="mc_border_thickness" format="dimension" />
     <attr name="mc_use_rainbow" format="boolean" />
+    <attr name="mc_always_white" format="boolean" />
 
     <declare-styleable name="MultiColorAvatarView">
         <attr name="mc_border_thickness" />
@@ -30,10 +31,12 @@
         </attr>
         <attr name="mc_image_src" format="reference" />
         <attr name="mc_image_background" format="color|reference" />
+        <attr name="mc_always_white" />
     </declare-styleable>
 
     <declare-styleable name="MultiColorCircleBorderView">
         <attr name="mc_border_thickness" />
         <attr name="mc_use_rainbow" />
+        <attr name="mc_always_white" />
     </declare-styleable>
 </resources>

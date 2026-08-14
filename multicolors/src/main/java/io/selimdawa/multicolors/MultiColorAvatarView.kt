@@ -76,6 +76,9 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 val useRainbow = getBoolean(R.styleable.MultiColorAvatarView_mc_use_rainbow, false)
                 borderView.setUseRainbow(useRainbow)
 
+                val alwaysWhite = getBoolean(R.styleable.MultiColorAvatarView_mc_always_white, false)
+                borderView.setAlwaysWhite(alwaysWhite)
+
                 val margin = (thickness + glowRadius).toInt()
                 val lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
                 lp.setMargins(margin, margin, margin, margin)
