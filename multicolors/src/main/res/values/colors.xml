@@ -47,4 +47,16 @@
     <color name="mc_night_corner_six">#A748FC</color>
     <color name="mc_night_corner_six_2">#00695C</color>
 
+    <!-- Custom Avatar Rainbow Colors -->
+    <color name="mc_avatar_1">#FF0000</color>
+    <color name="mc_avatar_2">#FF7F00</color>
+    <color name="mc_avatar_3">#FFFF00</color>
+    <color name="mc_avatar_4">#00FF00</color>
+    <color name="mc_avatar_5">#0000FF</color>
+    <color name="mc_avatar_6">#4B0082</color>
+    <color name="mc_avatar_7">#8B00FF</color>
+    <color name="mc_avatar_8">#FF1493</color>
+    <color name="mc_avatar_9">#00FFFF</color>
+    <color name="mc_avatar_10">#ADFF2F</color>
+
 </resources>

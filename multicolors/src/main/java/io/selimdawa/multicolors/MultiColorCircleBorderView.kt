@@ -37,6 +37,8 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     private var glowRadius = 0f
     private var glowAlpha = 0.5f
 
+    val isUsingCustomColors: Boolean get() = customColors != null
+
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND

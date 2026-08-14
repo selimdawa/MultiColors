@@ -26,6 +26,9 @@ class MultiColorAvatarView @JvmOverloads constructor(
         private set
     var isAnimatingImage = false
         private set
+
+    val isUsingCustomColors: Boolean get() = borderView.isUsingCustomColors
+
     private var borderDuration = 3000L
     private var imageDuration = 5000L
     private var borderDirection = 1
