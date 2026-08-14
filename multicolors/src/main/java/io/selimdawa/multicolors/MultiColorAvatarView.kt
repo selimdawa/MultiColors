@@ -79,6 +79,12 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 val alwaysWhite = getBoolean(R.styleable.MultiColorAvatarView_mc_always_white, false)
                 borderView.setAlwaysWhite(alwaysWhite)
 
+                val contrastSize = getFloat(R.styleable.MultiColorAvatarView_mc_contrast_size, 0.3f)
+                borderView.setContrastSize(contrastSize)
+
+                val showContrast = getBoolean(R.styleable.MultiColorAvatarView_mc_show_contrast, false)
+                borderView.setShowContrast(showContrast)
+
                 val margin = (thickness + glowRadius).toInt()
                 val lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
                 lp.setMargins(margin, margin, margin, margin)
