@@ -27,112 +27,159 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="20dp"
+                app:mc_always_white="true"
                 app:mc_animate_border="true"
-                app:mc_use_rainbow="false"
-                app:mc_image_scale_type="centerCrop"
                 app:mc_animate_image="false"
                 app:mc_border_rotation_duration="3000"
                 app:mc_border_thickness="6dp"
-                app:mc_glow_radius="10dp"
-                app:mc_glow_alpha="0.6"
-                app:mc_always_white="true"
                 app:mc_contrast_size="0.25"
-                app:mc_show_contrast="true"
+                app:mc_glow_alpha="0.6"
+                app:mc_glow_radius="10dp"
+                app:mc_image_background="?mc_track"
+                app:mc_image_scale_type="centerCrop"
                 app:mc_image_src="@color/mc_image_profile"
-                app:mc_image_background="?mc_track" />
+                app:mc_show_contrast="true"
+                app:mc_use_rainbow="false" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Hello World!"
-            android:textColor="?mc_track"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Hello World!"
-            android:textColor="?mc_tick"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Hello World!"
-            android:textColor="?mc_track"
-            android:textSize="48sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            app:strokeWidth="0dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?mc_bg" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <FrameLayout
-            android:id="@+id/trans"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/background_border"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground">
-
-            <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/test_music_ui"
-                android:textColor="?colorError"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/btnNightMode"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_border"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground">
-
-            <TextView
-                android:id="@+id/tvNightMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/dark_mode"
+                android:text="Hello World!"
                 android:textColor="?mc_track"
-                android:textSize="16sp"
+                android:textSize="48sp"
                 android:textStyle="bold" />
 
-        </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Hello World!"
+                android:textColor="?mc_tick"
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Hello World!"
+                android:textColor="?mc_track"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                app:strokeWidth="0dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?mc_bg" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- New Version -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New"
+                android:textColor="?mc_track"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <io.selimdawa.multicolors.MultiColorBorderLayout
+                android:id="@+id/trans"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:mc_animate_border="true"
+                app:mc_border_rotation_duration="6000"
+                app:mc_border_thickness="4dp"
+                app:mc_corner_radius="10dp"
+                app:mc_glow_radius="6dp"
+                app:mc_use_rainbow="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="@string/test_music_ui"
+                    android:textColor="?colorError"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </io.selimdawa.multicolors.MultiColorBorderLayout>
+
+            <!-- Old Version -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Old"
+                android:textColor="@color/mc_gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/transOld"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="@string/test_music_ui"
+                    android:textColor="?colorError"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <io.selimdawa.multicolors.MultiColorBorderLayout
+                android:id="@+id/btnNightMode"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:mc_animate_border="false"
+                app:mc_border_thickness="2dp"
+                app:mc_corner_radius="12dp">
+
+                <TextView
+                    android:id="@+id/tvNightMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="@string/dark_mode"
+                    android:textColor="?mc_track"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </io.selimdawa.multicolors.MultiColorBorderLayout>
+
+        </LinearLayout>
 
     </ScrollView>
 

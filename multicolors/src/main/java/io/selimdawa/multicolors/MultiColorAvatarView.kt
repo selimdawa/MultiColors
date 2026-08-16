@@ -140,12 +140,12 @@ class MultiColorAvatarView @JvmOverloads constructor(
     }
 
     private fun updateAnimations() {
-        // Border Animation
+        // Border Animation (Rotating the colors inside the border)
         borderAnimator?.cancel()
         if (isAnimatingBorder) {
             val start = 0f
             val end = 360f * borderDirection
-            borderAnimator = ObjectAnimator.ofFloat(borderView, "rotation", start, end).apply {
+            borderAnimator = ObjectAnimator.ofFloat(borderView, "shaderRotation", start, end).apply {
                 duration = borderDuration
                 repeatCount = ValueAnimator.INFINITE
                 interpolator = LinearInterpolator()
@@ -153,7 +153,7 @@ class MultiColorAvatarView @JvmOverloads constructor(
             }
         }
 
-        // Image Animation
+        // Image Animation (Rotating the actual image view)
         imageAnimator?.cancel()
         if (isAnimatingImage) {
             val start = 0f

@@ -53,4 +53,18 @@
         <attr name="mc_contrast_size" />
         <attr name="mc_show_contrast" />
     </declare-styleable>
+
+    <declare-styleable name="MultiColorBorderLayout">
+        <attr name="mc_border_thickness" />
+        <attr name="mc_use_rainbow" />
+        <attr name="mc_always_white" />
+        <attr name="mc_contrast_size" />
+        <attr name="mc_show_contrast" />
+        <attr name="mc_corner_radius" format="dimension" />
+        <attr name="mc_animate_border" />
+        <attr name="mc_border_rotation_duration" />
+        <attr name="mc_border_rotation_direction" />
+        <attr name="mc_glow_radius" />
+        <attr name="mc_glow_alpha" />
+    </declare-styleable>
 </resources>

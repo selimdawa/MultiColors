@@ -3,12 +3,7 @@
 package io.selimdawa.multicolors
 
 import android.content.Context
-import android.graphics.BlurMaskFilter
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.SweepGradient
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -21,14 +16,15 @@ import kotlinx.coroutines.launch
 import kotlin.math.min
 
 /**
- * A circular view that draws a gradient border based on the current theme.
- * Allows controlling the thickness of the border and adds a neon glow effect.
+ * A rectangular view that draws a gradient border with rounded corners.
+ * Supports theme colors, rainbow mode, and neon glow.
  */
-class MultiColorCircleBorderView @JvmOverloads constructor(
+class MultiColorRectBorderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var borderThickness = dpToPx(4f)
+    private var borderThickness = dpToPx(2f)
+    private var cornerRadius = dpToPx(8f)
     private var useRainbow = false
     private var alwaysWhite = false
     private var showContrast = false
@@ -39,7 +35,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     
     /**
      * The rotation of the gradient colors in degrees.
-     * Animated by MultiColorAvatarView.
+     * Animated by MultiColorBorderLayout.
      */
     var shaderRotation: Float = 0f
         set(value) {
@@ -59,35 +55,23 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         strokeCap = Paint.Cap.ROUND
     }
 
+    private val rect = RectF()
     private val matrix = Matrix()
 
     init {
-        setLayerType(LAYER_TYPE_SOFTWARE, null) // Required for BlurMaskFilter
+        setLayerType(LAYER_TYPE_SOFTWARE, null)
         context.theme.obtainStyledAttributes(
-            attrs, R.styleable.MultiColorAvatarView, 0, 0
+            attrs, R.styleable.MultiColorBorderLayout, 0, 0
         ).apply {
             try {
-                borderThickness = getDimension(
-                    R.styleable.MultiColorAvatarView_mc_border_thickness, dpToPx(4f)
-                )
-                useRainbow = getBoolean(
-                    R.styleable.MultiColorAvatarView_mc_use_rainbow, false
-                )
-                alwaysWhite = getBoolean(
-                    R.styleable.MultiColorAvatarView_mc_always_white, false
-                )
-                showContrast = getBoolean(
-                    R.styleable.MultiColorAvatarView_mc_show_contrast, false
-                )
-                contrastSize = getFloat(
-                    R.styleable.MultiColorAvatarView_mc_contrast_size, 0.3f
-                )
-                glowRadius = getDimension(
-                    R.styleable.MultiColorAvatarView_mc_glow_radius, 0f
-                )
-                glowAlpha = getFloat(
-                    R.styleable.MultiColorAvatarView_mc_glow_alpha, 0.5f
-                )
+                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, dpToPx(2f))
+                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, dpToPx(8f))
+                useRainbow = getBoolean(R.styleable.MultiColorBorderLayout_mc_use_rainbow, false)
+                alwaysWhite = getBoolean(R.styleable.MultiColorBorderLayout_mc_always_white, false)
+                showContrast = getBoolean(R.styleable.MultiColorBorderLayout_mc_show_contrast, false)
+                contrastSize = getFloat(R.styleable.MultiColorBorderLayout_mc_contrast_size, 0.3f)
+                glowRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_glow_radius, 0f)
+                glowAlpha = getFloat(R.styleable.MultiColorBorderLayout_mc_glow_alpha, 0.5f)
             } finally {
                 recycle()
             }
@@ -113,9 +97,6 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * Sets the thickness of the colorful border.
-     */
     fun setBorderThickness(thicknessInPx: Float) {
         borderThickness = thicknessInPx
         paint.strokeWidth = borderThickness
@@ -123,43 +104,11 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         updateAppearance()
     }
 
-    /**
-     * Sets the size of the contrast color (0.0 to 1.0).
-     */
-    fun setContrastSize(size: Float) {
-        contrastSize = size.coerceIn(0f, 1f)
-        updateAppearance()
-    }
-
-    /**
-     * Sets whether to show the contrast color in solid themes.
-     */
-    fun setShowContrast(show: Boolean) {
-        showContrast = show
-        updateAppearance()
-    }
-
-    /**
-     * Sets whether to always use white as the contrast color for solid themes.
-     */
-    fun setAlwaysWhite(always: Boolean) {
-        alwaysWhite = always
-        updateAppearance()
-    }
-
-    /**
-     * Sets the glow radius for the neon effect.
-     */
-    fun setGlowRadius(radiusInPx: Float) {
-        glowRadius = radiusInPx
-        updateGlowSettings()
+    fun setCornerRadius(radiusInPx: Float) {
+        cornerRadius = radiusInPx
         invalidate()
     }
 
-    /**
-     * Sets a custom list of colors (strictly from 2 to 10) for the border.
-     * If the list size is outside this range, the call is ignored.
-     */
     fun setColors(colors: IntArray) {
         if (colors.size in 2..10) {
             this.customColors = colors
@@ -168,34 +117,26 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * Sets a custom list of colors (from 2 to 10) for the border.
-     * This will override the current theme colors.
-     */
-    fun setColors(colors: List<Int>) {
-        setColors(colors.toIntArray())
-    }
+    fun setColors(colors: List<Int>) = setColors(colors.toIntArray())
 
-    /**
-     * Resets the border to use theme or rainbow colors.
-     */
     fun resetToThemeColors() {
         this.customColors = null
         updateAppearance()
     }
 
-    /**
-     * If true, forces the border to use rainbow colors instead of the theme colors.
-     */
-    fun setUseRainbow(rainbow: Boolean) {
-        useRainbow = rainbow
+    fun setShowContrast(show: Boolean) {
+        showContrast = show
         updateAppearance()
     }
 
+    fun setGlowRadius(radiusInPx: Float) {
+        glowRadius = radiusInPx
+        updateGlowSettings()
+        invalidate()
+    }
+
     private fun updateAppearance() {
-        val colors = customColors ?: if (useRainbow) {
-            getRainbowColors()
-        } else {
+        val colors = customColors ?: if (useRainbow) getRainbowColors() else {
             val theme = MultiColorManager.getCurrentTheme(context)
             getThemeColors(theme)
         }
@@ -205,13 +146,11 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
                 var sweepColors = colors
                 var positions: FloatArray? = null
 
-                // Handle contrast size for [Solid, Contrast, Solid] cases
                 if (colors.size == 3 && colors[0] == colors[2]) {
                     val halfSize = contrastSize / 2f
                     sweepColors = intArrayOf(colors[0], colors[0], colors[1], colors[2], colors[2])
                     positions = floatArrayOf(0f, 0.5f - halfSize, 0.5f, 0.5f + halfSize, 1f)
                 } else if (colors.first() != colors.last()) {
-                    // Ensure the gradient connects smoothly at the start/end
                     val result = IntArray(colors.size + 1)
                     System.arraycopy(colors, 0, result, 0, colors.size)
                     result[colors.size] = colors[0]
@@ -237,79 +176,40 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
-        val isNightMode =
-            (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
-        val contrastColor =
-            if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
+        val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
         if (theme.colors.isNotEmpty()) {
             val colors = theme.colors.toIntArray()
             return if (colors.size == 1) {
-                if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
-                else intArrayOf(colors[0], colors[0])
-            } else {
-                colors
-            }
+                if (showContrast) intArrayOf(colors[0], contrastColor, colors[0]) else intArrayOf(colors[0], colors[0])
+            } else colors
         }
-
+        
         val styleRes = theme.styleRes ?: return getRainbowColors()
-
         val typedValue = TypedValue()
         val c = context.resources.newTheme().apply { applyStyle(styleRes, true) }
-
+        
         fun getColor(attr: Int): Int? {
             return if (c.resolveAttribute(attr, typedValue, true)) {
-                if (typedValue.resourceId != 0) {
-                    ResourcesCompat.getColor(context.resources, typedValue.resourceId, c)
-                } else {
-                    typedValue.data
-                }
+                if (typedValue.resourceId != 0) ResourcesCompat.getColor(context.resources, typedValue.resourceId, c)
+                else typedValue.data
             } else null
         }
 
         val track = getColor(R.attr.mc_track)
-        val center = getColor(R.attr.mc_center)
         val tick = getColor(R.attr.mc_tick)
-
         if (track != null && tick != null) {
             return if (track == tick) {
-                // Solid theme: Add contrast color based on theme
-                if (showContrast) intArrayOf(track, contrastColor, track)
-                else intArrayOf(track, track)
-            } else {
-                // Gradient theme: Only use track and tick
-                val baseDefault =
-                    ResourcesCompat.getColor(context.resources, R.color.mc_basic_light, c)
-                if (center != null && center != baseDefault && center != track && center != tick) {
-                    intArrayOf(track, center, tick)
-                } else {
-                    intArrayOf(track, tick)
-                }
-            }
+                if (showContrast) intArrayOf(track, contrastColor, track) else intArrayOf(track, track)
+            } else intArrayOf(track, tick)
         }
-
-        // Fallback to primary/accent if track/tick not found
-        val primary = getColor(androidx.appcompat.R.attr.colorPrimary)
-        val accent = getColor(androidx.appcompat.R.attr.colorAccent)
-
-        if (primary != null && accent != null) {
-            return if (primary == accent) {
-                if (showContrast) intArrayOf(primary, contrastColor, primary)
-                else intArrayOf(primary, primary)
-            } else intArrayOf(primary, accent)
-        }
-
         return getRainbowColors()
     }
 
     private fun getRainbowColors() = intArrayOf(
-        "#FF0000".toColorInt(), // Red
-        "#FF7F00".toColorInt(), // Orange
-        "#FFFF00".toColorInt(), // Yellow
-        "#00FF00".toColorInt(), // Green
-        "#0000FF".toColorInt(), // Blue
-        "#4B0082".toColorInt(), // Indigo
-        "#8B00FF".toColorInt()  // Violet
+        "#FF0000".toColorInt(), "#FF7F00".toColorInt(), "#FFFF00".toColorInt(),
+        "#00FF00".toColorInt(), "#0000FF".toColorInt(), "#4B0082".toColorInt(), "#8B00FF".toColorInt()
     )
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -318,7 +218,8 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val radius = (min(width, height) - borderThickness - (glowRadius * 2)) / 2f
+        val inset = borderThickness / 2f + glowRadius
+        rect.set(inset, inset, width - inset, height - inset)
 
         // Apply rotation only to the colors (shader), not the canvas
         val shader = paint.shader
@@ -329,9 +230,9 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         }
 
         if (glowRadius > 0) {
-            canvas.drawCircle(width / 2f, height / 2f, radius, glowPaint)
+            canvas.drawRoundRect(rect, cornerRadius, cornerRadius, glowPaint)
         }
-        canvas.drawCircle(width / 2f, height / 2f, radius, paint)
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint)
     }
 
     private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
