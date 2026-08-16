@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.colorfulAvatar.imageView.load("https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80")
+        binding.colorfulAvatar.imageView.load("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&q=80")
 
         val myCustomColors = listOf(
             getColor(MultiColorR.color.mc_avatar_1),
@@ -43,26 +43,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.trans.setOnClickListener {
+            android.util.Log.d("Navigation", "trans clicked")
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.transOld.setOnClickListener {
+            android.util.Log.d("Navigation", "transOld clicked")
             val intent = Intent(this, TestActivity::class.java)
             startActivity(intent)
         }
 
         updateNightModeButton()
 
-        binding.btnNightMode.setOnClickListener {
-            val isNightMode =
-                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-            if (isNightMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+        binding.btnNightMode.setOnClickListener { toggleNightMode() }
+        binding.tvNightMode.setOnClickListener { toggleNightMode() }
+    }
+
+    private fun toggleNightMode() {
+        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+                Configuration.UI_MODE_NIGHT_YES
+        AppCompatDelegate.setDefaultNightMode(
+            if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+        )
     }
 
     private fun updateNightModeButton() {
-        val isNightMode =
-            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val currentMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val isNightMode = currentMode == Configuration.UI_MODE_NIGHT_YES
+        android.util.Log.d("NightMode", "Updating button: isNightMode = $isNightMode")
         binding.tvNightMode.text =
             if (isNightMode) getString(R.string.light_mode) else getString(R.string.dark_mode)
     }

@@ -17,7 +17,12 @@ class MultiColorBorderLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val borderView = MultiColorRectBorderView(context, attrs)
+    private val borderView = MultiColorRectBorderView(context, attrs).apply {
+        id = NO_ID
+        isClickable = false
+        isFocusable = false
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
+    }
     
     var isAnimatingBorder = false
         private set

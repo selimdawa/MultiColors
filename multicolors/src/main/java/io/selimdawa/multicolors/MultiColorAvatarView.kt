@@ -16,8 +16,11 @@ class MultiColorAvatarView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val borderView = MultiColorCircleBorderView(context, attrs)
+    private val borderView = MultiColorCircleBorderView(context, attrs).apply {
+        id = NO_ID
+    }
     val imageView = ShapeableImageView(context).apply {
+        id = NO_ID
         strokeWidth = 0f // Fix black edges
         scaleType = ImageView.ScaleType.CENTER_CROP
     }

@@ -102,7 +102,6 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?selectableItemBackground"
                 app:mc_animate_border="true"
                 app:mc_border_rotation_duration="6000"
                 app:mc_border_thickness="4dp"
@@ -139,8 +138,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/background_border"
                 android:clickable="true"
-                android:focusable="true"
-                android:foreground="?selectableItemBackground">
+                android:focusable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -161,7 +159,6 @@
                 android:layout_margin="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?selectableItemBackground"
                 app:mc_animate_border="false"
                 app:mc_border_thickness="2dp"
                 app:mc_corner_radius="12dp">
