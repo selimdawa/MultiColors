@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.os.Looper
+import android.os.MessageQueue
 import android.util.TypedValue
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -45,18 +47,23 @@ object MultiColorManager {
     private val _currentThemeId = MutableStateFlow("")
     val currentThemeId: StateFlow<String> = _currentThemeId.asStateFlow()
 
+    private const val DEFAULT_THEME_ID = "ONE"
+    var isThemeSafeModeEnabled = true
+
     fun init(application: Application) {
         // Read initial value synchronously to avoid race condition on first activity startup
         val savedThemeId = runBlocking {
             application.multiColorDataStore.data.map {
-                it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
+                it[themeKey] ?: DEFAULT_THEME_ID
             }.first()
         }
         _currentThemeId.value = savedThemeId
 
+        preloadThemesIdle(application)
+
         managerScope.launch {
             application.multiColorDataStore.data.map {
-                it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
+                it[themeKey] ?: DEFAULT_THEME_ID
             }.collectLatest { themeId ->
                 if (_currentThemeId.value != themeId) {
                     _currentThemeId.value = themeId
@@ -97,14 +104,56 @@ object MultiColorManager {
         })
     }
 
+    fun preloadThemesIdle(context: Context) {
+        val allThemes = ThemeRegistry.getAllThemes()
+        val queue = Looper.myQueue()
+        var index = 0
+
+        val idleHandler = MessageQueue.IdleHandler {
+            if (index < allThemes.size) {
+                val theme = allThemes[index]
+                getThemeBackground(context, theme)
+                index++
+                // Return true to keep the handler active for the next theme
+                index < allThemes.size
+            } else {
+                // All themes preloaded
+                false
+            }
+        }
+        queue.addIdleHandler(idleHandler)
+    }
+
     fun applyTheme(context: Context) {
         val themeId = _currentThemeId.value.ifEmpty {
             runBlocking {
                 context.multiColorDataStore.data.map {
-                    it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
+                    it[themeKey] ?: DEFAULT_THEME_ID
                 }.first()
             }
         }
+
+        if (isThemeSafeModeEnabled) {
+            try {
+                performApplyTheme(context, themeId)
+            } catch (e: Exception) {
+                // Safe Mode: Fallback to default theme
+                _currentThemeId.value = DEFAULT_THEME_ID
+                context.setTheme(R.style.MC_Base_Theme)
+
+                // Persist the fallback theme to prevent future crashes
+                managerScope.launch {
+                    context.multiColorDataStore.edit { prefs ->
+                        prefs[themeKey] = DEFAULT_THEME_ID
+                    }
+                }
+            }
+        } else {
+            performApplyTheme(context, themeId)
+        }
+    }
+
+    private fun performApplyTheme(context: Context, themeId: String) {
         val theme = ThemeRegistry.getTheme(themeId)
         val styleRes = theme.styleRes
         if (styleRes != null) {
@@ -395,7 +444,7 @@ object MultiColorManager {
         val id = currentThemeId.value.ifEmpty {
             runBlocking {
                 context.multiColorDataStore.data.map {
-                    it[themeKey] ?: ThemeRegistry.getAllThemes().first().id
+                    it[themeKey] ?: DEFAULT_THEME_ID
                 }.first()
             }
         }
