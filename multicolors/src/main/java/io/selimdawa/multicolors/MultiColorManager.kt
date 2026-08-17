@@ -51,6 +51,12 @@ object MultiColorManager {
     private const val DEFAULT_THEME_ID = "ONE"
     var isThemeSafeModeEnabled = true
 
+    /**
+     * Set of theme IDs that should be excluded from the theme selection list.
+     * Developers can use this to hide themes they don't want to offer in their app.
+     */
+    var excludedThemeIds: Set<String> = emptySet()
+
     fun init(application: Application) {
         // Read initial value synchronously to avoid race condition on first activity startup
         val savedThemeId = runBlocking {
@@ -106,7 +112,7 @@ object MultiColorManager {
     }
 
     fun preloadThemesIdle(context: Context) {
-        val allThemes = ThemeRegistry.getAllThemes()
+        val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
         val queue = Looper.myQueue()
         var index = 0
 
@@ -126,12 +132,17 @@ object MultiColorManager {
     }
 
     fun applyTheme(context: Context) {
-        val themeId = _currentThemeId.value.ifEmpty {
+        var themeId = _currentThemeId.value.ifEmpty {
             runBlocking {
                 context.multiColorDataStore.data.map {
                     it[themeKey] ?: DEFAULT_THEME_ID
                 }.first()
             }
+        }
+
+        // If the current theme is excluded by the developer, fallback to default
+        if (themeId in excludedThemeIds && themeId != DEFAULT_THEME_ID) {
+            themeId = DEFAULT_THEME_ID
         }
 
         if (isThemeSafeModeEnabled) {
@@ -174,9 +185,8 @@ object MultiColorManager {
         val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
         dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        val allThemes = ThemeRegistry.getAllThemes()
-        val defaultIds = allThemes.filter { !it.id.contains("GRADUAL") }.take(3).map { it.id }
-            .toSet() + allThemes.filter { it.id.contains("GRADUAL") }.take(3).map { it.id }.toSet()
+        val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
+        val defaultIds = allThemes.map { it.id }.toSet()
 
         // Load main themes from DataStore
         val savedThemeIds = runBlocking {
@@ -284,9 +294,8 @@ object MultiColorManager {
     }
 
     private fun showManageThemesDialog(activity: AppCompatActivity) {
-        val allThemes = ThemeRegistry.getAllThemes()
-        val defaultIds = allThemes.filter { !it.id.contains("GRADUAL") }.take(3).map { it.id }
-            .toSet() + allThemes.filter { it.id.contains("GRADUAL") }.take(3).map { it.id }.toSet()
+        val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
+        val defaultIds = allThemes.map { it.id }.toSet()
 
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         dialogBinding.dialogTitle.text = activity.getString(R.string.mc_manage_themes)
@@ -351,7 +360,6 @@ object MultiColorManager {
                     val isMain = effectiveIds.contains(theme.id)
 
                     // Update ONLY the state, extremely fast!
-                    itemBinding.themeItemCard.strokeColor = if (isMain) Color.GREEN else Color.RED
                     itemBinding.statusIcon.setImageResource(
                         if (isMain) android.R.drawable.ic_delete
                         else android.R.drawable.ic_input_add

@@ -23,6 +23,7 @@ open class MultiColorView @JvmOverloads constructor(
 
     init {
         setCardBackgroundColor(Color.TRANSPARENT)
+        clipToOutline = true
         if (isEmpty()) {
             addView(mcInnerView)
         }

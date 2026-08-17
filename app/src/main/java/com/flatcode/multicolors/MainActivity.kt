@@ -58,6 +58,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnNightMode.setOnClickListener { toggleNightMode() }
         binding.tvNightMode.setOnClickListener { toggleNightMode() }
+
+        // إعدادات البوردر المتحرك الجديد
+        binding.redBlueBorder.apply {
+            setAnimationSpeed(2000L) // سرعة الدوران
+            setBorderThickness(5f)   // سمك الخط
+            setCornerRadius(20f)    // انحناء الحواف
+            setGlowRadius(12f)      // قوة التوهج (Neon Glow)
+            
+            // الانتقال عند النقر
+            setOnClickListener {
+                val intent = Intent(this@MainActivity, TestActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun toggleNightMode() {

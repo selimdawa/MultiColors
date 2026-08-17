@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.shape.RelativeCornerSize
+import com.google.android.material.shape.ShapeAppearanceModel
 
 class MultiColorButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -19,7 +21,9 @@ class MultiColorButton @JvmOverloads constructor(
     }
 
     private fun setupDefaultStyle() {
-        radius = dpToPx(17f)
+        shapeAppearanceModel = ShapeAppearanceModel.builder()
+            .setAllCornerSizes(RelativeCornerSize(0.5f))
+            .build()
         setCardBackgroundColor(ColorStateList.valueOf(Color.TRANSPARENT))
         strokeColor = ContextCompat.getColor(context, R.color.mc_border_color)
         strokeWidth = dpToPx(1f).toInt()
