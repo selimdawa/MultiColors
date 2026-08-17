@@ -28,6 +28,7 @@ class MultiColorButton @JvmOverloads constructor(
         strokeColor = ContextCompat.getColor(context, R.color.mc_border_color)
         strokeWidth = dpToPx(1f).toInt()
         elevation = 0f
+        preventCornerOverlap = false
     }
 
     private fun setupListeners() {

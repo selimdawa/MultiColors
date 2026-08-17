@@ -3,11 +3,13 @@ package io.selimdawa.multicolors
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.view.View
+import android.widget.ImageView
 import androidx.core.view.isEmpty
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -15,10 +17,11 @@ open class MultiColorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
-    protected val mcInnerView: View = View(context).apply {
+    protected val mcInnerView: ShapeableImageView = ShapeableImageView(context).apply {
         layoutParams = LayoutParams(
             LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT
         )
+        scaleType = ImageView.ScaleType.CENTER_CROP
     }
 
     init {
@@ -29,8 +32,14 @@ open class MultiColorView @JvmOverloads constructor(
         }
     }
 
+    override fun setShapeAppearanceModel(shapeAppearanceModel: ShapeAppearanceModel) {
+        super.setShapeAppearanceModel(shapeAppearanceModel)
+        mcInnerView.shapeAppearanceModel = shapeAppearanceModel
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        mcInnerView.shapeAppearanceModel = shapeAppearanceModel
         findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
             MultiColorManager.currentThemeId.collectLatest {
                 updateAppearance()
@@ -40,6 +49,6 @@ open class MultiColorView @JvmOverloads constructor(
 
     protected open fun updateAppearance() {
         val theme = MultiColorManager.getCurrentTheme(context)
-        mcInnerView.background = MultiColorManager.getThemeBackground(context, theme)
+        mcInnerView.setImageDrawable(MultiColorManager.getThemeBackground(context, theme))
     }
 }
