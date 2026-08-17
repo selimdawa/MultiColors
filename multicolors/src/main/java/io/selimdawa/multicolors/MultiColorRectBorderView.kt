@@ -176,35 +176,17 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     }
 
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
+        val colors = MultiColorManager.getThemeColors(context, theme)
+
         val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
         val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
-        if (theme.colors.isNotEmpty()) {
-            val colors = theme.colors.toIntArray()
-            return if (colors.size == 1) {
-                if (showContrast) intArrayOf(colors[0], contrastColor, colors[0]) else intArrayOf(colors[0], colors[0])
-            } else colors
+        return if (colors.size == 1 || (colors.size == 2 && colors[0] == colors[1])) {
+            if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
+            else intArrayOf(colors[0], colors[0])
+        } else {
+            colors
         }
-        
-        val styleRes = theme.styleRes ?: return getRainbowColors()
-        val typedValue = TypedValue()
-        val c = context.resources.newTheme().apply { applyStyle(styleRes, true) }
-        
-        fun getColor(attr: Int): Int? {
-            return if (c.resolveAttribute(attr, typedValue, true)) {
-                if (typedValue.resourceId != 0) ResourcesCompat.getColor(context.resources, typedValue.resourceId, c)
-                else typedValue.data
-            } else null
-        }
-
-        val track = getColor(R.attr.mc_track)
-        val tick = getColor(R.attr.mc_tick)
-        if (track != null && tick != null) {
-            return if (track == tick) {
-                if (showContrast) intArrayOf(track, contrastColor, track) else intArrayOf(track, track)
-            } else intArrayOf(track, tick)
-        }
-        return getRainbowColors()
     }
 
     private fun getRainbowColors() = intArrayOf(

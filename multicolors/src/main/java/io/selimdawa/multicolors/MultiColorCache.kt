@@ -9,10 +9,10 @@ import android.util.LruCache
 @Suppress("unused")
 object MultiColorCache {
     // Cache for Drawables (e.g., backgrounds, gradients)
-    private val drawableCache = LruCache<String, Drawable>(32)
+    private val drawableCache = LruCache<String, Drawable>(128)
 
     // Cache for resolved color integers (e.g., mc_track, mc_tick)
-    private val colorCache = LruCache<String, Int>(64)
+    private val colorCache = LruCache<String, Int>(256)
 
     fun getDrawable(themeId: String, attrId: Int): Drawable? {
         return drawableCache.get("${themeId}_$attrId")

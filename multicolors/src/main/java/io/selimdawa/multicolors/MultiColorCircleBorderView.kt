@@ -237,69 +237,17 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
-        val isNightMode =
-            (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
-        val contrastColor =
-            if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
+        val colors = MultiColorManager.getThemeColors(context, theme)
+        
+        val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
-        if (theme.colors.isNotEmpty()) {
-            val colors = theme.colors.toIntArray()
-            return if (colors.size == 1) {
-                if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
-                else intArrayOf(colors[0], colors[0])
-            } else {
-                colors
-            }
+        return if (colors.size == 1 || (colors.size == 2 && colors[0] == colors[1])) {
+            if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
+            else intArrayOf(colors[0], colors[0])
+        } else {
+            colors
         }
-
-        val styleRes = theme.styleRes ?: return getRainbowColors()
-
-        val typedValue = TypedValue()
-        val c = context.resources.newTheme().apply { applyStyle(styleRes, true) }
-
-        fun getColor(attr: Int): Int? {
-            return if (c.resolveAttribute(attr, typedValue, true)) {
-                if (typedValue.resourceId != 0) {
-                    ResourcesCompat.getColor(context.resources, typedValue.resourceId, c)
-                } else {
-                    typedValue.data
-                }
-            } else null
-        }
-
-        val track = getColor(R.attr.mc_track)
-        val center = getColor(R.attr.mc_center)
-        val tick = getColor(R.attr.mc_tick)
-
-        if (track != null && tick != null) {
-            return if (track == tick) {
-                // Solid theme: Add contrast color based on theme
-                if (showContrast) intArrayOf(track, contrastColor, track)
-                else intArrayOf(track, track)
-            } else {
-                // Gradient theme: Only use track and tick
-                val baseDefault =
-                    ResourcesCompat.getColor(context.resources, R.color.mc_basic_light, c)
-                if (center != null && center != baseDefault && center != track && center != tick) {
-                    intArrayOf(track, center, tick)
-                } else {
-                    intArrayOf(track, tick)
-                }
-            }
-        }
-
-        // Fallback to primary/accent if track/tick not found
-        val primary = getColor(androidx.appcompat.R.attr.colorPrimary)
-        val accent = getColor(androidx.appcompat.R.attr.colorAccent)
-
-        if (primary != null && accent != null) {
-            return if (primary == accent) {
-                if (showContrast) intArrayOf(primary, contrastColor, primary)
-                else intArrayOf(primary, primary)
-            } else intArrayOf(primary, accent)
-        }
-
-        return getRainbowColors()
     }
 
     private fun getRainbowColors() = intArrayOf(

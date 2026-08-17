@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.toColorInt
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isNotEmpty
 import androidx.datastore.preferences.core.edit
@@ -449,5 +450,67 @@ object MultiColorManager {
             }
         }
         return ThemeRegistry.getTheme(id)
+    }
+
+    private val themeColorsCache = mutableMapOf<String, IntArray>()
+
+    fun getThemeColors(context: Context, theme: MultiColorTheme): IntArray {
+        val themeId = theme.id
+        val isNightMode =
+            (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val cacheKey = "${themeId}_${if (isNightMode) "N" else "D"}"
+
+        themeColorsCache[cacheKey]?.let { return it }
+
+        val styleRes = theme.styleRes
+        val colors = if (theme.colors.isNotEmpty()) {
+            theme.colors.toIntArray()
+        } else if (styleRes != null) {
+            val typedValue = TypedValue()
+            val themeObj = context.resources.newTheme().apply { applyStyle(styleRes, true) }
+
+            fun resolveColor(attr: Int): Int? {
+                return if (themeObj.resolveAttribute(attr, typedValue, true)) {
+                    if (typedValue.resourceId != 0) {
+                        ResourcesCompat.getColor(context.resources, typedValue.resourceId, themeObj)
+                    } else {
+                        typedValue.data
+                    }
+                } else null
+            }
+
+            val track = resolveColor(R.attr.mc_track)
+            val center = resolveColor(R.attr.mc_center)
+            val tick = resolveColor(R.attr.mc_tick)
+
+            if (track != null && tick != null) {
+                if (track == tick) {
+                    intArrayOf(track, track)
+                } else {
+                    if (center != null && center != track && center != tick) {
+                        intArrayOf(track, center, tick)
+                    } else {
+                        intArrayOf(track, tick)
+                    }
+                }
+            } else {
+                // Fallback to primary/accent
+                val primary = resolveColor(androidx.appcompat.R.attr.colorPrimary)
+                val accent = resolveColor(androidx.appcompat.R.attr.colorAccent)
+                if (primary != null && accent != null) {
+                    intArrayOf(primary, accent)
+                } else {
+                    null
+                }
+            }
+        } else null
+
+        val finalColors = colors ?: intArrayOf(
+            "#FF0000".toColorInt(), "#FF7F00".toColorInt(), "#FFFF00".toColorInt(),
+            "#00FF00".toColorInt(), "#0000FF".toColorInt(), "#4B0082".toColorInt(), "#8B00FF".toColorInt()
+        )
+
+        themeColorsCache[cacheKey] = finalColors
+        return finalColors
     }
 }
