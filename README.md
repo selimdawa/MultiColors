@@ -1,19 +1,25 @@
-# Multi Colors
+# Multi Colors 🎨
 
-**Multi Colors** is a professional and reactive theme management library for Android. It allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence and UI updates.
+**Multi Colors** is a professional and reactive theme management library for Android. It allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence and smooth UI transitions.
 
 ## Features
 
 - ✅ **Reactive Architecture**: Built with Kotlin Flow and Coroutines for real-time theme updates.
+- ✅ **Smooth Transitions**: Circular reveal animations for a premium user experience when changing themes.
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
-- ✅ **Gradient Support**: Full support for both solid colors and smooth 3-color gradients.
-- ✅ **MultiColorView & Button**: Pre-built components that react to theme changes automatically.
-- ✅ **Unified Theme API**: Simplified theme registration with a single data class.
+- ✅ **Advanced Preloading**: Uses `IdleHandler` to preload theme backgrounds for zero-lag UI.
+- ✅ **Custom Color Picker**: Integrated UI for users to create and save their own solid color themes.
+- ✅ **Theme Management**: Built-in dialog to manage, hide, or prioritize themes in the selection list.
+- ✅ **Safe Mode**: Automatic fallback to a default theme if registration errors or resource issues occur.
+- ✅ **Unified Theme API**: Simplified theme registration with support for XML styles or programmatic gradients.
 - ✅ **Edge-to-Edge Ready**: Built-in support for status and navigation bar color synchronization.
+- ✅ **New UI Components**: `MultiColorAvatarView` and `MultiColorBorderLayout` for stunning profile and container effects.
+- ✅ **Animated Borders**: Rotating gradient borders with customizable speed, direction, and neon glow.
+- ✅ **Rainbow Mode**: Optional rainbow color cycle for borders independent of the current theme.
 
 ## Installation
 
-Add it to your root `build.gradle` or `settings.gradle`:
+Add JitPack to your root `settings.gradle`:
 
 ```kotlin
 dependencyResolutionManagement {
@@ -42,21 +48,16 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         
-        // 1. Register XML-based themes (Best for Gradients)
-        ThemeRegistry.register(
-            MultiColorTheme(
-                id = "NIGHT_MODE",
-                name = "Night",
-                styleRes = R.style.Theme_MC_Black
-            )
-        )
+        // 1. (Optional) Configure Manager
+        MultiColorManager.isThemeSafeModeEnabled = true
+        MultiColorManager.excludedThemeIds = setOf("SOME_ID")
 
-        // 2. Register Programmatic Gradient themes
+        // 2. Register Custom Themes
         ThemeRegistry.register(
             MultiColorTheme(
                 id = "SUNSET",
                 name = "Sunset",
-                colors = listOf(Color.RED, Color.YELLOW, Color.BLUE),
+                colors = listOf(Color.RED, Color.YELLOW),
                 orientation = GradientDrawable.Orientation.TOP_BOTTOM
             )
         )
@@ -69,24 +70,73 @@ class MyApp : Application() {
 
 ### 2. Add to your Layout
 
-Use `MultiColorButton` for a clickable theme selector, or `MultiColorView` for a themed container:
+Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for a themed reactive container:
 
 ```xml
-<!-- Clickable button that opens the theme dialog -->
+<!-- Clickable button that automatically opens the theme management dialog -->
 <io.selimdawa.multicolors.MultiColorButton
-    android:layout_width="40dp"
-    android:layout_height="40dp" />
+    android:layout_width="48dp"
+    android:layout_height="48dp" />
 
-<!-- A view that automatically updates its background color/gradient -->
+<!-- A view (MaterialCardView-based) that reacts to theme changes -->
 <io.selimdawa.multicolors.MultiColorView
     android:layout_width="match_parent"
     android:layout_height="200dp"
     app:cardCornerRadius="16dp" />
+
+<!-- 🆕 MultiColorAvatarView: Profile image with rotating colorful border -->
+<io.selimdawa.multicolors.MultiColorAvatarView
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    app:mc_animate_border="true"
+    app:mc_border_thickness="4dp"
+    app:mc_glow_radius="8dp"
+    app:mc_image_src="@drawable/my_profile" />
+
+<!-- 🆕 MultiColorBorderLayout: A container with a rotating colorful border -->
+<io.selimdawa.multicolors.MultiColorBorderLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:mc_animate_border="true"
+    app:mc_border_thickness="2dp"
+    app:mc_corner_radius="12dp">
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Premium Button" />
+        
+</io.selimdawa.multicolors.MultiColorBorderLayout>
 ```
 
-## Customization
+## Advanced APIs
 
-You can replace all default themes by clearing the registry or simply adding your own. The library components will automatically react to any theme change without needing any manual code in your Activities.
+### Programmatic Control
+Change the theme manually from anywhere in your code:
+```kotlin
+MultiColorManager.showThemeDialog(activity) // Opens the selector
+// OR
+MultiColorManager.showColorPickerDialog(activity) // Opens the custom picker
+```
+
+### Exclude Themes
+Hide specific default themes from the user:
+```kotlin
+MultiColorManager.excludedThemeIds = setOf("GRADUAL_ONE", "SOLID_WHITE")
+```
+
+## XML Attributes
+
+Customizable attributes for `MultiColorAvatarView` and `MultiColorBorderLayout`:
+
+| Attribute                     | Description                               | Default       |
+|-------------------------------|-------------------------------------------|---------------|
+| `mc_animate_border`           | Enables/Disables border rotation          | `false`       |
+| `mc_border_thickness`         | Thickness of the colorful border          | `4dp` / `2dp` |
+| `mc_glow_radius`              | Adds a neon glow effect around the border | `0dp`         |
+| `mc_border_rotation_duration` | Time (ms) for a full 360° rotation        | `3000`        |
+| `mc_use_rainbow`              | Force rainbow colors instead of theme     | `false`       |
+| `mc_image_corner_radius`      | Corner radius for the avatar image        | `Pill`        |
 
 ## License
 
