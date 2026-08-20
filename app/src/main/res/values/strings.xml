@@ -37,4 +37,10 @@
     <string name="test_music_ui">Test Music UI</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="light_mode">Light Mode</string>
+    <string name="new_version">New</string>
+    <string name="old_version">Old</string>
+    <string name="red_blue_border">Red &amp; Blue Border</string>
+    <string name="premium_design">Premium Design</string>
+    <string name="multi">Multi</string>
+    <string name="colors">Colors</string>
 </resources>

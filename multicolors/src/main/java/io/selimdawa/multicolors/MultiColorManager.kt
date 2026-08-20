@@ -200,7 +200,7 @@ object MultiColorManager {
 
         themesToShow.forEach { theme ->
             val itemBinding = ItemThemeBinding.inflate(activity.layoutInflater)
-            itemBinding.themeNameText.text = theme.name
+            itemBinding.themeNameText.text = activity.getString(theme.nameRes)
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
 
             itemBinding.root.setOnClickListener { view ->
@@ -319,7 +319,7 @@ object MultiColorManager {
 
         allThemes.forEach { theme ->
             val itemBinding = ItemThemeManageBinding.inflate(activity.layoutInflater)
-            itemBinding.themeNameText.text = theme.name
+            itemBinding.themeNameText.text = activity.getString(theme.nameRes)
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
             itemViews[theme.id] = itemBinding
 

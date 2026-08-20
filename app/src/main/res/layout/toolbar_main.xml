@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Multi"
+            android:text="@string/multi"
             android:textColor="?mc_track"
             android:textSize="21sp"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Colors"
+            android:text="@string/colors"
             android:textColor="?mc_tick"
             android:textSize="21sp"
             android:textStyle="bold" />

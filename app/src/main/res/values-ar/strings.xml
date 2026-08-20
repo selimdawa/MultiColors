@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Multi Colors</string>
+
+    <string name="delete">حذف</string>
+    <string name="sort_by">فرز حسب</string>
+    <string name="name">الاسم</string>
+    <string name="date">التاريخ</string>
+    <string name="size">الحجم</string>
+    <string name="zero_zero">0:00</string>
+    <string name="song_title">عنوان الأغنية</string>
+    <string name="artist_name">اسم الفنان</string>
+    <string name="play_or_pause">تشغيل أو إيقاف</string>
+    <string name="next_song">الأغنية التالية</string>
+    <string name="folder_name">اسم المجلد</string>
+    <string name="songs">الأغاني</string>
+    <string name="_12_songs_storage_emulated_0_music_songs">12 أغنية | /storage/emulated/0/Music/Songs/</string>
+    <string name="ace_marino">Ace Marino</string>
+    <string name="_1_song">1 أغنية</string>
+    <string name="albums">الألبومات</string>
+    <string name="artists">الفنانون</string>
+    <string name="folders">المجلدات</string>
+    <string name="song_details_format">%1$s | %2$s</string>
+    <string name="favorite">مفضل</string>
+    <string name="cycle">تكرار</string>
+    <string name="favourites">المفضلات</string>
+    <string name="playlists">قوائم التشغيل</string>
+    <string name="recent">الأخيرة</string>
+    <string name="search">بحث…</string>
+    <string name="sort_songs">فرز الأغاني</string>
+    <string name="by_adding_time">حسب وقت الإضافة</string>
+    <string name="by_name">حسب الاسم</string>
+    <string name="by_play_count">حسب عدد مرات التشغيل</string>
+    <string name="by_release_date">حسب تاريخ الإصدار</string>
+    <string name="by_size">حسب الحجم</string>
+    <string name="shuffle_playback">تشغيل عشوائي</string>
+    <string name="no_items_found">لم يتم العثور على عناصر</string>
+    <string name="test_music_ui">تجربة واجهة الموسيقى</string>
+    <string name="dark_mode">الوضع الداكن</string>
+    <string name="light_mode">الوضع الفاتح</string>
+    <string name="new_version">جديد</string>
+    <string name="old_version">قديم</string>
+    <string name="red_blue_border">إطار أحمر وأزرق</string>
+    <string name="premium_design">تصميم مميز</string>
+    <string name="multi">متعدد</string>
+    <string name="colors">الألوان</string>
+</resources>

@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Multi Colors</string>
+    <string name="mc_select_theme">اختر السمة</string>
+    <string name="mc_manage_themes">إدارة السمات</string>
+    <string name="mc_edit">تعديل</string>
+    <string name="mc_solid_colors">ألوان سادة</string>
+    <string name="mc_gradient_2_colors">تدرجات من لونين</string>
+    <string name="mc_gradient_3_colors">تدرجات من 3 ألوان</string>
+    <string name="mc_gradient_colors">تدرجات</string>
+    <string name="mc_custom_color">لون مخصص</string>
+    <string name="mc_pick_color">اختر لوناً</string>
+    <string name="mc_save_theme">حفظ السمة</string>
+    <string name="mc_hex_code">رمز الـ Hex</string>
+    <string name="mc_cancel">إلغاء</string>
+
+    <!-- Theme Names -->
+    <string name="mc_theme_one">أساسي</string>
+    <string name="mc_theme_two">أزرق</string>
+    <string name="mc_theme_three">برتقالي 1</string>
+    <string name="mc_theme_four">برتقالي 2</string>
+    <string name="mc_theme_five">فوشيا</string>
+    <string name="mc_theme_six">وردي</string>
+    <string name="mc_theme_seven">بني</string>
+    <string name="mc_theme_eight">أحمر</string>
+    <string name="mc_theme_nine">أخضر</string>
+    <string name="mc_theme_gradient_one">متدرج 1</string>
+    <string name="mc_theme_gradient_two">متدرج 2</string>
+    <string name="mc_theme_gradient_three">متدرج 3</string>
+    <string name="mc_theme_gradient_four">متدرج 4</string>
+    <string name="mc_theme_gradient_five">متدرج 5</string>
+    <string name="mc_theme_gradient_six">متدرج 6</string>
+    <string name="mc_theme_gradient_seven">متدرج 7</string>
+    <string name="mc_theme_custom">مخصص</string>
+
+    <!-- Additional Solids -->
+    <string name="mc_theme_black">أسود نقي</string>
+    <string name="mc_theme_white">أبيض نقي</string>
+    <string name="mc_theme_cyan">سماوي</string>
+    <string name="mc_theme_magenta">أرجواني</string>
+    <string name="mc_theme_yellow">أصفر</string>
+    <string name="mc_theme_teal">تركواز</string>
+    <string name="mc_theme_purple">بنفسجي</string>
+    <string name="mc_theme_navy">كحلي</string>
+
+    <!-- 2-Color Gradients -->
+    <string name="mc_theme_sunset">غروب الشمس</string>
+    <string name="mc_theme_sea_blue">أزرق البحر</string>
+    <string name="mc_theme_mango">مانجو</string>
+    <string name="mc_theme_purple_love">حب بنفسجي</string>
+    <string name="mc_theme_peach">خوخ</string>
+    <string name="mc_theme_light_purple">بنفسجي فاتح</string>
+    <string name="mc_theme_deep_space">فضاء عميق</string>
+    <string name="mc_theme_cristal">كريستال</string>
+    <string name="mc_theme_emerald">زمرد</string>
+    <string name="mc_theme_relief">راحة</string>
+    <string name="mc_theme_morpheus">مورفيوس</string>
+    <string name="mc_theme_shadow">ظل</string>
+    <string name="mc_theme_copper">نحاس</string>
+    <string name="mc_theme_aura">أورا</string>
+    <string name="mc_theme_vast">شاسع</string>
+    <string name="mc_theme_horizon">أفق</string>
+    <string name="mc_theme_grit">عزيمة</string>
+    <string name="mc_theme_blood">دم</string>
+    <string name="mc_theme_lime">ليموني</string>
+    <string name="mc_theme_frost">صقيع</string>
+    <string name="mc_theme_lush">خصب</string>
+    <string name="mc_theme_aqua">أكوا</string>
+    <string name="mc_theme_youtube">يوتيوب</string>
+    <string name="mc_theme_cool_sky">سماء باردة</string>
+    <string name="mc_theme_mighty_blue">أزرق قوي</string>
+    <string name="mc_theme_evening">مساء</string>
+    <string name="mc_theme_kyoto">كيوتو</string>
+    <string name="mc_theme_kimoby">كيموبي</string>
+
+    <!-- 3-Color Gradients -->
+    <string name="mc_theme_rainbow_3">قوس قزح 3</string>
+    <string name="mc_theme_neon_night">ليل نيون</string>
+    <string name="mc_theme_ocean_deep">محيط عميق</string>
+    <string name="mc_theme_fire">نار</string>
+    <string name="mc_theme_sky">سماء</string>
+    <string name="mc_theme_pastel">باستيل</string>
+    <string name="mc_theme_lemonade">ليمونادة</string>
+    <string name="mc_theme_winter_3">شتاء 3</string>
+    <string name="mc_theme_galaxy">مجرة</string>
+    <string name="mc_theme_spectrum">طيف</string>
+    <string name="mc_theme_candy">حلوى</string>
+    <string name="mc_theme_winter">شتاء</string>
+    <string name="mc_theme_deep_sea">بحر عميق</string>
+</resources>

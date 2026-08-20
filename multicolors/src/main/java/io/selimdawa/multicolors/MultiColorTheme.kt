@@ -8,7 +8,7 @@ import androidx.annotation.StyleRes
  */
 data class MultiColorTheme(
     val id: String,
-    val name: String,
+    val nameRes: Int,
     @get:StyleRes val styleRes: Int? = null,
     val colors: List<Int> = emptyList(),
     val orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.TL_BR
