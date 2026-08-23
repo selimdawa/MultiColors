@@ -14,20 +14,24 @@ object MultiColorCache {
     // Cache for resolved color integers (e.g., mc_track, mc_tick)
     private val colorCache = LruCache<String, Int>(256)
 
-    fun getDrawable(themeId: String, attrId: Int): Drawable? {
-        return drawableCache.get("${themeId}_$attrId")
+    fun getDrawable(themeId: String, attrId: Int, isNightMode: Boolean): Drawable? {
+        val mode = if (isNightMode) "N" else "D"
+        return drawableCache.get("${themeId}_${attrId}_$mode")
     }
 
-    fun putDrawable(themeId: String, attrId: Int, drawable: Drawable) {
-        drawableCache.put("${themeId}_$attrId", drawable)
+    fun putDrawable(themeId: String, attrId: Int, drawable: Drawable, isNightMode: Boolean) {
+        val mode = if (isNightMode) "N" else "D"
+        drawableCache.put("${themeId}_${attrId}_$mode", drawable)
     }
 
-    fun getColor(themeId: String, attrId: Int): Int? {
-        return colorCache.get("${themeId}_$attrId")
+    fun getColor(themeId: String, attrId: Int, isNightMode: Boolean): Int? {
+        val mode = if (isNightMode) "N" else "D"
+        return colorCache.get("${themeId}_${attrId}_$mode")
     }
 
-    fun putColor(themeId: String, attrId: Int, color: Int) {
-        colorCache.put("${themeId}_$attrId", color)
+    fun putColor(themeId: String, attrId: Int, color: Int, isNightMode: Boolean) {
+        val mode = if (isNightMode) "N" else "D"
+        colorCache.put("${themeId}_${attrId}_$mode", color)
     }
 
     /**

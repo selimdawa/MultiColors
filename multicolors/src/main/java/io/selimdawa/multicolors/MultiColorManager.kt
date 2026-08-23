@@ -198,10 +198,23 @@ object MultiColorManager {
         val effectiveIds = savedThemeIds ?: defaultIds
         val themesToShow = allThemes.filter { effectiveIds.contains(it.id) }
 
+        val currentThemeId = _currentThemeId.value
         themesToShow.forEach { theme ->
             val itemBinding = ItemThemeBinding.inflate(activity.layoutInflater)
             itemBinding.themeNameText.text = activity.getString(theme.nameRes)
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
+
+            if (theme.id.equals(currentThemeId, ignoreCase = true)) {
+                itemBinding.rootCard.strokeWidth = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 1f, activity.resources.displayMetrics
+                ).toInt()
+                val typedValue = TypedValue()
+                if (activity.theme.resolveAttribute(androidx.appcompat.R.attr.colorError, typedValue, true)) {
+                    itemBinding.rootCard.strokeColor = typedValue.data
+                }
+            } else {
+                itemBinding.rootCard.strokeWidth = 0
+            }
 
             itemBinding.root.setOnClickListener { view ->
                 val location = IntArray(2)
@@ -381,8 +394,9 @@ object MultiColorManager {
     fun getThemeBackground(context: Context, theme: MultiColorTheme): Drawable {
         val themeId = theme.id
         val attrId = R.attr.mc_bg
+        val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
 
-        MultiColorCache.getDrawable(themeId, attrId)?.let { return it }
+        MultiColorCache.getDrawable(themeId, attrId, isNightMode)?.let { return it }
 
         val styleRes = theme.styleRes
         val drawable = when {
@@ -419,7 +433,7 @@ object MultiColorManager {
             }
         }
 
-        MultiColorCache.putDrawable(themeId, attrId, drawable)
+        MultiColorCache.putDrawable(themeId, attrId, drawable, isNightMode)
         return drawable
     }
 
