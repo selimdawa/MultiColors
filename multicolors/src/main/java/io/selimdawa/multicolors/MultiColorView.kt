@@ -1,6 +1,7 @@
 package io.selimdawa.multicolors
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.ImageView
@@ -45,6 +46,11 @@ open class MultiColorView @JvmOverloads constructor(
                 updateAppearance()
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        updateAppearance()
     }
 
     protected open fun updateAppearance() {
