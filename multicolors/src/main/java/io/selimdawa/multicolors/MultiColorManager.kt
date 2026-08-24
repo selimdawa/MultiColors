@@ -230,12 +230,12 @@ object MultiColorManager {
                 ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
                 ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
 
-                ThemeAnimationHelper.captureScreenshot(activity)
-                
-                val newThemeId = theme.id
-                _currentThemeId.value = newThemeId
-                managerScope.launch {
-                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+                ThemeAnimationHelper.captureScreenshot(activity) {
+                    val newThemeId = theme.id
+                    _currentThemeId.value = newThemeId
+                    managerScope.launch {
+                        activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+                    }
                 }
                 dialog.dismiss()
             }
@@ -304,10 +304,11 @@ object MultiColorManager {
             val hex = String.format("%06X", (0xFFFFFF and color))
             val newThemeId = "CUSTOM_$hex"
 
-            ThemeAnimationHelper.captureScreenshot(activity)
-            _currentThemeId.value = newThemeId
-            managerScope.launch {
-                activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+            ThemeAnimationHelper.captureScreenshot(activity) {
+                _currentThemeId.value = newThemeId
+                managerScope.launch {
+                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
+                }
             }
             dialog.dismiss()
         }

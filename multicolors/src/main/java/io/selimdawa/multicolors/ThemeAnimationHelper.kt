@@ -18,6 +18,7 @@ import kotlin.math.hypot
 object ThemeAnimationHelper {
     private var lastScreenshot: Bitmap? = null
     private var capturingActivityClassName: String? = null
+    private var currentCaptureId: Long = 0
     var animationStartX: Int = 0
     var animationStartY: Int = 0
 
@@ -28,6 +29,7 @@ object ThemeAnimationHelper {
             return
         }
 
+        val captureId = ++currentCaptureId
         // Clear previous screenshot to avoid stale reveal animations
         lastScreenshot = null
         capturingActivityClassName = activity::class.qualifiedName
@@ -44,8 +46,10 @@ object ThemeAnimationHelper {
                         location[0] + view.width,
                         location[1] + view.height
                     ), bitmap, { copyResult ->
-                        if (copyResult == PixelCopy.SUCCESS) {
-                            lastScreenshot = bitmap
+                        if (captureId == currentCaptureId) {
+                            if (copyResult == PixelCopy.SUCCESS) {
+                                lastScreenshot = bitmap
+                            }
                         }
                         onComplete()
                     }, HandlerCompat.createAsync(Looper.getMainLooper())
