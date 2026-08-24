@@ -29,11 +29,22 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <View
-            android:id="@+id/colorPreview"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@android:color/black" />
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:strokeColor="@color/mc_border_color"
+            app:strokeWidth="1dp">
+
+            <View
+                android:id="@+id/colorPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"

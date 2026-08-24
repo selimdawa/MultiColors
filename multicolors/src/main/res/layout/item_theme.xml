@@ -23,6 +23,8 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             app:cardCornerRadius="13dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
             app:strokeColor="@color/mc_border_color"
             app:strokeWidth="1dp">
 

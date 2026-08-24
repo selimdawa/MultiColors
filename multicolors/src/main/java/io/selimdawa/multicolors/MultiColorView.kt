@@ -28,6 +28,7 @@ open class MultiColorView @JvmOverloads constructor(
     init {
         setCardBackgroundColor(Color.TRANSPARENT)
         clipToOutline = true
+        preventCornerOverlap = false
         if (isEmpty()) {
             addView(mcInnerView)
         }
