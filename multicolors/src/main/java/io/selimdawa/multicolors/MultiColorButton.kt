@@ -31,9 +31,16 @@ class MultiColorButton @JvmOverloads constructor(
         preventCornerOverlap = false
     }
 
+    private var lastClickTime: Long = 0
+    private val clickInterval: Long = 1000 // 1 second
+
     private fun setupListeners() {
         setOnClickListener {
-            findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - lastClickTime > clickInterval) {
+                lastClickTime = currentTime
+                findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
+            }
         }
     }
 

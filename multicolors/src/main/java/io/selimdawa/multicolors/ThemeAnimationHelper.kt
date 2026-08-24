@@ -21,10 +21,15 @@ object ThemeAnimationHelper {
     var animationStartX: Int = 0
     var animationStartY: Int = 0
 
-    fun captureScreenshot(activity: Activity) {
+    fun captureScreenshot(activity: Activity, onComplete: () -> Unit = {}) {
         val view = activity.window.decorView
-        if (view.width <= 0 || view.height <= 0) return
+        if (view.width <= 0 || view.height <= 0) {
+            onComplete()
+            return
+        }
 
+        // Clear previous screenshot to avoid stale reveal animations
+        lastScreenshot = null
         capturingActivityClassName = activity::class.qualifiedName
         val bitmap = createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
 
@@ -42,6 +47,7 @@ object ThemeAnimationHelper {
                         if (copyResult == PixelCopy.SUCCESS) {
                             lastScreenshot = bitmap
                         }
+                        onComplete()
                     }, HandlerCompat.createAsync(Looper.getMainLooper())
                 )
             } catch (_: IllegalArgumentException) {
@@ -49,11 +55,13 @@ object ThemeAnimationHelper {
                 val canvas = Canvas(bitmap)
                 view.draw(canvas)
                 lastScreenshot = bitmap
+                onComplete()
             }
         } else {
             val canvas = Canvas(bitmap)
             view.draw(canvas)
             lastScreenshot = bitmap
+            onComplete()
         }
     }
 

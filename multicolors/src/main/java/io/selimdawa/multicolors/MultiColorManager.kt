@@ -3,6 +3,10 @@ package io.selimdawa.multicolors
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import android.R as AndroidR
+import androidx.appcompat.R as AppCompatR
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -10,12 +14,13 @@ import android.os.Bundle
 import android.os.Looper
 import android.os.MessageQueue
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.toColorInt
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isNotEmpty
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -179,7 +184,7 @@ object MultiColorManager {
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
 
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setBackgroundDrawableResource(AndroidR.color.transparent)
         dialog.show()
 
         val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
@@ -209,7 +214,10 @@ object MultiColorManager {
                     TypedValue.COMPLEX_UNIT_DIP, 1f, activity.resources.displayMetrics
                 ).toInt()
                 val typedValue = TypedValue()
-                if (activity.theme.resolveAttribute(androidx.appcompat.R.attr.colorError, typedValue, true)) {
+                if (activity.theme.resolveAttribute(
+                        AppCompatR.attr.colorError, typedValue, true
+                    )
+                ) {
                     itemBinding.rootCard.strokeColor = typedValue.data
                 }
             } else {
@@ -222,13 +230,12 @@ object MultiColorManager {
                 ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
                 ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
 
-                dialog.setOnDismissListener {
-                    ThemeAnimationHelper.captureScreenshot(activity)
-                    val newThemeId = theme.id
-                    _currentThemeId.value = newThemeId
-                    managerScope.launch {
-                        activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
-                    }
+                ThemeAnimationHelper.captureScreenshot(activity)
+                
+                val newThemeId = theme.id
+                _currentThemeId.value = newThemeId
+                managerScope.launch {
+                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
                 }
                 dialog.dismiss()
             }
@@ -246,11 +253,11 @@ object MultiColorManager {
 
         // Hide empty categories
         dialogBinding.tvSolid.visibility =
-            if (dialogBinding.solidFlexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.solidFlexbox.isNotEmpty()) View.VISIBLE else View.GONE
         dialogBinding.tvGradient2.visibility =
-            if (dialogBinding.gradient2Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.gradient2Flexbox.isNotEmpty()) View.VISIBLE else View.GONE
         dialogBinding.tvGradient3.visibility =
-            if (dialogBinding.gradient3Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+            if (dialogBinding.gradient3Flexbox.isNotEmpty()) View.VISIBLE else View.GONE
 
         dialogBinding.btnEditThemes.setOnClickListener {
             dialog.dismiss()
@@ -266,7 +273,7 @@ object MultiColorManager {
     private fun showColorPickerDialog(activity: AppCompatActivity) {
         val dialogBinding = DialogColorPickerBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setBackgroundDrawableResource(AndroidR.color.transparent)
         dialog.show()
 
         val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
@@ -309,14 +316,15 @@ object MultiColorManager {
     private fun showManageThemesDialog(activity: AppCompatActivity) {
         val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
         val defaultIds = allThemes.map { it.id }.toSet()
+        val currentThemeId = _currentThemeId.value
 
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         dialogBinding.dialogTitle.text = activity.getString(R.string.mc_manage_themes)
-        dialogBinding.btnEditThemes.visibility = android.view.View.GONE
-        dialogBinding.btnBack.visibility = android.view.View.VISIBLE
+        dialogBinding.btnEditThemes.visibility = View.GONE
+        dialogBinding.btnBack.visibility = View.VISIBLE
 
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setBackgroundDrawableResource(AndroidR.color.transparent)
         dialog.show()
 
         dialogBinding.btnBack.setOnClickListener {
@@ -335,6 +343,16 @@ object MultiColorManager {
             itemBinding.themeNameText.text = activity.getString(theme.nameRes)
             itemBinding.themeColorView.background = getThemeBackground(activity, theme)
             itemViews[theme.id] = itemBinding
+
+            if (theme.id.equals(currentThemeId, ignoreCase = true)) {
+                itemBinding.rootCard.strokeWidth = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 1f, activity.resources.displayMetrics
+                ).toInt()
+                val typedValue = TypedValue()
+                if (activity.theme.resolveAttribute(AppCompatR.attr.colorError, typedValue, true)) {
+                    itemBinding.rootCard.strokeColor = typedValue.data
+                }
+            }
 
             val root = itemBinding.root
             val targetFlexbox = when {
@@ -374,19 +392,19 @@ object MultiColorManager {
 
                     // Update ONLY the state, extremely fast!
                     itemBinding.statusIcon.setImageResource(
-                        if (isMain) android.R.drawable.ic_delete
-                        else android.R.drawable.ic_input_add
+                        if (isMain) AndroidR.drawable.ic_delete
+                        else AndroidR.drawable.ic_input_add
                     )
                     itemBinding.statusIcon.setColorFilter(if (isMain) Color.RED else Color.GREEN)
                 }
 
                 // Update headers visibility once
                 dialogBinding.tvSolid.visibility =
-                    if (dialogBinding.solidFlexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.solidFlexbox.isNotEmpty()) View.VISIBLE else View.GONE
                 dialogBinding.tvGradient2.visibility =
-                    if (dialogBinding.gradient2Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.gradient2Flexbox.isNotEmpty()) View.VISIBLE else View.GONE
                 dialogBinding.tvGradient3.visibility =
-                    if (dialogBinding.gradient3Flexbox.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+                    if (dialogBinding.gradient3Flexbox.isNotEmpty()) View.VISIBLE else View.GONE
             }
         }
     }
@@ -394,7 +412,8 @@ object MultiColorManager {
     fun getThemeBackground(context: Context, theme: MultiColorTheme): Drawable {
         val themeId = theme.id
         val attrId = R.attr.mc_bg
-        val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val isNightMode =
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
         MultiColorCache.getDrawable(themeId, attrId, isNightMode)?.let { return it }
 
@@ -438,11 +457,11 @@ object MultiColorManager {
     }
 
     private fun resolveThemeDrawable(
-        context: Context, theme: android.content.res.Resources.Theme, attrToResolve: Int
+        context: Context, theme: Resources.Theme, attrToResolve: Int
     ): Drawable {
         val typedValue = TypedValue()
         val attrIds = intArrayOf(
-            attrToResolve, android.R.attr.background, android.R.attr.colorBackground
+            attrToResolve, AndroidR.attr.background, AndroidR.attr.colorBackground
         )
 
         var resolved = false
@@ -479,7 +498,7 @@ object MultiColorManager {
     fun getThemeColors(context: Context, theme: MultiColorTheme): IntArray {
         val themeId = theme.id
         val isNightMode =
-            (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
         val cacheKey = "${themeId}_${if (isNightMode) "N" else "D"}"
 
         themeColorsCache[cacheKey]?.let { return it }
@@ -517,8 +536,8 @@ object MultiColorManager {
                 }
             } else {
                 // Fallback to primary/accent
-                val primary = resolveColor(androidx.appcompat.R.attr.colorPrimary)
-                val accent = resolveColor(androidx.appcompat.R.attr.colorAccent)
+                val primary = resolveColor(AppCompatR.attr.colorPrimary)
+                val accent = resolveColor(AppCompatR.attr.colorAccent)
                 if (primary != null && accent != null) {
                     intArrayOf(primary, accent)
                 } else {
@@ -528,8 +547,13 @@ object MultiColorManager {
         } else null
 
         val finalColors = colors ?: intArrayOf(
-            "#FF0000".toColorInt(), "#FF7F00".toColorInt(), "#FFFF00".toColorInt(),
-            "#00FF00".toColorInt(), "#0000FF".toColorInt(), "#4B0082".toColorInt(), "#8B00FF".toColorInt()
+            "#FF0000".toColorInt(),
+            "#FF7F00".toColorInt(),
+            "#FFFF00".toColorInt(),
+            "#00FF00".toColorInt(),
+            "#0000FF".toColorInt(),
+            "#4B0082".toColorInt(),
+            "#8B00FF".toColorInt()
         )
 
         themeColorsCache[cacheKey] = finalColors

@@ -3,6 +3,7 @@
 package io.selimdawa.multicolors
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -178,7 +179,7 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
         val colors = MultiColorManager.getThemeColors(context, theme)
 
-        val isNightMode = (context.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val isNightMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
         val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
         return if (colors.size == 1 || (colors.size == 2 && colors[0] == colors[1])) {

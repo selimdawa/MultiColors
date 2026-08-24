@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 
@@ -90,7 +91,7 @@ class MultiColorBorderLayout @JvmOverloads constructor(
         borderView.resetToThemeColors()
     }
 
-    private fun dpToPx(dp: Float): Float = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
+    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
     )
 }
