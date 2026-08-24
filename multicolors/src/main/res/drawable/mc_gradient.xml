@@ -7,5 +7,4 @@
         android:endColor="?mc_tick"
         android:startColor="?mc_track"
         android:type="linear" />
-
 </shape>

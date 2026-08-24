@@ -22,4 +22,10 @@
         <!-- This will tint the checkbox to white -->
         <item name="buttonTint">@color/mc_white</item>
     </style>
+    <style name="Theme.MC.G2_17" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient</item>
+        <item name="mc_track">#0f9b0f</item>
+        <item name="mc_tick">#000000</item>
+    </style>
+
 </resources>

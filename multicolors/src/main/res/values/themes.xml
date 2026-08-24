@@ -207,14 +207,14 @@
 
     <style name="Theme.MC.G2_17" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_track">#000000</item>
-        <item name="mc_tick">#0f9b0f</item>
+        <item name="mc_track">#0f9b0f</item>
+        <item name="mc_tick">#ffffff</item>
     </style>
 
     <style name="Theme.MC.G2_20" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_track">#000428</item>
-        <item name="mc_tick">#004e92</item>
+        <item name="mc_track">#004e92</item>
+        <item name="mc_tick">#000428</item>
     </style>
 
     <style name="Theme.MC.G2_23" parent="MC_Base_Theme">
