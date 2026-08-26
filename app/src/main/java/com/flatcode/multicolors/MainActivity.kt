@@ -4,15 +4,13 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
 import io.selimdawa.multicolors.R as MultiColorR
 import com.flatcode.multicolors.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -84,19 +82,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleNightMode() {
-        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
-        AppCompatDelegate.setDefaultNightMode(
-            if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-        )
-    }
-
     private fun updateNightModeButton() {
         val currentMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         val isNightMode = currentMode == Configuration.UI_MODE_NIGHT_YES
         android.util.Log.d("NightMode", "Updating button: isNightMode = $isNightMode")
         binding.tvNightMode.text =
             if (isNightMode) getString(R.string.light_mode) else getString(R.string.dark_mode)
+
+        binding.toolbar.btnThemeToggle.setImageResource(
+            if (isNightMode) R.drawable.ic_light else R.drawable.ic_night
+        )
     }
 }

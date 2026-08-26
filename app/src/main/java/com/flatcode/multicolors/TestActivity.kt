@@ -2,13 +2,12 @@ package com.flatcode.multicolors
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
 import com.flatcode.multicolors.databinding.ActivityTestBinding
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTestBinding
 
