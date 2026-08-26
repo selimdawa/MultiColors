@@ -47,7 +47,7 @@ val Context.multiColorDataStore by preferencesDataStore(name = "multicolor_prefs
 
 object MultiColorManager {
     private val themeKey = stringPreferencesKey("color_option")
-    private val mainThemesKey = stringSetPreferencesKey("main_themes")
+    private val hiddenThemesKey = stringSetPreferencesKey("hidden_themes")
     private val managerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private val _currentThemeId = MutableStateFlow("")
@@ -191,17 +191,15 @@ object MultiColorManager {
         dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
-        val defaultIds = allThemes.map { it.id }.toSet()
 
-        // Load main themes from DataStore
-        val savedThemeIds = runBlocking {
+        // Load hidden themes from DataStore
+        val hiddenIds = runBlocking {
             activity.multiColorDataStore.data.map {
-                it[mainThemesKey]
+                it[hiddenThemesKey] ?: emptySet()
             }.first()
         }
 
-        val effectiveIds = savedThemeIds ?: defaultIds
-        val themesToShow = allThemes.filter { effectiveIds.contains(it.id) }
+        val themesToShow = allThemes.filter { it.id !in hiddenIds }
 
         val currentThemeId = _currentThemeId.value
         themesToShow.forEach { theme ->
@@ -241,9 +239,7 @@ object MultiColorManager {
             }
 
             val targetFlexbox = when {
-                theme.colors.size == 3 || theme.id.startsWith(
-                    "G3_"
-                ) -> dialogBinding.gradient3Flexbox
+                theme.colors.size == 3 || theme.id.startsWith("G3_") || theme.id.startsWith("SKY_") -> dialogBinding.gradient3Flexbox
 
                 theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
@@ -316,7 +312,6 @@ object MultiColorManager {
 
     private fun showManageThemesDialog(activity: AppCompatActivity) {
         val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
-        val defaultIds = allThemes.map { it.id }.toSet()
         val currentThemeId = _currentThemeId.value
 
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
@@ -357,9 +352,7 @@ object MultiColorManager {
 
             val root = itemBinding.root
             val targetFlexbox = when {
-                theme.colors.size == 3 || theme.id.startsWith(
-                    "G3_"
-                ) -> dialogBinding.gradient3Flexbox
+                theme.colors.size == 3 || theme.id.startsWith("G3_") || theme.id.startsWith("SKY_") -> dialogBinding.gradient3Flexbox
 
                 theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
@@ -369,14 +362,13 @@ object MultiColorManager {
             itemBinding.themeClickArea.setOnClickListener {
                 managerScope.launch {
                     activity.multiColorDataStore.edit { p ->
-                        val currentSet =
-                            p[mainThemesKey]?.toMutableSet() ?: defaultIds.toMutableSet()
-                        if (currentSet.contains(theme.id)) {
-                            currentSet.remove(theme.id)
+                        val currentHidden = p[hiddenThemesKey]?.toMutableSet() ?: mutableSetOf()
+                        if (currentHidden.contains(theme.id)) {
+                            currentHidden.remove(theme.id)
                         } else {
-                            currentSet.add(theme.id)
+                            currentHidden.add(theme.id)
                         }
-                        p[mainThemesKey] = currentSet
+                        p[hiddenThemesKey] = currentHidden
                     }
                 }
             }
@@ -384,19 +376,18 @@ object MultiColorManager {
 
         activity.lifecycleScope.launch {
             activity.multiColorDataStore.data.collectLatest { prefs ->
-                val savedThemeIds = prefs[mainThemesKey]
-                val effectiveIds = savedThemeIds ?: defaultIds
+                val hiddenIds = prefs[hiddenThemesKey] ?: emptySet()
 
                 allThemes.forEach { theme ->
                     val itemBinding = itemViews[theme.id] ?: return@forEach
-                    val isMain = effectiveIds.contains(theme.id)
+                    val isVisible = !hiddenIds.contains(theme.id)
 
                     // Update ONLY the state, extremely fast!
                     itemBinding.statusIcon.setImageResource(
-                        if (isMain) AndroidR.drawable.ic_delete
+                        if (isVisible) AndroidR.drawable.ic_delete
                         else AndroidR.drawable.ic_input_add
                     )
-                    itemBinding.statusIcon.setColorFilter(if (isMain) Color.RED else Color.GREEN)
+                    itemBinding.statusIcon.setColorFilter(if (isVisible) Color.RED else Color.GREEN)
                 }
 
                 // Update headers visibility once
