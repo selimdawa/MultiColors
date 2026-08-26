@@ -61,7 +61,6 @@
     <string name="mc_theme_slate">Slate</string>
     <string name="mc_theme_moss">Moss Green</string>
     <string name="mc_theme_clay">Clay Earth</string>
-    <string name="mc_theme_midnight">Midnight Blue</string>
     <string name="mc_theme_dusty_blue">Dusty Blue</string>
     <string name="mc_theme_olive">Olive Garden</string>
     <string name="mc_theme_rose">Pastel Rose</string>
@@ -78,7 +77,6 @@
     <string name="mc_theme_sky_sunset">Sky Sunset</string>
     <string name="mc_theme_sky_morning">Sky Morning</string>
     <string name="mc_theme_sky_storm">Sky Storm</string>
-    <string name="mc_theme_sky_aurora">Sky Aurora</string>
 
     <string-array name="mc_theme_entries">
         <item>@string/mc_theme_one</item>

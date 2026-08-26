@@ -52,6 +52,11 @@
     <color name="mc_neon_center">#AB47BC</color>
     <color name="mc_neon_tick">#EC407A</color>
 
+    <!-- Sky Storm Colors -->
+    <color name="mc_sky_storm_track">#3A8FB7</color>
+    <color name="mc_sky_storm_center">#4D7CAE</color>
+    <color name="mc_sky_storm_tick">#5F70A6</color>
+
     <!-- Custom Avatar Rainbow Colors -->
     <color name="mc_avatar_1">#FF0000</color>
     <color name="mc_avatar_2">#FF7F00</color>

@@ -1,5 +1,7 @@
 package io.selimdawa.multicolors
 
+import android.graphics.Color
+
 object ThemeRegistry {
     private val themes = mutableMapOf<String, MultiColorTheme>()
 
@@ -55,7 +57,6 @@ object ThemeRegistry {
             MultiColorTheme("G2_33", R.string.mc_theme_slate, R.style.Theme_MC_G2_33),
             MultiColorTheme("G2_34", R.string.mc_theme_moss, R.style.Theme_MC_G2_34),
             MultiColorTheme("G2_35", R.string.mc_theme_clay, R.style.Theme_MC_G2_35),
-            MultiColorTheme("G2_36", R.string.mc_theme_midnight, R.style.Theme_MC_G2_36),
             MultiColorTheme("G2_37", R.string.mc_theme_dusty_blue, R.style.Theme_MC_G2_37),
             MultiColorTheme("G2_38", R.string.mc_theme_olive, R.style.Theme_MC_G2_38),
             MultiColorTheme("G2_39", R.string.mc_theme_rose, R.style.Theme_MC_G2_39),
@@ -64,7 +65,14 @@ object ThemeRegistry {
             MultiColorTheme("G3_2", R.string.mc_theme_neon, R.style.Theme_MC_G3_2),
             MultiColorTheme("G3_3", R.string.mc_theme_ocean_deep, R.style.Theme_MC_G3_3),
             MultiColorTheme("G3_5", R.string.mc_theme_sky, R.style.Theme_MC_G3_5),
-            MultiColorTheme("G3_9", R.string.mc_theme_galaxy, R.style.Theme_MC_G3_9)
+            MultiColorTheme("G3_9", R.string.mc_theme_galaxy, R.style.Theme_MC_G3_9),
+
+            // Sky Themes (3-Color Gradients)
+            MultiColorTheme("SKY_DAY", R.string.mc_theme_sky_day, R.style.Theme_MC_Sky_Day),
+            MultiColorTheme("SKY_NIGHT", R.string.mc_theme_sky_night, R.style.Theme_MC_Sky_Night),
+            MultiColorTheme("SKY_SUNSET", R.string.mc_theme_sky_sunset, R.style.Theme_MC_Sky_Sunset),
+            MultiColorTheme("SKY_MORNING", R.string.mc_theme_sky_morning, R.style.Theme_MC_Sky_Morning),
+            MultiColorTheme("SKY_STORM", R.string.mc_theme_sky_storm, R.style.Theme_MC_Sky_Storm)
         )
         defaultThemes.forEach { register(it) }
     }
@@ -77,7 +85,7 @@ object ThemeRegistry {
         if (id.startsWith("CUSTOM_")) {
             try {
                 val colorHex = id.substringAfter("CUSTOM_")
-                val color = android.graphics.Color.parseColor("#$colorHex")
+                val color = Color.parseColor("#$colorHex")
                 return MultiColorTheme(id, R.string.mc_theme_custom, colors = listOf(color, color))
             } catch (e: Exception) {
                 // Fallback

@@ -7,4 +7,9 @@
     <color name="mc_neon_track">#00E5FF</color>
     <color name="mc_neon_center">#D500F9</color>
     <color name="mc_neon_tick">#FF4081</color>
+
+    <!-- Sky Storm Colors (Night Mode) -->
+    <color name="mc_sky_storm_track">#48C6EF</color>
+    <color name="mc_sky_storm_center">#5BA1E3</color>
+    <color name="mc_sky_storm_tick">#6F86D6</color>
 </resources>

@@ -61,7 +61,6 @@
     <string name="mc_theme_slate">سجيل (رمادي أزرق)</string>
     <string name="mc_theme_moss">طحلب (أخضر هادئ)</string>
     <string name="mc_theme_clay">طين (ترابي)</string>
-    <string name="mc_theme_midnight">منتصف الليل (أزرق داكن)</string>
     <string name="mc_theme_dusty_blue">أزرق مغبر</string>
     <string name="mc_theme_olive">حديقة الزيتون</string>
     <string name="mc_theme_rose">وردي هادئ</string>
@@ -78,5 +77,4 @@
     <string name="mc_theme_sky_sunset">سماء الغروب</string>
     <string name="mc_theme_sky_morning">سماء الصباح</string>
     <string name="mc_theme_sky_storm">سماء عاصفة</string>
-    <string name="mc_theme_sky_aurora">سماء الأورورا</string>
 </resources>
