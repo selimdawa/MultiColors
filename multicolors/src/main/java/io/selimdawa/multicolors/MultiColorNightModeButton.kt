@@ -58,20 +58,17 @@ class MultiColorNightModeButton @JvmOverloads constructor(
         val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
                 Configuration.UI_MODE_NIGHT_YES
 
-        // 1. Pre-rotation for Sun: If current is Sun, rotate it fully (400ms) before transition
         if (isNightMode) {
+            // Sun spinning out for 400ms
             animate()
                 .rotation(180f)
-                .setDuration(400) // Increased to match theme animation duration
+                .setDuration(400)
                 .setInterpolator(DecelerateInterpolator())
-                .withEndAction {
-                    performNightModeTransition(activity, isNightMode)
-                }
                 .start()
-        } else {
-            // For Moon, start immediately as requested (Sun will rotate in the new activity)
-            performNightModeTransition(activity, isNightMode)
         }
+        
+        // Start transition IMMEDIATELY in parallel
+        performNightModeTransition(activity, isNightMode)
     }
 
     private fun performNightModeTransition(activity: Activity, isNightMode: Boolean) {

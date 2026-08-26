@@ -1,7 +1,6 @@
 package com.flatcode.multicolors
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -62,11 +61,6 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        updateNightModeButton()
-
-        binding.btnNightMode.setOnClickListener { toggleNightMode(it) }
-        binding.tvNightMode.setOnClickListener { toggleNightMode(it) }
-
         // New animated border settings
         binding.redBlueBorder.apply {
             setAnimationSpeed(2000L) // Rotation speed
@@ -80,17 +74,5 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
-    }
-
-    private fun updateNightModeButton() {
-        val currentMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        val isNightMode = currentMode == Configuration.UI_MODE_NIGHT_YES
-        android.util.Log.d("NightMode", "Updating button: isNightMode = $isNightMode")
-        binding.tvNightMode.text =
-            if (isNightMode) getString(R.string.light_mode) else getString(R.string.dark_mode)
-
-        binding.toolbar.btnThemeToggle.setImageResource(
-            if (isNightMode) R.drawable.ic_light else R.drawable.ic_night
-        )
     }
 }
