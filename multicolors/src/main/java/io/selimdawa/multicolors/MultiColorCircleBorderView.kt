@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.min
@@ -29,6 +30,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private var themeJob: Job? = null
     private var borderThickness = dpToPx(4f)
     private var useRainbow = false
     private var alwaysWhite = false
@@ -107,11 +109,18 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+        themeJob?.cancel()
+        themeJob = findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
             MultiColorManager.currentThemeId.collectLatest {
                 updateAppearance()
             }
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        themeJob?.cancel()
+        themeJob = null
+        super.onDetachedFromWindow()
     }
 
     /**

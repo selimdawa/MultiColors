@@ -171,6 +171,12 @@ class MultiColorAvatarView @JvmOverloads constructor(
         }
     }
 
+    override fun onDetachedFromWindow() {
+        borderAnimator?.cancel()
+        imageAnimator?.cancel()
+        super.onDetachedFromWindow()
+    }
+
     /**
      * Resets the border to use theme or rainbow colors.
      */

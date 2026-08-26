@@ -12,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.math.min
@@ -24,6 +25,7 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private var themeJob: Job? = null
     private var borderThickness = dpToPx(2f)
     private var cornerRadius = dpToPx(8f)
     private var useRainbow = false
@@ -91,11 +93,18 @@ class MultiColorRectBorderView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+        themeJob?.cancel()
+        themeJob = findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
             MultiColorManager.currentThemeId.collectLatest {
                 updateAppearance()
             }
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        themeJob?.cancel()
+        themeJob = null
+        super.onDetachedFromWindow()
     }
 
     fun setBorderThickness(thicknessInPx: Float) {

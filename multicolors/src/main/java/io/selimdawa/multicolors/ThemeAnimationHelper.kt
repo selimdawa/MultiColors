@@ -30,7 +30,8 @@ object ThemeAnimationHelper {
         }
 
         val captureId = ++currentCaptureId
-        // Clear previous screenshot to avoid stale reveal animations
+        // Clear previous screenshot and recycle to free memory
+        lastScreenshot?.recycle()
         lastScreenshot = null
         capturingActivityClassName = activity::class.qualifiedName
         val bitmap = createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
@@ -86,9 +87,15 @@ object ThemeAnimationHelper {
     }
 
     fun checkAndPerformRevealAnimation(activity: Activity) {
-        val screenshot = lastScreenshot ?: return
+        val screenshot = lastScreenshot
 
-        if (capturingActivityClassName != activity::class.qualifiedName) return
+        // If the activity doesn't match, or there's no screenshot, cleanup and return
+        if (screenshot == null || capturingActivityClassName != activity::class.qualifiedName) {
+            lastScreenshot?.recycle()
+            lastScreenshot = null
+            capturingActivityClassName = null
+            return
+        }
 
         lastScreenshot = null
         capturingActivityClassName = null
@@ -118,13 +125,23 @@ object ThemeAnimationHelper {
                 anim.duration = 800
                 anim.addListener(object : android.animation.AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: android.animation.Animator) {
-                        if (overlay.parent != null) {
-                            (overlay.parent as ViewGroup).removeView(overlay)
-                        }
+                        cleanupOverlay(overlay)
+                    }
+
+                    override fun onAnimationCancel(animation: android.animation.Animator) {
+                        cleanupOverlay(overlay)
                     }
                 })
                 anim.start()
             }
         }, 50)
+    }
+
+    private fun cleanupOverlay(overlay: ImageView) {
+        if (overlay.parent != null) {
+            (overlay.parent as ViewGroup).removeView(overlay)
+        }
+        // Free the bitmap memory
+        overlay.setImageDrawable(null)
     }
 }

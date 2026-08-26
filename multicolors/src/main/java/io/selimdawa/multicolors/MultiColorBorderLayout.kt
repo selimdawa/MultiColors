@@ -74,6 +74,11 @@ class MultiColorBorderLayout @JvmOverloads constructor(
         }
     }
 
+    override fun onDetachedFromWindow() {
+        borderAnimator?.cancel()
+        super.onDetachedFromWindow()
+    }
+
     fun setAnimateBorder(animate: Boolean) {
         isAnimatingBorder = animate
         updateAnimations()

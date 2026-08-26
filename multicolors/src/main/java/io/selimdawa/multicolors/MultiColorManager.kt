@@ -97,7 +97,9 @@ object MultiColorManager {
                         currentThemeId.collectLatest { themeId ->
                             // Only recreate if the theme has actually changed since this activity was created
                             if (themeAtCreation.isNotEmpty() && themeAtCreation != themeId) {
-                                ThemeAnimationHelper.startThemeChangeAnimation(activity)
+                                if (!activity.isFinishing && !activity.isDestroyed) {
+                                    ThemeAnimationHelper.startThemeChangeAnimation(activity)
+                                }
                             }
                         }
                     }
@@ -223,13 +225,21 @@ object MultiColorManager {
             }
 
             itemBinding.root.setOnClickListener { view ->
+                val newThemeId = theme.id
+                val currentId = _currentThemeId.value
+                
+                // 1. منع النقر المتكرر إذا كان هو الثيم المختار حالياً
+                if (newThemeId.equals(currentId, ignoreCase = true)) {
+                    dialog.dismiss()
+                    return@setOnClickListener
+                }
+
                 val location = IntArray(2)
                 view.getLocationInWindow(location)
                 ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
                 ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
 
                 ThemeAnimationHelper.captureScreenshot(activity) {
-                    val newThemeId = theme.id
                     _currentThemeId.value = newThemeId
                     managerScope.launch {
                         activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
@@ -299,6 +309,12 @@ object MultiColorManager {
             val color = colorWheel.getColor()
             val hex = String.format("%06X", (0xFFFFFF and color))
             val newThemeId = "CUSTOM_$hex"
+            
+            // منع إعادة تعيين نفس اللون المخصص حالياً
+            if (newThemeId.equals(_currentThemeId.value, ignoreCase = true)) {
+                dialog.dismiss()
+                return@setOnClickListener
+            }
 
             ThemeAnimationHelper.captureScreenshot(activity) {
                 _currentThemeId.value = newThemeId
@@ -407,7 +423,7 @@ object MultiColorManager {
         val isNightMode =
             (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
-        MultiColorCache.getDrawable(themeId, attrId, isNightMode)?.let { return it }
+        MultiColorCache.getDrawable(themeId, attrId, isNightMode)?.let { return it.mutate() }
 
         val styleRes = theme.styleRes
         val drawable = when {

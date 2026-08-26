@@ -11,12 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 open class MultiColorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MaterialCardView(context, attrs, defStyleAttr) {
+
+    private var themeJob: Job? = null
 
     protected val mcInnerView: ShapeableImageView = ShapeableImageView(context).apply {
         layoutParams = LayoutParams(
@@ -42,11 +45,18 @@ open class MultiColorView @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         mcInnerView.shapeAppearanceModel = shapeAppearanceModel
-        findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+        themeJob?.cancel()
+        themeJob = findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
             MultiColorManager.currentThemeId.collectLatest {
                 updateAppearance()
             }
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        themeJob?.cancel()
+        themeJob = null
+        super.onDetachedFromWindow()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
