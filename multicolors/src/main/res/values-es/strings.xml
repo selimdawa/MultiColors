@@ -43,8 +43,9 @@
     <string name="mc_theme_neon">Neón</string>
     <string name="mc_theme_sky">Cielo</string>
     <string name="mc_theme_galaxy">Galaxia</string>
-    <string name="mc_theme_galaxy_blue">Galaxia Azul</string>
-    <string name="mc_theme_galaxy_emerald">Galaxia Esmeralda</string>
+    <string name="mc_theme_nebula">Nebulosa Azul</string>
+    <string name="mc_theme_emerald_star">Estrella Esmeralda</string>
+    <string name="mc_theme_midnight">Medianoche</string>
 
     <!-- Sky Themes -->
     <string name="mc_theme_sky_blue">Cielo azul</string>

@@ -41,10 +41,10 @@
     <string name="mc_theme_copper">Copper</string>
     <string name="mc_theme_aura">Aura</string>
     <string name="mc_theme_grit">Grit</string>
-    <string name="mc_theme_kimoby">Kimoby</string>
-    <string name="mc_theme_kimoby_green">Kimoby Green</string>
-    <string name="mc_theme_kimoby_purple">Kimoby Purple</string>
-    <string name="mc_theme_slate">Slate</string>
+    <string name="mc_theme_kimoby">Electric Pulse</string>
+    <string name="mc_theme_kimoby_green">Vibrant Mint</string>
+    <string name="mc_theme_kimoby_purple">Deep Orchid</string>
+    <string name="mc_theme_slate">Slate Shadow</string>
     <string name="mc_theme_clay">Clay Earth</string>
     <string name="mc_theme_dusty_blue">Dusty Blue</string>
     <string name="mc_theme_olive">Olive Garden</string>
@@ -54,15 +54,16 @@
     <string name="mc_theme_neon">Neon</string>
     <string name="mc_theme_sky">Sky</string>
     <string name="mc_theme_galaxy">Galaxy</string>
-    <string name="mc_theme_galaxy_blue">Galaxy Blue</string>
-    <string name="mc_theme_galaxy_emerald">Galaxy Emerald</string>
+    <string name="mc_theme_nebula">Blue Nebula</string>
+    <string name="mc_theme_emerald_star">Emerald Star</string>
+    <string name="mc_theme_midnight">Midnight</string>
 
     <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">Sky Blue</string>
-    <string name="mc_theme_sky_sunset">Sky Sunset</string>
-    <string name="mc_theme_sky_green">Sky Green</string>
-    <string name="mc_theme_sky_red">Sky Red</string>
-    <string name="mc_theme_sky_teal">Sky Teal</string>
+    <string name="mc_theme_sky_blue">Cool Azure</string>
+    <string name="mc_theme_sky_sunset">Golden Dusk</string>
+    <string name="mc_theme_sky_green">Emerald Mist</string>
+    <string name="mc_theme_sky_red">Crimson Horizon</string>
+    <string name="mc_theme_sky_teal">Oceanic Sky</string>
 
     <string-array name="mc_theme_entries">
         <item>@string/mc_theme_one</item>

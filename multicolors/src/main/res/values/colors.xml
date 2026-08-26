@@ -13,35 +13,27 @@
 
     <!-- Basic Colors -->
     <color name="mc_basic">#3c415e</color>
-    <color name="mc_basic_one">#2196F3</color>
-    <color name="mc_basic_two">#E91E63</color>
-    <color name="mc_basic_three">#2E7D32</color> <!-- Green (Darker) -->
-    <color name="mc_basic_four">#F57C00</color> <!-- Orange -->
-    <color name="mc_basic_six">#C51162</color>
-    <color name="mc_basic_seven">#D81B60</color> <!-- Pink (Darker) -->
-    <color name="mc_basic_eight">#8D6E63</color>
-    <color name="mc_teal">#008080</color>
+    <color name="mc_blue">#1976D2</color>
+    <color name="mc_green">#1B5E20</color>
+    <color name="mc_orange">#F57C00</color>
+    <color name="mc_pink">#C51162</color>
+    <color name="mc_brown">#8D6E63</color>
+    <color name="mc_teal">#006666</color>
     <color name="mc_purple">#800080</color>
     <color name="mc_slate">#607D8B</color>
-    <color name="mc_indigo">#5C6BC0</color>
-    <color name="mc_mint">#4DB6AC</color>
-    <color name="mc_amber">#FFB300</color>
+    <color name="mc_indigo">#3F51B5</color>
 
     <!-- Night Theme Colors (Gradients) -->
-    <color name="mc_night_corner">#ef7462</color>
-    <color name="mc_night_corner_2">#ed3559</color>
-    <color name="mc_night_corner_one">#A748FC</color>
-    <color name="mc_night_corner_one_2">#2D347A</color>
-    <color name="mc_night_corner_two">#FF9301</color>
-    <color name="mc_night_corner_two_2">#FF3B30</color>
-    <color name="mc_night_corner_three">#4DB6AC</color>
-    <color name="mc_night_corner_three_2">#009688</color>
-    <color name="mc_night_corner_four">#CE6124</color>
-    <color name="mc_night_corner_four_2">#B5177B</color>
-    <color name="mc_night_corner_five">#228ACC</color>
-    <color name="mc_night_corner_five_2">#2E3192</color>
-    <color name="mc_night_corner_six">#A748FC</color>
-    <color name="mc_night_corner_six_2">#00695C</color>
+    <color name="mc_sunset_sorbet_track">#ef7462</color>
+    <color name="mc_sunset_sorbet_tick">#ed3559</color>
+    <color name="mc_sea_glass_track">#4DB6AC</color>
+    <color name="mc_sea_glass_tick">#009688</color>
+    <color name="mc_dragonfruit_track">#CE6124</color>
+    <color name="mc_dragonfruit_tick">#B5177B</color>
+    <color name="mc_oceanic_depths_track">#228ACC</color>
+    <color name="mc_oceanic_depths_tick">#2E3192</color>
+    <color name="mc_northern_lights_track">#A748FC</color>
+    <color name="mc_northern_lights_tick">#00695C</color>
 
     <!-- Neon Theme Colors -->
     <color name="mc_neon_track">#1D93A3</color>
@@ -49,9 +41,9 @@
     <color name="mc_neon_tick">#C2185B</color>
 
     <!-- Sky Blue Colors -->
-    <color name="mc_sky_blue_track">#3A8FB7</color>
-    <color name="mc_sky_blue_center">#4D7CAE</color>
-    <color name="mc_sky_blue_tick">#5F70A6</color>
+    <color name="mc_sky_blue_track">#2E7392</color>
+    <color name="mc_sky_blue_center">#3D638B</color>
+    <color name="mc_sky_blue_tick">#4C5A85</color>
 
     <!-- Sky Sunset Colors -->
     <color name="mc_sky_sunset_track">#E55562</color>
@@ -59,29 +51,31 @@
     <color name="mc_sky_sunset_tick">#E5AF65</color>
 
     <!-- Sky Variant Colors -->
-    <color name="mc_sky_green_track">#27AE60</color>
-    <color name="mc_sky_green_center">#1E8449</color>
+    <color name="mc_sky_green_track">#1E8449</color>
+    <color name="mc_sky_green_center">#145A32</color>
     <color name="mc_sky_red_track">#C0392B</color>
     <color name="mc_sky_red_center">#943126</color>
-    <color name="mc_sky_teal_track">#16A085</color>
-    <color name="mc_sky_teal_center">#117864</color>
+    <color name="mc_sky_teal_track">#117864</color>
+    <color name="mc_sky_teal_center">#0B4D40</color>
+
+    <!-- Sky Storm Colors -->
 
     <!-- Theme Gradients (Day/Night Support) -->
-    <color name="mc_olive_track">#708238</color>
-    <color name="mc_olive_tick">#556B2F</color>
-    <color name="mc_dusty_blue_track">#5D8AA8</color>
-    <color name="mc_dusty_blue_tick">#4682B4</color>
+    <color name="mc_olive_track">#5A682D</color>
+    <color name="mc_olive_tick">#445626</color>
+    <color name="mc_dusty_blue_track">#4A6E86</color>
+    <color name="mc_dusty_blue_tick">#386890</color>
     <color name="mc_clay_earth_track">#B87333</color>
     <color name="mc_clay_earth_tick">#8B4513</color>
     <color name="mc_slate_track">#708090</color>
     <color name="mc_slate_tick">#2F4F4F</color>
-    <color name="mc_kimoby_green_track">#11998E</color>
-    <color name="mc_kimoby_green_tick">#2DBF64</color>
+    <color name="mc_kimoby_green_track">#0E7A71</color>
+    <color name="mc_kimoby_green_tick">#249950</color>
     <color name="mc_kimoby_purple_track">#8E2DE2</color>
     <color name="mc_kimoby_purple_tick">#4A00E0</color>
     <color name="mc_aura_track">#7A1BA8</color>
     <color name="mc_aura_tick">#411D31</color>
-    <color name="mc_grit_track">#0A7A0A</color>
+    <color name="mc_grit_track">#075507</color>
     <color name="mc_grit_tick">#000000</color>
     <color name="mc_copper_track">#997E78</color>
     <color name="mc_copper_tick">#785953</color>

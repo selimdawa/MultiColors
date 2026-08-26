@@ -4,13 +4,11 @@
     <color name="mc_basic">#999999</color>
 
     <!-- Solid Colors Night Variants -->
-    <color name="mc_basic_three">#4CAF50</color> <!-- Green (Slightly Darker for Night) -->
-    <color name="mc_basic_four">#FF9800</color>  <!-- Orange (Slightly Darker for Night) -->
-    <color name="mc_basic_eight">#A1887F</color> <!-- Brown (Lighter) -->
-    <color name="mc_teal">#009688</color>        <!-- Teal (Lighter/Vibrant) -->
-    <color name="mc_purple">#9C27B0</color>      <!-- Purple (Lighter/Vibrant) -->
-
-    <!-- Eye-Friendly Night Variants -->
+    <color name="mc_green">#4CAF50</color>
+    <color name="mc_orange">#FF9800</color>
+    <color name="mc_brown">#A1887F</color>
+    <color name="mc_teal">#009688</color>
+    <color name="mc_purple">#9C27B0</color>
     <color name="mc_slate">#78909C</color>
     <color name="mc_indigo">#7986CB</color>
 
@@ -31,6 +29,8 @@
     <color name="mc_sky_red_center">#943126</color>
     <color name="mc_sky_teal_track">#16A085</color>
     <color name="mc_sky_teal_center">#117864</color>
+
+    <!-- Sky Storm Colors (Night Mode) -->
 
     <!-- Theme Gradients Night Variants -->
     <color name="mc_olive_track">#8CA04D</color>

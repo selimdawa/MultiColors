@@ -41,10 +41,10 @@
     <string name="mc_theme_copper">نحاس</string>
     <string name="mc_theme_aura">أورا</string>
     <string name="mc_theme_grit">عزيمة</string>
-    <string name="mc_theme_kimoby">كيموبي</string>
-    <string name="mc_theme_kimoby_green">كيموبي أخضر</string>
-    <string name="mc_theme_kimoby_purple">كيموبي بنفسجي</string>
-    <string name="mc_theme_slate">سجيل (رمادي أزرق)</string>
+    <string name="mc_theme_kimoby">نبض كهربائي</string>
+    <string name="mc_theme_kimoby_green">نعناع حيوي</string>
+    <string name="mc_theme_kimoby_purple">سحلب داكن</string>
+    <string name="mc_theme_slate">ظل الصخر</string>
     <string name="mc_theme_clay">طين (ترابي)</string>
     <string name="mc_theme_dusty_blue">أزرق مغبر</string>
     <string name="mc_theme_olive">حديقة الزيتون</string>
@@ -54,13 +54,14 @@
     <string name="mc_theme_neon">نيون</string>
     <string name="mc_theme_sky">سماء</string>
     <string name="mc_theme_galaxy">مجرة</string>
-    <string name="mc_theme_galaxy_blue">مجرة زرقاء</string>
-    <string name="mc_theme_galaxy_emerald">مجرة زمردية</string>
+    <string name="mc_theme_nebula">سديم أزرق</string>
+    <string name="mc_theme_emerald_star">نجم زمردي</string>
+    <string name="mc_theme_midnight">منتصف الليل</string>
 
     <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">سماء زرقاء</string>
-    <string name="mc_theme_sky_sunset">سماء الغروب</string>
-    <string name="mc_theme_sky_green">سماء خضراء</string>
-    <string name="mc_theme_sky_red">سماء حمراء</string>
-    <string name="mc_theme_sky_teal">سماء تركوازية</string>
+    <string name="mc_theme_sky_blue">أزرق لازوردي</string>
+    <string name="mc_theme_sky_sunset">غسق ذهبي</string>
+    <string name="mc_theme_sky_green">ضباب زمردي</string>
+    <string name="mc_theme_sky_red">أفق قرمزي</string>
+    <string name="mc_theme_sky_teal">سماء محيطية</string>
 </resources>

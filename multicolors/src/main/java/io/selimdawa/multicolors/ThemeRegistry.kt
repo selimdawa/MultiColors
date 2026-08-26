@@ -25,8 +25,8 @@ object ThemeRegistry {
             MultiColorTheme("GRADUAL_SEVEN", R.string.mc_theme_gradient_seven, R.style.Theme_MC_Gradient_Seven),
 
             // Additional Solid Colors
-            MultiColorTheme("SOLID_SLATE", R.string.mc_theme_slate_solid, R.style.Theme_MC_Slate, listOf(Color.parseColor("#78909C"), Color.parseColor("#78909C"))),
-            MultiColorTheme("SOLID_INDIGO", R.string.mc_theme_indigo_solid, R.style.Theme_MC_Indigo, listOf(Color.parseColor("#3F51B5"), Color.parseColor("#3F51B5"))),
+            MultiColorTheme("SOLID_SLATE", R.string.mc_theme_slate_solid, R.style.Theme_MC_Slate, listOf(Color.parseColor("#607D8B"), Color.parseColor("#607D8B"))),
+            MultiColorTheme("SOLID_INDIGO", R.string.mc_theme_indigo_solid, R.style.Theme_MC_Indigo, listOf(Color.parseColor("#5C6BC0"), Color.parseColor("#5C6BC0"))),
             MultiColorTheme("SOLID_TEAL", R.string.mc_theme_teal, R.style.Theme_MC_Teal, listOf(Color.parseColor("#008080"), Color.parseColor("#008080"))),
             MultiColorTheme("SOLID_PURPLE", R.string.mc_theme_purple, R.style.Theme_MC_Purple, listOf(Color.parseColor("#800080"), Color.parseColor("#800080"))),
 
@@ -50,8 +50,8 @@ object ThemeRegistry {
             MultiColorTheme("G3_2", R.string.mc_theme_neon, R.style.Theme_MC_G3_2),
             MultiColorTheme("G3_5", R.string.mc_theme_sky, R.style.Theme_MC_G3_5),
             MultiColorTheme("G3_9", R.string.mc_theme_galaxy, R.style.Theme_MC_G3_9),
-            MultiColorTheme("G3_10", R.string.mc_theme_galaxy_blue, R.style.Theme_MC_G3_10),
-            MultiColorTheme("G3_11", R.string.mc_theme_galaxy_emerald, R.style.Theme_MC_G3_11),
+            MultiColorTheme("G3_10", R.string.mc_theme_nebula, R.style.Theme_MC_G3_10),
+            MultiColorTheme("G3_11", R.string.mc_theme_emerald_star, R.style.Theme_MC_G3_11),
 
             // Sky Themes (3-Color Gradients)
             MultiColorTheme("SKY_BLUE", R.string.mc_theme_sky_blue, R.style.Theme_MC_Sky_Blue),

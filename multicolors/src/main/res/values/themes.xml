@@ -25,66 +25,66 @@
     </style>
 
     <style name="Theme.MC.Two" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_one</item>
-        <item name="mc_tick">@color/mc_basic_one</item>
-        <item name="mc_track">@color/mc_basic_one</item>
+        <item name="mc_bg">@color/mc_blue</item>
+        <item name="mc_tick">@color/mc_blue</item>
+        <item name="mc_track">@color/mc_blue</item>
     </style>
 
     <style name="Theme.MC.Three" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_four</item>
-        <item name="mc_tick">@color/mc_basic_four</item>
-        <item name="mc_track">@color/mc_basic_four</item>
+        <item name="mc_bg">@color/mc_orange</item>
+        <item name="mc_tick">@color/mc_orange</item>
+        <item name="mc_track">@color/mc_orange</item>
     </style>
 
 
     <style name="Theme.MC.Five" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_six</item>
-        <item name="mc_tick">@color/mc_basic_six</item>
-        <item name="mc_track">@color/mc_basic_six</item>
+        <item name="mc_bg">@color/mc_pink</item>
+        <item name="mc_tick">@color/mc_pink</item>
+        <item name="mc_track">@color/mc_pink</item>
     </style>
 
 
     <style name="Theme.MC.Seven" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_eight</item>
-        <item name="mc_tick">@color/mc_basic_eight</item>
-        <item name="mc_track">@color/mc_basic_eight</item>
+        <item name="mc_bg">@color/mc_brown</item>
+        <item name="mc_tick">@color/mc_brown</item>
+        <item name="mc_track">@color/mc_brown</item>
     </style>
 
 
     <style name="Theme.MC.Nine" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_three</item>
-        <item name="mc_tick">@color/mc_basic_three</item>
-        <item name="mc_track">@color/mc_basic_three</item>
+        <item name="mc_bg">@color/mc_green</item>
+        <item name="mc_tick">@color/mc_green</item>
+        <item name="mc_track">@color/mc_green</item>
     </style>
 
     <style name="Theme.MC.Gradient.One" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_2</item>
-        <item name="mc_track">@color/mc_night_corner</item>
+        <item name="mc_tick">@color/mc_sunset_sorbet_tick</item>
+        <item name="mc_track">@color/mc_sunset_sorbet_track</item>
     </style>
 
     <style name="Theme.MC.Gradient.Four" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_three_2</item>
-        <item name="mc_track">@color/mc_night_corner_three</item>
+        <item name="mc_tick">@color/mc_sea_glass_tick</item>
+        <item name="mc_track">@color/mc_sea_glass_track</item>
     </style>
 
     <style name="Theme.MC.Gradient.Five" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_four_2</item>
-        <item name="mc_track">@color/mc_night_corner_four</item>
+        <item name="mc_tick">@color/mc_dragonfruit_tick</item>
+        <item name="mc_track">@color/mc_dragonfruit_track</item>
     </style>
 
     <style name="Theme.MC.Gradient.Six" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_five_2</item>
-        <item name="mc_track">@color/mc_night_corner_five</item>
+        <item name="mc_tick">@color/mc_oceanic_depths_tick</item>
+        <item name="mc_track">@color/mc_oceanic_depths_track</item>
     </style>
 
     <style name="Theme.MC.Gradient.Seven" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_six_2</item>
-        <item name="mc_track">@color/mc_night_corner_six</item>
+        <item name="mc_tick">@color/mc_northern_lights_tick</item>
+        <item name="mc_track">@color/mc_northern_lights_track</item>
     </style>
 
     <style name="Theme.MC.Slate" parent="MC_Base_Theme">
@@ -99,8 +99,6 @@
         <item name="mc_track">@color/mc_indigo</item>
     </style>
 
-
-
     <style name="Theme.MC.Teal" parent="MC_Base_Theme">
         <item name="mc_bg">@color/mc_teal</item>
         <item name="mc_tick">@color/mc_teal</item>
@@ -112,8 +110,6 @@
         <item name="mc_tick">@color/mc_purple</item>
         <item name="mc_track">@color/mc_purple</item>
     </style>
-
-
 
     <!-- 2-Color Gradients -->
     <style name="Theme.MC.G2_2" parent="MC_Base_Theme">
@@ -225,14 +221,14 @@
 
     <style name="Theme.MC.G3_10" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#45c0e9</item>
+        <item name="mc_track">#379ab9</item>
         <item name="mc_center">#16213e</item>
         <item name="mc_tick">#1a1a2e</item>
     </style>
 
     <style name="Theme.MC.G3_11" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#45e960</item>
+        <item name="mc_track">#37ba4d</item>
         <item name="mc_center">#16213e</item>
         <item name="mc_tick">#1a1a2e</item>
     </style>
@@ -272,7 +268,6 @@
         <item name="mc_center">@color/mc_sky_teal_center</item>
         <item name="mc_tick">#000000</item>
     </style>
-
 
     <!-- Define the checkbox specific theme override -->
     <style name="Widget.App.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
