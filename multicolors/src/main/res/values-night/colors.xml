@@ -3,6 +3,17 @@
     <!-- When in Night Mode, the Basic Theme (Theme 1) uses the night variant color -->
     <color name="mc_basic_light">@color/mc_basic_night</color>
 
+    <!-- Solid Colors Night Variants -->
+    <color name="mc_basic_three">#81C784</color> <!-- Green (Lighter for Night) -->
+    <color name="mc_basic_four">#FFB74D</color>  <!-- Orange (Lighter for Night) -->
+    <color name="mc_basic_eight">#A1887F</color> <!-- Brown (Lighter) -->
+    <color name="mc_teal">#009688</color>        <!-- Teal (Lighter/Vibrant) -->
+    <color name="mc_purple">#9C27B0</color>      <!-- Purple (Lighter/Vibrant) -->
+
+    <!-- Eye-Friendly Night Variants -->
+    <color name="mc_slate">#78909C</color>
+    <color name="mc_indigo">#7986CB</color>
+
     <!-- Neon Theme Colors (Night Mode) -->
     <color name="mc_neon_track">#00E5FF</color>
     <color name="mc_neon_center">#D500F9</color>

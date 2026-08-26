@@ -16,12 +16,9 @@
     <!-- Theme Names -->
     <string name="mc_theme_one">Basic</string>
     <string name="mc_theme_two">Blue</string>
-    <string name="mc_theme_three">Orange 1</string>
-    <string name="mc_theme_four">Orange 2</string>
+    <string name="mc_theme_three">Orange</string>
     <string name="mc_theme_five">Fuchsia</string>
-    <string name="mc_theme_six">Pink</string>
     <string name="mc_theme_seven">Brown</string>
-    <string name="mc_theme_eight">Red</string>
     <string name="mc_theme_nine">Green</string>
     <string name="mc_theme_gradient_one">Gradual 1</string>
     <string name="mc_theme_gradient_two">Gradual 2</string>
@@ -33,14 +30,10 @@
     <string name="mc_theme_custom">Custom</string>
 
     <!-- Additional Solids -->
-    <string name="mc_theme_black">Pure Black</string>
-    <string name="mc_theme_white">Pure White</string>
-    <string name="mc_theme_cyan">Cyan</string>
-    <string name="mc_theme_magenta">Magenta</string>
-    <string name="mc_theme_yellow">Yellow</string>
+    <string name="mc_theme_slate_solid">Slate</string>
+    <string name="mc_theme_indigo_solid">Indigo</string>
     <string name="mc_theme_teal">Teal</string>
     <string name="mc_theme_purple">Purple</string>
-    <string name="mc_theme_navy">Navy</string>
 
     <!-- 2-Color Gradients -->
     <string name="mc_theme_sunset">Sunset</string>
@@ -82,11 +75,8 @@
         <item>@string/mc_theme_one</item>
         <item>@string/mc_theme_two</item>
         <item>@string/mc_theme_three</item>
-        <item>@string/mc_theme_four</item>
         <item>@string/mc_theme_five</item>
-        <item>@string/mc_theme_six</item>
         <item>@string/mc_theme_seven</item>
-        <item>@string/mc_theme_eight</item>
         <item>@string/mc_theme_nine</item>
         <item>@string/mc_theme_gradient_one</item>
         <item>@string/mc_theme_gradient_two</item>

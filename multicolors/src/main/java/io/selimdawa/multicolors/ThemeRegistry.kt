@@ -14,12 +14,9 @@ object ThemeRegistry {
         val defaultThemes = listOf(
             MultiColorTheme("ONE", R.string.mc_theme_one, R.style.Theme_MC_One),
             MultiColorTheme("TWO", R.string.mc_theme_two, R.style.Theme_MC_Two),
-            MultiColorTheme("THREE", R.string.mc_theme_three, R.style.Theme_MC_Three),
-            MultiColorTheme("FOUR", R.string.mc_theme_four, R.style.Theme_MC_Four),
+            MultiColorTheme("THREE", R.string.mc_theme_three, R.style.Theme_MC_Three, listOf(Color.parseColor("#F57C00"), Color.parseColor("#F57C00"))),
             MultiColorTheme("FIVE", R.string.mc_theme_five, R.style.Theme_MC_Five),
-            MultiColorTheme("SIX", R.string.mc_theme_six, R.style.Theme_MC_Six),
             MultiColorTheme("SEVEN", R.string.mc_theme_seven, R.style.Theme_MC_Seven),
-            MultiColorTheme("EIGHT", R.string.mc_theme_eight, R.style.Theme_MC_Eight),
             MultiColorTheme("NINE", R.string.mc_theme_nine, R.style.Theme_MC_Nine),
             MultiColorTheme("GRADUAL_ONE", R.string.mc_theme_gradient_one, R.style.Theme_MC_Gradient_One),
             MultiColorTheme("GRADUAL_THREE", R.string.mc_theme_gradient_three, R.style.Theme_MC_Gradient_Three),
@@ -29,14 +26,10 @@ object ThemeRegistry {
             MultiColorTheme("GRADUAL_SEVEN", R.string.mc_theme_gradient_seven, R.style.Theme_MC_Gradient_Seven),
 
             // Additional Solid Colors
-            MultiColorTheme("SOLID_BLACK", R.string.mc_theme_black, R.style.Theme_MC_Black),
-            MultiColorTheme("SOLID_WHITE", R.string.mc_theme_white, R.style.Theme_MC_White),
-            MultiColorTheme("SOLID_CYAN", R.string.mc_theme_cyan, R.style.Theme_MC_Cyan),
-            MultiColorTheme("SOLID_MAGENTA", R.string.mc_theme_magenta, R.style.Theme_MC_Magenta),
-            MultiColorTheme("SOLID_YELLOW", R.string.mc_theme_yellow, R.style.Theme_MC_Yellow),
-            MultiColorTheme("SOLID_TEAL", R.string.mc_theme_teal, R.style.Theme_MC_Teal),
-            MultiColorTheme("SOLID_PURPLE", R.string.mc_theme_purple, R.style.Theme_MC_Purple),
-            MultiColorTheme("SOLID_NAVY", R.string.mc_theme_navy, R.style.Theme_MC_Navy),
+            MultiColorTheme("SOLID_SLATE", R.string.mc_theme_slate_solid, R.style.Theme_MC_Slate, listOf(Color.parseColor("#78909C"), Color.parseColor("#78909C"))),
+            MultiColorTheme("SOLID_INDIGO", R.string.mc_theme_indigo_solid, R.style.Theme_MC_Indigo, listOf(Color.parseColor("#3F51B5"), Color.parseColor("#3F51B5"))),
+            MultiColorTheme("SOLID_TEAL", R.string.mc_theme_teal, R.style.Theme_MC_Teal, listOf(Color.parseColor("#008080"), Color.parseColor("#008080"))),
+            MultiColorTheme("SOLID_PURPLE", R.string.mc_theme_purple, R.style.Theme_MC_Purple, listOf(Color.parseColor("#800080"), Color.parseColor("#800080"))),
 
             // 2-Color Gradients
             MultiColorTheme("G2_1", R.string.mc_theme_sunset, R.style.Theme_MC_G2_1),

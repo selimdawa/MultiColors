@@ -16,12 +16,9 @@
     <!-- Theme Names -->
     <string name="mc_theme_one">أساسي</string>
     <string name="mc_theme_two">أزرق</string>
-    <string name="mc_theme_three">برتقالي 1</string>
-    <string name="mc_theme_four">برتقالي 2</string>
+    <string name="mc_theme_three">برتقالي</string>
     <string name="mc_theme_five">فوشيا</string>
-    <string name="mc_theme_six">وردي</string>
     <string name="mc_theme_seven">بني</string>
-    <string name="mc_theme_eight">أحمر</string>
     <string name="mc_theme_nine">أخضر</string>
     <string name="mc_theme_gradient_one">متدرج 1</string>
     <string name="mc_theme_gradient_two">متدرج 2</string>
@@ -33,14 +30,10 @@
     <string name="mc_theme_custom">مخصص</string>
 
     <!-- Additional Solids -->
-    <string name="mc_theme_black">أسود نقي</string>
-    <string name="mc_theme_white">أبيض نقي</string>
-    <string name="mc_theme_cyan">سماوي</string>
-    <string name="mc_theme_magenta">أرجواني</string>
-    <string name="mc_theme_yellow">أصفر</string>
+    <string name="mc_theme_slate_solid">رمادي صخري</string>
+    <string name="mc_theme_indigo_solid">نيلي</string>
     <string name="mc_theme_teal">تركواز</string>
     <string name="mc_theme_purple">بنفسجي</string>
-    <string name="mc_theme_navy">كحلي</string>
 
     <!-- 2-Color Gradients -->
     <string name="mc_theme_sunset">غروب الشمس</string>

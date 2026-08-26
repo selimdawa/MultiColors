@@ -36,11 +36,6 @@
         <item name="mc_track">@color/mc_basic_four</item>
     </style>
 
-    <style name="Theme.MC.Four" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_five</item>
-        <item name="mc_tick">@color/mc_basic_five</item>
-        <item name="mc_track">@color/mc_basic_five</item>
-    </style>
 
     <style name="Theme.MC.Five" parent="MC_Base_Theme">
         <item name="mc_bg">@color/mc_basic_six</item>
@@ -48,11 +43,6 @@
         <item name="mc_track">@color/mc_basic_six</item>
     </style>
 
-    <style name="Theme.MC.Six" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_seven</item>
-        <item name="mc_tick">@color/mc_basic_seven</item>
-        <item name="mc_track">@color/mc_basic_seven</item>
-    </style>
 
     <style name="Theme.MC.Seven" parent="MC_Base_Theme">
         <item name="mc_bg">@color/mc_basic_eight</item>
@@ -60,11 +50,6 @@
         <item name="mc_track">@color/mc_basic_eight</item>
     </style>
 
-    <style name="Theme.MC.Eight" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_basic_two</item>
-        <item name="mc_tick">@color/mc_basic_two</item>
-        <item name="mc_track">@color/mc_basic_two</item>
-    </style>
 
     <style name="Theme.MC.Nine" parent="MC_Base_Theme">
         <item name="mc_bg">@color/mc_basic_three</item>
@@ -108,35 +93,19 @@
         <item name="mc_track">@color/mc_night_corner_six_2</item>
     </style>
 
-    <style name="Theme.MC.Black" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_black</item>
-        <item name="mc_tick">@color/mc_black</item>
-        <item name="mc_track">@color/mc_black</item>
+    <style name="Theme.MC.Slate" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_slate</item>
+        <item name="mc_tick">@color/mc_slate</item>
+        <item name="mc_track">@color/mc_slate</item>
     </style>
 
-    <style name="Theme.MC.White" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_white</item>
-        <item name="mc_tick">@color/mc_white</item>
-        <item name="mc_track">@color/mc_white</item>
+    <style name="Theme.MC.Indigo" parent="MC_Base_Theme">
+        <item name="mc_bg">@color/mc_indigo</item>
+        <item name="mc_tick">@color/mc_indigo</item>
+        <item name="mc_track">@color/mc_indigo</item>
     </style>
 
-    <style name="Theme.MC.Cyan" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_cyan</item>
-        <item name="mc_tick">@color/mc_cyan</item>
-        <item name="mc_track">@color/mc_cyan</item>
-    </style>
 
-    <style name="Theme.MC.Magenta" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_magenta</item>
-        <item name="mc_tick">@color/mc_magenta</item>
-        <item name="mc_track">@color/mc_magenta</item>
-    </style>
-
-    <style name="Theme.MC.Yellow" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_yellow</item>
-        <item name="mc_tick">@color/mc_yellow</item>
-        <item name="mc_track">@color/mc_yellow</item>
-    </style>
 
     <style name="Theme.MC.Teal" parent="MC_Base_Theme">
         <item name="mc_bg">@color/mc_teal</item>
@@ -150,11 +119,6 @@
         <item name="mc_track">@color/mc_purple</item>
     </style>
 
-    <style name="Theme.MC.Navy" parent="MC_Base_Theme">
-        <item name="mc_bg">@color/mc_navy</item>
-        <item name="mc_tick">@color/mc_navy</item>
-        <item name="mc_track">@color/mc_navy</item>
-    </style>
 
     <!-- 2-Color Gradients -->
     <style name="Theme.MC.G2_1" parent="MC_Base_Theme">
