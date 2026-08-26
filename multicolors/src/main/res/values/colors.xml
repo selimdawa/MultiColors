@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Basic Colors -->
     <color name="mc_border_color">#FFFFFF</color>
     <color name="mc_fallback_color">#888888</color>
-
     <color name="mc_colorPrimary">#fff</color>
     <color name="mc_image_profile">#e0e0e0</color>
     <color name="mc_dark">#000000</color>
@@ -11,78 +11,86 @@
     <color name="mc_gray">#888888</color>
     <color name="mc_trans">#66000000</color>
 
-    <!-- Basic Colors -->
+    <!-- Solid Colors -->
     <color name="mc_basic">#3c415e</color>
     <color name="mc_blue">#1976D2</color>
-    <color name="mc_green">#1B5E20</color>
     <color name="mc_orange">#F57C00</color>
     <color name="mc_pink">#C51162</color>
     <color name="mc_brown">#8D6E63</color>
-    <color name="mc_teal">#006666</color>
-    <color name="mc_purple">#800080</color>
+    <color name="mc_green">#1B5E20</color>
     <color name="mc_slate">#607D8B</color>
     <color name="mc_indigo">#3F51B5</color>
+    <color name="mc_teal">#006666</color>
+    <color name="mc_purple">#800080</color>
 
-    <!-- Night Theme Colors (Gradients) -->
+    <!-- 2-Color Gradients -->
     <color name="mc_sunset_sorbet_track">#ef7462</color>
     <color name="mc_sunset_sorbet_tick">#ed3559</color>
     <color name="mc_sea_glass_track">#4DB6AC</color>
     <color name="mc_sea_glass_tick">#009688</color>
-    <color name="mc_dragonfruit_track">#CE6124</color>
-    <color name="mc_dragonfruit_tick">#B5177B</color>
+    <color name="mc_dragon_fruit_track">#CE6124</color>
+    <color name="mc_dragon_fruit_tick">#B5177B</color>
     <color name="mc_oceanic_depths_track">#228ACC</color>
     <color name="mc_oceanic_depths_tick">#2E3192</color>
     <color name="mc_northern_lights_track">#A748FC</color>
     <color name="mc_northern_lights_tick">#00695C</color>
+    <color name="mc_sea_blue_track">#2193b0</color>
+    <color name="mc_sea_blue_tick">#6dd5ed</color>
+    <color name="mc_cristal_track">#9EA7AD</color>
+    <color name="mc_cristal_tick">#2C3E50</color>
+    <color name="mc_relief_track">#614385</color>
+    <color name="mc_relief_tick">#516395</color>
+    <color name="mc_copper_track">#997E78</color>
+    <color name="mc_copper_tick">#785953</color>
+    <color name="mc_aura_track">#7A1BA8</color>
+    <color name="mc_aura_tick">#411D31</color>
+    <color name="mc_grit_track">#075507</color>
+    <color name="mc_grit_tick">#000000</color>
+    <color name="mc_electric_pulse_track">#396afc</color>
+    <color name="mc_electric_pulse_tick">#2948ff</color>
+    <color name="mc_vibrant_mint_track">#0E7A71</color>
+    <color name="mc_vibrant_mint_tick">#249950</color>
+    <color name="mc_deep_orchid_track">#8E2DE2</color>
+    <color name="mc_deep_orchid_tick">#4A00E0</color>
+    <color name="mc_slate_shadow_track">#708090</color>
+    <color name="mc_slate_shadow_tick">#2F4F4F</color>
+    <color name="mc_clay_earth_track">#B87333</color>
+    <color name="mc_clay_earth_tick">#8B4513</color>
+    <color name="mc_dusty_blue_track">#4A6E86</color>
+    <color name="mc_dusty_blue_tick">#386890</color>
+    <color name="mc_olive_track">#5A682D</color>
+    <color name="mc_olive_tick">#445626</color>
+    <color name="mc_pastel_rose_track">#C97B84</color>
+    <color name="mc_pastel_rose_tick">#A35861</color>
 
-    <!-- Neon Theme Colors -->
+    <!-- 3-Color Gradients -->
     <color name="mc_neon_track">#1D93A3</color>
     <color name="mc_neon_center">#8E24AA</color>
     <color name="mc_neon_tick">#C2185B</color>
-
-    <!-- Sky Blue Colors -->
+    <color name="mc_midnight_track">#8E2DE2</color>
+    <color name="mc_midnight_center">#4A00E0</color>
+    <color name="mc_midnight_tick">#000000</color>
+    <color name="mc_galaxy_track">#e94560</color>
+    <color name="mc_galaxy_center">#16213e</color>
+    <color name="mc_galaxy_tick">#1a1a2e</color>
+    <color name="mc_nebula_track">#379ab9</color>
+    <color name="mc_nebula_center">#16213e</color>
+    <color name="mc_nebula_tick">#1a1a2e</color>
+    <color name="mc_emerald_star_track">#37ba4d</color>
+    <color name="mc_emerald_star_center">#16213e</color>
+    <color name="mc_emerald_star_tick">#1a1a2e</color>
     <color name="mc_sky_blue_track">#2E7392</color>
     <color name="mc_sky_blue_center">#3D638B</color>
     <color name="mc_sky_blue_tick">#4C5A85</color>
-
-    <!-- Sky Sunset Colors -->
     <color name="mc_sky_sunset_track">#E55562</color>
     <color name="mc_sky_sunset_center">#E57156</color>
     <color name="mc_sky_sunset_tick">#E5AF65</color>
-
-    <!-- Sky Variant Colors -->
     <color name="mc_sky_green_track">#1E8449</color>
     <color name="mc_sky_green_center">#145A32</color>
     <color name="mc_sky_red_track">#C0392B</color>
     <color name="mc_sky_red_center">#943126</color>
     <color name="mc_sky_teal_track">#117864</color>
     <color name="mc_sky_teal_center">#0B4D40</color>
-
-    <!-- Sky Storm Colors -->
-
-    <!-- Theme Gradients (Day/Night Support) -->
-    <color name="mc_olive_track">#5A682D</color>
-    <color name="mc_olive_tick">#445626</color>
-    <color name="mc_dusty_blue_track">#4A6E86</color>
-    <color name="mc_dusty_blue_tick">#386890</color>
-    <color name="mc_clay_earth_track">#B87333</color>
-    <color name="mc_clay_earth_tick">#8B4513</color>
-    <color name="mc_slate_track">#708090</color>
-    <color name="mc_slate_tick">#2F4F4F</color>
-    <color name="mc_kimoby_green_track">#0E7A71</color>
-    <color name="mc_kimoby_green_tick">#249950</color>
-    <color name="mc_kimoby_purple_track">#8E2DE2</color>
-    <color name="mc_kimoby_purple_tick">#4A00E0</color>
-    <color name="mc_aura_track">#7A1BA8</color>
-    <color name="mc_aura_tick">#411D31</color>
-    <color name="mc_grit_track">#075507</color>
-    <color name="mc_grit_tick">#000000</color>
-    <color name="mc_copper_track">#997E78</color>
-    <color name="mc_copper_tick">#785953</color>
-    <color name="mc_relief_track">#614385</color>
-    <color name="mc_relief_tick">#516395</color>
-    <color name="mc_cristal_track">#9EA7AD</color>
-    <color name="mc_cristal_tick">#2C3E50</color>
 
     <!-- Custom Avatar Rainbow Colors -->
     <color name="mc_avatar_1">#FF0000</color>
