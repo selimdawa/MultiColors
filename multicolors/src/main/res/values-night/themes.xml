@@ -11,10 +11,10 @@
         <item name="colorPrimary">@color/mc_colorPrimary</item>
         <item name="colorOnBackground">@color/mc_dark</item>
         <item name="colorError">@color/mc_white</item>
-        <item name="mc_bg">@color/mc_basic_light</item>
-        <item name="mc_tick">@color/mc_basic_light</item>
-        <item name="mc_track">@color/mc_basic_light</item>
-        <item name="mc_center">@color/mc_basic_light</item>
+        <item name="mc_bg">@color/mc_basic</item>
+        <item name="mc_tick">@color/mc_basic</item>
+        <item name="mc_track">@color/mc_basic</item>
+        <item name="mc_center">@color/mc_basic</item>
     </style>
 
     <!-- Define the checkbox specific theme override -->

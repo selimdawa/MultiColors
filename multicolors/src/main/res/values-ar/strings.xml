@@ -20,12 +20,12 @@
     <string name="mc_theme_five">فوشيا</string>
     <string name="mc_theme_seven">بني</string>
     <string name="mc_theme_nine">أخضر</string>
-    <string name="mc_theme_gradient_one">متدرج 1</string>
+    <string name="mc_theme_gradient_one">شربات الغروب</string>
     <string name="mc_theme_gradient_two">متدرج 2</string>
-    <string name="mc_theme_gradient_four">متدرج 4</string>
-    <string name="mc_theme_gradient_five">متدرج 5</string>
-    <string name="mc_theme_gradient_six">متدرج 6</string>
-    <string name="mc_theme_gradient_seven">متدرج 7</string>
+    <string name="mc_theme_gradient_four">زجاج البحر</string>
+    <string name="mc_theme_gradient_five">فاكهة التنين</string>
+    <string name="mc_theme_gradient_six">أعماق المحيط</string>
+    <string name="mc_theme_gradient_seven">أضواء الشمال</string>
     <string name="mc_theme_custom">مخصص</string>
 
     <!-- Additional Solids -->
@@ -35,23 +35,16 @@
     <string name="mc_theme_purple">بنفسجي</string>
 
     <!-- 2-Color Gradients -->
-    <string name="mc_theme_sunset">غروب الشمس</string>
     <string name="mc_theme_sea_blue">أزرق البحر</string>
     <string name="mc_theme_cristal">كريستال</string>
     <string name="mc_theme_relief">راحة</string>
-    <string name="mc_theme_morpheus">مورفيوس</string>
     <string name="mc_theme_copper">نحاس</string>
     <string name="mc_theme_aura">أورا</string>
     <string name="mc_theme_grit">عزيمة</string>
-    <string name="mc_theme_frost">صقيع</string>
-    <string name="mc_theme_youtube">يوتيوب</string>
-    <string name="mc_theme_cool_sky">سماء باردة</string>
-    <string name="mc_theme_evening">مساء</string>
     <string name="mc_theme_kimoby">كيموبي</string>
     <string name="mc_theme_kimoby_green">كيموبي أخضر</string>
     <string name="mc_theme_kimoby_purple">كيموبي بنفسجي</string>
     <string name="mc_theme_slate">سجيل (رمادي أزرق)</string>
-    <string name="mc_theme_moss">طحلب (أخضر هادئ)</string>
     <string name="mc_theme_clay">طين (ترابي)</string>
     <string name="mc_theme_dusty_blue">أزرق مغبر</string>
     <string name="mc_theme_olive">حديقة الزيتون</string>
@@ -61,6 +54,8 @@
     <string name="mc_theme_neon">نيون</string>
     <string name="mc_theme_sky">سماء</string>
     <string name="mc_theme_galaxy">مجرة</string>
+    <string name="mc_theme_galaxy_blue">مجرة زرقاء</string>
+    <string name="mc_theme_galaxy_emerald">مجرة زمردية</string>
 
     <!-- Sky Themes -->
     <string name="mc_theme_sky_blue">سماء زرقاء</string>

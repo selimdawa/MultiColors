@@ -20,12 +20,12 @@
     <string name="mc_theme_five">Fuchsia</string>
     <string name="mc_theme_seven">Brown</string>
     <string name="mc_theme_nine">Green</string>
-    <string name="mc_theme_gradient_one">Gradual 1</string>
+    <string name="mc_theme_gradient_one">Sunset Sorbet</string>
     <string name="mc_theme_gradient_two">Gradual 2</string>
-    <string name="mc_theme_gradient_four">Gradual 4</string>
-    <string name="mc_theme_gradient_five">Gradual 5</string>
-    <string name="mc_theme_gradient_six">Gradual 6</string>
-    <string name="mc_theme_gradient_seven">Gradual 7</string>
+    <string name="mc_theme_gradient_four">Sea Glass</string>
+    <string name="mc_theme_gradient_five">Dragonfruit</string>
+    <string name="mc_theme_gradient_six">Oceanic Depths</string>
+    <string name="mc_theme_gradient_seven">Northern Lights</string>
     <string name="mc_theme_custom">Custom</string>
 
     <!-- Additional Solids -->
@@ -35,23 +35,16 @@
     <string name="mc_theme_purple">Purple</string>
 
     <!-- 2-Color Gradients -->
-    <string name="mc_theme_sunset">Sunset</string>
     <string name="mc_theme_sea_blue">Sea Blue</string>
     <string name="mc_theme_cristal">Cristal</string>
     <string name="mc_theme_relief">Relief</string>
-    <string name="mc_theme_morpheus">Morpheus</string>
     <string name="mc_theme_copper">Copper</string>
     <string name="mc_theme_aura">Aura</string>
     <string name="mc_theme_grit">Grit</string>
-    <string name="mc_theme_frost">Frost</string>
-    <string name="mc_theme_youtube">YouTube</string>
-    <string name="mc_theme_cool_sky">Cool Sky</string>
-    <string name="mc_theme_evening">Evening</string>
     <string name="mc_theme_kimoby">Kimoby</string>
     <string name="mc_theme_kimoby_green">Kimoby Green</string>
     <string name="mc_theme_kimoby_purple">Kimoby Purple</string>
     <string name="mc_theme_slate">Slate</string>
-    <string name="mc_theme_moss">Moss Green</string>
     <string name="mc_theme_clay">Clay Earth</string>
     <string name="mc_theme_dusty_blue">Dusty Blue</string>
     <string name="mc_theme_olive">Olive Garden</string>
@@ -61,6 +54,8 @@
     <string name="mc_theme_neon">Neon</string>
     <string name="mc_theme_sky">Sky</string>
     <string name="mc_theme_galaxy">Galaxy</string>
+    <string name="mc_theme_galaxy_blue">Galaxy Blue</string>
+    <string name="mc_theme_galaxy_emerald">Galaxy Emerald</string>
 
     <!-- Sky Themes -->
     <string name="mc_theme_sky_blue">Sky Blue</string>

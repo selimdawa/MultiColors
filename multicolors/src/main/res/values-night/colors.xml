@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- When in Night Mode, the Basic Theme (Theme 1) uses the night variant color -->
-    <color name="mc_basic_light">@color/mc_basic_night</color>
+    <color name="mc_basic">#999999</color>
 
     <!-- Solid Colors Night Variants -->
-    <color name="mc_basic_three">#81C784</color> <!-- Green (Lighter for Night) -->
-    <color name="mc_basic_four">#FFB74D</color>  <!-- Orange (Lighter for Night) -->
+    <color name="mc_basic_three">#4CAF50</color> <!-- Green (Slightly Darker for Night) -->
+    <color name="mc_basic_four">#FF9800</color>  <!-- Orange (Slightly Darker for Night) -->
     <color name="mc_basic_eight">#A1887F</color> <!-- Brown (Lighter) -->
     <color name="mc_teal">#009688</color>        <!-- Teal (Lighter/Vibrant) -->
     <color name="mc_purple">#9C27B0</color>      <!-- Purple (Lighter/Vibrant) -->
@@ -20,17 +20,39 @@
     <color name="mc_neon_tick">#F50057</color>
 
     <!-- Sky Blue Colors (Night Mode) -->
-    <color name="mc_sky_blue_track">#6CA6CD</color>
-    <color name="mc_sky_blue_center">#7EB3D3</color>
-    <color name="mc_sky_blue_tick">#009ACD</color>
+    <color name="mc_sky_blue_track">#50A5CD</color>
+    <color name="mc_sky_blue_center">#6392C4</color>
+    <color name="mc_sky_blue_tick">#7586BC</color>
 
     <!-- Sky Variant Colors (Night Mode) -->
     <color name="mc_sky_green_track">#27AE60</color>
     <color name="mc_sky_green_center">#1E8449</color>
-    <color name="mc_sky_red_track">#C0392B</color>
+    <color name="mc_sky_red_track">#CD4639</color>
     <color name="mc_sky_red_center">#943126</color>
     <color name="mc_sky_teal_track">#16A085</color>
     <color name="mc_sky_teal_center">#117864</color>
 
-    <!-- Sky Storm Colors (Night Mode) -->
+    <!-- Theme Gradients Night Variants -->
+    <color name="mc_olive_track">#8CA04D</color>
+    <color name="mc_olive_tick">#708238</color>
+    <color name="mc_dusty_blue_track">#7DA7C4</color>
+    <color name="mc_dusty_blue_tick">#5D8AA8</color>
+    <color name="mc_clay_earth_track">#D2915A</color>
+    <color name="mc_clay_earth_tick">#B87333</color>
+    <color name="mc_slate_track">#8F9EAB</color>
+    <color name="mc_slate_tick">#708090</color>
+    <color name="mc_kimoby_green_track">#38EF7D</color>
+    <color name="mc_kimoby_green_tick">#11998E</color>
+    <color name="mc_kimoby_purple_track">#A75CF2</color>
+    <color name="mc_kimoby_purple_tick">#8E2DE2</color>
+    <color name="mc_aura_track">#B460E5</color>
+    <color name="mc_aura_tick">#411D31</color>
+    <color name="mc_grit_track">#0F9B0F</color>
+    <color name="mc_grit_tick">#000000</color>
+    <color name="mc_copper_track">#B59A94</color>
+    <color name="mc_copper_tick">#997E78</color>
+    <color name="mc_relief_track">#8F72AF</color>
+    <color name="mc_relief_tick">#614385</color>
+    <color name="mc_cristal_track">#BDC3C7</color>
+    <color name="mc_cristal_tick">#2C3E50</color>
 </resources>
