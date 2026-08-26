@@ -47,6 +47,11 @@
     <color name="mc_night_corner_six">#A748FC</color>
     <color name="mc_night_corner_six_2">#00695C</color>
 
+    <!-- Neon Theme Colors -->
+    <color name="mc_neon_track">#26C6DA</color>
+    <color name="mc_neon_center">#AB47BC</color>
+    <color name="mc_neon_tick">#EC407A</color>
+
     <!-- Custom Avatar Rainbow Colors -->
     <color name="mc_avatar_1">#FF0000</color>
     <color name="mc_avatar_2">#FF7F00</color>

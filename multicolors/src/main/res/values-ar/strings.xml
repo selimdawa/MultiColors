@@ -56,11 +56,27 @@
     <string name="mc_theme_cool_sky">سماء باردة</string>
     <string name="mc_theme_evening">مساء</string>
     <string name="mc_theme_kimoby">كيموبي</string>
+    <string name="mc_theme_kimoby_green">كيموبي أخضر</string>
+    <string name="mc_theme_kimoby_purple">كيموبي بنفسجي</string>
+    <string name="mc_theme_slate">سجيل (رمادي أزرق)</string>
+    <string name="mc_theme_moss">طحلب (أخضر هادئ)</string>
+    <string name="mc_theme_clay">طين (ترابي)</string>
+    <string name="mc_theme_midnight">منتصف الليل (أزرق داكن)</string>
+    <string name="mc_theme_dusty_blue">أزرق مغبر</string>
+    <string name="mc_theme_olive">حديقة الزيتون</string>
+    <string name="mc_theme_rose">وردي هادئ</string>
 
     <!-- 3-Color Gradients -->
-    <string name="mc_theme_neon_night">ليل نيون</string>
-    <string name="mc_theme_neon_light">نيون لايت</string>
+    <string name="mc_theme_neon">نيون</string>
     <string name="mc_theme_ocean_deep">محيط عميق</string>
     <string name="mc_theme_sky">سماء</string>
     <string name="mc_theme_galaxy">مجرة</string>
+
+    <!-- Sky Themes -->
+    <string name="mc_theme_sky_day">سماء نهارية</string>
+    <string name="mc_theme_sky_night">سماء ليلية</string>
+    <string name="mc_theme_sky_sunset">سماء الغروب</string>
+    <string name="mc_theme_sky_morning">سماء الصباح</string>
+    <string name="mc_theme_sky_storm">سماء عاصفة</string>
+    <string name="mc_theme_sky_aurora">سماء الأورورا</string>
 </resources>

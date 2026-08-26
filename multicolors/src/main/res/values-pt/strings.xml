@@ -50,7 +50,13 @@
     <string name="mc_theme_cool_sky">Céu fresco</string>
     <string name="mc_theme_evening">Noite</string>
     <string name="mc_theme_kimoby">Kimoby</string>
-    <string name="mc_theme_neon_night">Noite de neon</string>
+    <string name="mc_theme_kimoby_green">Kimoby Verde</string>
+    <string name="mc_theme_kimoby_purple">Kimoby Roxo</string>
+    <string name="mc_theme_slate">Slate</string>
+    <string name="mc_theme_moss">Verde Musgo</string>
+    <string name="mc_theme_clay">Argila</string>
+    <string name="mc_theme_midnight">Azul Meia-noite</string>
+    <string name="mc_theme_neon">Neon</string>
     <string name="mc_theme_ocean_deep">Oceano profundo</string>
     <string name="mc_theme_sky">Céu</string>
     <string name="mc_theme_galaxy">Galáxia</string>
