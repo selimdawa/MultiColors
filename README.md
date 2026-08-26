@@ -4,16 +4,16 @@
 
 ## Features
 
-- ✅ **Reactive Architecture**: Built with Kotlin Flow and Coroutines for real-time theme updates.
-- ✅ **Smooth Transitions**: Circular reveal animations for a premium user experience when changing themes.
+- ✅ **Smooth Transitions**: Circular reveal animations for a premium user experience when changing themes. Now usable for ANY action (like Night Mode toggle).
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
+- ✅ **Memory Optimized**: Automatic bitmap recycling and lifecycle-aware collectors to prevent memory leaks.
 - ✅ **Advanced Preloading**: Uses `IdleHandler` to preload theme backgrounds for zero-lag UI.
 - ✅ **Custom Color Picker**: Integrated UI for users to create and save their own solid color themes.
 - ✅ **Theme Management**: Built-in dialog to manage, hide, or prioritize themes in the selection list.
 - ✅ **Safe Mode**: Automatic fallback to a default theme if registration errors or resource issues occur.
 - ✅ **Unified Theme API**: Simplified theme registration with support for XML styles or programmatic gradients.
 - ✅ **Edge-to-Edge Ready**: Built-in support for status and navigation bar color synchronization.
-- ✅ **New UI Components**: `MultiColorAvatarView` and `MultiColorBorderLayout` for stunning profile and container effects.
+- ✅ **New UI Components**: `MultiColorAvatarView`, `MultiColorBorderLayout`, and `RedBlueBorderLayout` for stunning visual effects.
 - ✅ **Animated Borders**: Rotating gradient borders with customizable speed, direction, and neon glow.
 - ✅ **Rainbow Mode**: Optional rainbow color cycle for borders independent of the current theme.
 
@@ -107,6 +107,14 @@ Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for 
         android:text="Premium Button" />
         
 </io.selimdawa.multicolors.MultiColorBorderLayout>
+
+<!-- 🆕 RedBlueBorderLayout: A specialized container with a rotating Red/Blue neon border -->
+<io.selimdawa.multicolors.RedBlueBorderLayout
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    app:mc_border_rotation_duration="2000"
+    app:mc_border_thickness="5dp"
+    app:mc_glow_radius="12dp" />
 ```
 
 ## Advanced APIs
@@ -123,6 +131,18 @@ MultiColorManager.showColorPickerDialog(activity) // Opens the custom picker
 Hide specific default themes from the user:
 ```kotlin
 MultiColorManager.excludedThemeIds = setOf("GRADUAL_ONE", "SOLID_WHITE")
+```
+
+### 🆕 Universal Animated Action
+You can now use the library's premium circular reveal animation for any UI change (like switching to Night Mode or changing Languages):
+
+```kotlin
+ThemeAnimationHelper.performAnimatedAction(activity, triggerView) {
+    // 1. Perform your UI change (e.g. toggle night mode)
+    toggleNightMode()
+    // 2. The library will take a screenshot, calculate reveal center from triggerView, 
+    // and perform a smooth transition!
+}
 ```
 
 ## XML Attributes

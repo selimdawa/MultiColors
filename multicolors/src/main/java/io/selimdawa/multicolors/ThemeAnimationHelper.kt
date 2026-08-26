@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Looper
 import android.view.PixelCopy
+import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -19,8 +20,30 @@ object ThemeAnimationHelper {
     private var lastScreenshot: Bitmap? = null
     private var capturingActivityClassName: String? = null
     private var currentCaptureId: Long = 0
+    var shouldAnimateThemeIcon: Boolean = false
     var animationStartX: Int = 0
     var animationStartY: Int = 0
+
+    /**
+     * Set the center point for the reveal animation based on a view's location.
+     */
+    fun setAnimationSource(view: View) {
+        val location = IntArray(2)
+        view.getLocationInWindow(location)
+        animationStartX = location[0] + view.width / 2
+        animationStartY = location[1] + view.height / 2
+    }
+
+    /**
+     * Executes an action (like changing theme or night mode) with a circular reveal animation
+     * starting from the provided view.
+     */
+    fun performAnimatedAction(activity: Activity, triggerView: View, action: () -> Unit) {
+        setAnimationSource(triggerView)
+        captureScreenshot(activity) {
+            action()
+        }
+    }
 
     fun captureScreenshot(activity: Activity, onComplete: () -> Unit = {}) {
         val view = activity.window.decorView
