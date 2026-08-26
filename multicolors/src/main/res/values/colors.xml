@@ -6,10 +6,8 @@
     <color name="mc_colorPrimary">#fff</color>
     <color name="mc_image_profile">#e0e0e0</color>
     <color name="mc_dark">#000000</color>
-    <color name="mc_black">#212121</color>
     <color name="mc_white">#ffffff</color>
     <color name="mc_gray">#888888</color>
-    <color name="mc_trans">#66000000</color>
 
     <!-- Solid Colors -->
     <color name="mc_basic">#3c415e</color>
@@ -67,30 +65,30 @@
     <color name="mc_neon_track">#1D93A3</color>
     <color name="mc_neon_center">#8E24AA</color>
     <color name="mc_neon_tick">#C2185B</color>
-    <color name="mc_midnight_track">#8E2DE2</color>
-    <color name="mc_midnight_center">#4A00E0</color>
-    <color name="mc_midnight_tick">#000000</color>
+    <color name="mc_sky_track">#8E2DE2</color>
+    <color name="mc_sky_center">#4A00E0</color>
+    <color name="mc_sky_tick">#000000</color>
     <color name="mc_galaxy_track">#e94560</color>
     <color name="mc_galaxy_center">#16213e</color>
     <color name="mc_galaxy_tick">#1a1a2e</color>
-    <color name="mc_nebula_track">#379ab9</color>
-    <color name="mc_nebula_center">#16213e</color>
-    <color name="mc_nebula_tick">#1a1a2e</color>
+    <color name="mc_blue_nebula_track">#379ab9</color>
+    <color name="mc_blue_nebula_center">#16213e</color>
+    <color name="mc_blue_nebula_tick">#1a1a2e</color>
     <color name="mc_emerald_star_track">#37ba4d</color>
     <color name="mc_emerald_star_center">#16213e</color>
     <color name="mc_emerald_star_tick">#1a1a2e</color>
-    <color name="mc_sky_blue_track">#2E7392</color>
-    <color name="mc_sky_blue_center">#3D638B</color>
-    <color name="mc_sky_blue_tick">#4C5A85</color>
-    <color name="mc_sky_sunset_track">#E55562</color>
-    <color name="mc_sky_sunset_center">#E57156</color>
-    <color name="mc_sky_sunset_tick">#E5AF65</color>
-    <color name="mc_sky_green_track">#1E8449</color>
-    <color name="mc_sky_green_center">#145A32</color>
-    <color name="mc_sky_red_track">#C0392B</color>
-    <color name="mc_sky_red_center">#943126</color>
-    <color name="mc_sky_teal_track">#117864</color>
-    <color name="mc_sky_teal_center">#0B4D40</color>
+    <color name="mc_cool_azure_track">#2E7392</color>
+    <color name="mc_cool_azure_center">#3D638B</color>
+    <color name="mc_cool_azure_tick">#4C5A85</color>
+    <color name="mc_golden_dusk_track">#E55562</color>
+    <color name="mc_golden_dusk_center">#E57156</color>
+    <color name="mc_golden_dusk_tick">#E5AF65</color>
+    <color name="mc_emerald_mist_track">#1E8449</color>
+    <color name="mc_emerald_mist_center">#145A32</color>
+    <color name="mc_crimson_horizon_track">#C0392B</color>
+    <color name="mc_crimson_horizon_center">#943126</color>
+    <color name="mc_oceanic_sky_track">#117864</color>
+    <color name="mc_oceanic_sky_center">#0B4D40</color>
 
     <!-- Custom Avatar Rainbow Colors -->
     <color name="mc_avatar_1">#FF0000</color>

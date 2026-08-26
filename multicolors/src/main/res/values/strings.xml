@@ -1,82 +1,60 @@
 <resources>
-    <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">Select Theme</string>
     <string name="mc_manage_themes">Manage Themes</string>
     <string name="mc_edit">Edit</string>
     <string name="mc_solid_colors">Solid Colors</string>
     <string name="mc_gradient_2_colors">2 Colors Gradients</string>
     <string name="mc_gradient_3_colors">3 Colors Gradients</string>
-    <string name="mc_gradient_colors">Gradients</string>
     <string name="mc_custom_color">Custom Color</string>
     <string name="mc_pick_color">Pick a Color</string>
     <string name="mc_save_theme">Save Theme</string>
     <string name="mc_hex_code">Hex Code</string>
     <string name="mc_cancel">Cancel</string>
-
-    <!-- Theme Names -->
-    <string name="mc_theme_one">Basic</string>
-    <string name="mc_theme_two">Blue</string>
-    <string name="mc_theme_three">Orange</string>
-    <string name="mc_theme_five">Fuchsia</string>
-    <string name="mc_theme_seven">Brown</string>
-    <string name="mc_theme_nine">Green</string>
-    <string name="mc_theme_gradient_one">Sunset Sorbet</string>
-    <string name="mc_theme_gradient_two">Gradual 2</string>
-    <string name="mc_theme_gradient_four">Sea Glass</string>
-    <string name="mc_theme_gradient_five">Dragon Fruit</string>
-    <string name="mc_theme_gradient_six">Oceanic Depths</string>
-    <string name="mc_theme_gradient_seven">Northern Lights</string>
     <string name="mc_theme_custom">Custom</string>
 
-    <!-- Additional Solids -->
-    <string name="mc_theme_slate_solid">Slate</string>
-    <string name="mc_theme_indigo_solid">Indigo</string>
-    <string name="mc_theme_teal">Teal</string>
-    <string name="mc_theme_purple">Purple</string>
+    <!-- Solids -->
+    <string name="mc_theme_s1">Basic</string>
+    <string name="mc_theme_s2">Blue</string>
+    <string name="mc_theme_s3">Orange</string>
+    <string name="mc_theme_s4">Fuchsia</string>
+    <string name="mc_theme_s5">Brown</string>
+    <string name="mc_theme_s6">Green</string>
+    <string name="mc_theme_s7">Slate</string>
+    <string name="mc_theme_s8">Indigo</string>
+    <string name="mc_theme_s9">Teal</string>
+    <string name="mc_theme_s10">Purple</string>
 
     <!-- 2-Color Gradients -->
-    <string name="mc_theme_sea_blue">Sea Blue</string>
-    <string name="mc_theme_cristal">Cristal</string>
-    <string name="mc_theme_relief">Relief</string>
-    <string name="mc_theme_copper">Copper</string>
-    <string name="mc_theme_aura">Aura</string>
-    <string name="mc_theme_grit">Grit</string>
-    <string name="mc_theme_kimoby">Electric Pulse</string>
-    <string name="mc_theme_kimoby_green">Vibrant Mint</string>
-    <string name="mc_theme_kimoby_purple">Deep Orchid</string>
-    <string name="mc_theme_slate">Slate Shadow</string>
-    <string name="mc_theme_clay">Clay Earth</string>
-    <string name="mc_theme_dusty_blue">Dusty Blue</string>
-    <string name="mc_theme_olive">Olive Garden</string>
-    <string name="mc_theme_rose">Pastel Rose</string>
+    <string name="mc_theme_g2_1">Sunset Sorbet</string>
+    <string name="mc_theme_g2_2">Sea Glass</string>
+    <string name="mc_theme_g2_3">Dragon Fruit</string>
+    <string name="mc_theme_g2_4">Oceanic Depths</string>
+    <string name="mc_theme_g2_5">Northern Lights</string>
+    <string name="mc_theme_g2_6">Sea Blue</string>
+    <string name="mc_theme_g2_7">Cristal</string>
+    <string name="mc_theme_g2_8">Relief</string>
+    <string name="mc_theme_g2_9">Copper</string>
+    <string name="mc_theme_g2_10">Aura</string>
+    <string name="mc_theme_g2_11">Grit</string>
+    <string name="mc_theme_g2_12">Electric Pulse</string>
+    <string name="mc_theme_g2_13">Vibrant Mint</string>
+    <string name="mc_theme_g2_14">Deep Orchid</string>
+    <string name="mc_theme_g2_15">Slate Shadow</string>
+    <string name="mc_theme_g2_16">Clay Earth</string>
+    <string name="mc_theme_g2_17">Dusty Blue</string>
+    <string name="mc_theme_g2_18">Olive Garden</string>
+    <string name="mc_theme_g2_19">Pastel Rose</string>
 
     <!-- 3-Color Gradients -->
-    <string name="mc_theme_neon">Neon</string>
-    <string name="mc_theme_sky">Sky</string>
-    <string name="mc_theme_galaxy">Galaxy</string>
-    <string name="mc_theme_nebula">Blue Nebula</string>
-    <string name="mc_theme_emerald_star">Emerald Star</string>
-    <string name="mc_theme_midnight">Midnight</string>
+    <string name="mc_theme_g3_1">Neon</string>
+    <string name="mc_theme_g3_2">Sky</string>
+    <string name="mc_theme_g3_3">Galaxy</string>
+    <string name="mc_theme_g3_4">Blue Nebula</string>
+    <string name="mc_theme_g3_5">Emerald Star</string>
+    <string name="mc_theme_g3_6">Cool Azure</string>
+    <string name="mc_theme_g3_7">Golden Dusk</string>
+    <string name="mc_theme_g3_8">Emerald Mist</string>
+    <string name="mc_theme_g3_9">Crimson Horizon</string>
+    <string name="mc_theme_g3_10">Oceanic Sky</string>
 
-    <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">Cool Azure</string>
-    <string name="mc_theme_sky_sunset">Golden Dusk</string>
-    <string name="mc_theme_sky_green">Emerald Mist</string>
-    <string name="mc_theme_sky_red">Crimson Horizon</string>
-    <string name="mc_theme_sky_teal">Oceanic Sky</string>
-
-    <string-array name="mc_theme_entries">
-        <item>@string/mc_theme_one</item>
-        <item>@string/mc_theme_two</item>
-        <item>@string/mc_theme_three</item>
-        <item>@string/mc_theme_five</item>
-        <item>@string/mc_theme_seven</item>
-        <item>@string/mc_theme_nine</item>
-        <item>@string/mc_theme_gradient_one</item>
-        <item>@string/mc_theme_gradient_two</item>
-        <item>@string/mc_theme_gradient_four</item>
-        <item>@string/mc_theme_gradient_five</item>
-        <item>@string/mc_theme_gradient_six</item>
-        <item>@string/mc_theme_gradient_seven</item>
-    </string-array>
 </resources>

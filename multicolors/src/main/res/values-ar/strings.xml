@@ -1,67 +1,59 @@
 <resources>
-    <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">اختر السمة</string>
     <string name="mc_manage_themes">إدارة السمات</string>
     <string name="mc_edit">تعديل</string>
     <string name="mc_solid_colors">ألوان سادة</string>
     <string name="mc_gradient_2_colors">تدرجات من لونين</string>
     <string name="mc_gradient_3_colors">تدرجات من 3 ألوان</string>
-    <string name="mc_gradient_colors">تدرجات</string>
     <string name="mc_custom_color">لون مخصص</string>
     <string name="mc_pick_color">اختر لوناً</string>
     <string name="mc_save_theme">حفظ السمة</string>
     <string name="mc_hex_code">رمز الـ Hex</string>
     <string name="mc_cancel">إلغاء</string>
-
-    <!-- Theme Names -->
-    <string name="mc_theme_one">أساسي</string>
-    <string name="mc_theme_two">أزرق</string>
-    <string name="mc_theme_three">برتقالي</string>
-    <string name="mc_theme_five">فوشيا</string>
-    <string name="mc_theme_seven">بني</string>
-    <string name="mc_theme_nine">أخضر</string>
-    <string name="mc_theme_gradient_one">شربات الغروب</string>
-    <string name="mc_theme_gradient_two">متدرج 2</string>
-    <string name="mc_theme_gradient_four">زجاج البحر</string>
-    <string name="mc_theme_gradient_five">فاكهة التنين</string>
-    <string name="mc_theme_gradient_six">أعماق المحيط</string>
-    <string name="mc_theme_gradient_seven">أضواء الشمال</string>
     <string name="mc_theme_custom">مخصص</string>
 
-    <!-- Additional Solids -->
-    <string name="mc_theme_slate_solid">رمادي صخري</string>
-    <string name="mc_theme_indigo_solid">نيلي</string>
-    <string name="mc_theme_teal">تركواز</string>
-    <string name="mc_theme_purple">بنفسجي</string>
+    <!-- Solids -->
+    <string name="mc_theme_s1">أساسي</string>
+    <string name="mc_theme_s2">أزرق</string>
+    <string name="mc_theme_s3">برتقالي</string>
+    <string name="mc_theme_s4">فوشيا</string>
+    <string name="mc_theme_s5">بني</string>
+    <string name="mc_theme_s6">أخضر</string>
+    <string name="mc_theme_s7">رمادي صخري</string>
+    <string name="mc_theme_s8">نيلي</string>
+    <string name="mc_theme_s9">تركواز</string>
+    <string name="mc_theme_s10">بنفسجي</string>
 
     <!-- 2-Color Gradients -->
-    <string name="mc_theme_sea_blue">أزرق البحر</string>
-    <string name="mc_theme_cristal">كريستال</string>
-    <string name="mc_theme_relief">راحة</string>
-    <string name="mc_theme_copper">نحاس</string>
-    <string name="mc_theme_aura">أورا</string>
-    <string name="mc_theme_grit">عزيمة</string>
-    <string name="mc_theme_kimoby">نبض كهربائي</string>
-    <string name="mc_theme_kimoby_green">نعناع حيوي</string>
-    <string name="mc_theme_kimoby_purple">سحلب داكن</string>
-    <string name="mc_theme_slate">ظل الصخر</string>
-    <string name="mc_theme_clay">طين (ترابي)</string>
-    <string name="mc_theme_dusty_blue">أزرق مغبر</string>
-    <string name="mc_theme_olive">حديقة الزيتون</string>
-    <string name="mc_theme_rose">وردي هادئ</string>
+    <string name="mc_theme_g2_1">شربات الغروب</string>
+    <string name="mc_theme_g2_2">زجاج البحر</string>
+    <string name="mc_theme_g2_3">فاكهة التنين</string>
+    <string name="mc_theme_g2_4">أعماق المحيط</string>
+    <string name="mc_theme_g2_5">أضواء الشمال</string>
+    <string name="mc_theme_g2_6">أزرق البحر</string>
+    <string name="mc_theme_g2_7">كريستال</string>
+    <string name="mc_theme_g2_8">راحة</string>
+    <string name="mc_theme_g2_9">نحاس</string>
+    <string name="mc_theme_g2_10">أورا</string>
+    <string name="mc_theme_g2_11">عزيمة</string>
+    <string name="mc_theme_g2_12">نبض كهربائي</string>
+    <string name="mc_theme_g2_13">نعناع حيوي</string>
+    <string name="mc_theme_g2_14">سحلب داكن</string>
+    <string name="mc_theme_g2_15">ظل الصخر</string>
+    <string name="mc_theme_g2_16">طين (ترابي)</string>
+    <string name="mc_theme_g2_17">أزرق مغبر</string>
+    <string name="mc_theme_g2_18">حديقة الزيتون</string>
+    <string name="mc_theme_g2_19">وردي هادئ</string>
 
     <!-- 3-Color Gradients -->
-    <string name="mc_theme_neon">نيون</string>
-    <string name="mc_theme_sky">سماء</string>
-    <string name="mc_theme_galaxy">مجرة</string>
-    <string name="mc_theme_nebula">سديم أزرق</string>
-    <string name="mc_theme_emerald_star">نجم زمردي</string>
-    <string name="mc_theme_midnight">منتصف الليل</string>
-
-    <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">أزرق لازوردي</string>
-    <string name="mc_theme_sky_sunset">غسق ذهبي</string>
-    <string name="mc_theme_sky_green">ضباب زمردي</string>
-    <string name="mc_theme_sky_red">أفق قرمزي</string>
-    <string name="mc_theme_sky_teal">سماء محيطية</string>
+    <string name="mc_theme_g3_1">نيون</string>
+    <string name="mc_theme_g3_2">سماء</string>
+    <string name="mc_theme_g3_3">مجرة</string>
+    <string name="mc_theme_g3_4">سديم أزرق</string>
+    <string name="mc_theme_g3_5">نجم زمردي</string>
+    <string name="mc_theme_g3_6">أزرق لازوردي</string>
+    <string name="mc_theme_g3_7">غسق ذهبي</string>
+    <string name="mc_theme_g3_8">ضباب زمردي</string>
+    <string name="mc_theme_g3_9">أفق قرمزي</string>
+    <string name="mc_theme_g3_10">سماء محيطية</string>
 </resources>

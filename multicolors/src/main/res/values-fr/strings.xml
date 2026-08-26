@@ -1,56 +1,59 @@
 <resources>
-    <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">Sélectionner le thème</string>
     <string name="mc_manage_themes">Gérer les thèmes</string>
     <string name="mc_edit">Modifier</string>
     <string name="mc_solid_colors">Couleurs unies</string>
     <string name="mc_gradient_2_colors">Dégradés 2 couleurs</string>
     <string name="mc_gradient_3_colors">Dégradés 3 couleurs</string>
-    <string name="mc_gradient_colors">Dégradés</string>
     <string name="mc_custom_color">Couleur personnalisée</string>
     <string name="mc_pick_color">Choisir une couleur</string>
     <string name="mc_save_theme">Enregistrer le thème</string>
     <string name="mc_hex_code">Code hexadécimal</string>
     <string name="mc_cancel">Annuler</string>
-    <string name="mc_theme_one">Basique</string>
-    <string name="mc_theme_two">Bleu</string>
-    <string name="mc_theme_three">Orange</string>
-    <string name="mc_theme_five">Fuchsia</string>
-    <string name="mc_theme_seven">Marron</string>
-    <string name="mc_theme_nine">Vert</string>
-    <string name="mc_theme_gradient_one">Sorbet de Coucher de Soleil</string>
-    <string name="mc_theme_gradient_two">Graduel 2</string>
-    <string name="mc_theme_gradient_four">Verre de Mer</string>
-    <string name="mc_theme_gradient_five">Fruit du Dragon</string>
-    <string name="mc_theme_gradient_six">Profondeurs Océaniques</string>
-    <string name="mc_theme_gradient_seven">Aurore Boréale</string>
     <string name="mc_theme_custom">Personnalisé</string>
-    <string name="mc_theme_slate_solid">Slate</string>
-    <string name="mc_theme_indigo_solid">Indigo</string>
-    <string name="mc_theme_teal">Sarcelle</string>
-    <string name="mc_theme_purple">Violet</string>
-    <string name="mc_theme_sea_blue">Bleu mer</string>
-    <string name="mc_theme_cristal">Cristal</string>
-    <string name="mc_theme_relief">Relief</string>
-    <string name="mc_theme_copper">Cuivre</string>
-    <string name="mc_theme_aura">Aura</string>
-    <string name="mc_theme_grit">Gravier</string>
-    <string name="mc_theme_kimoby">Kimoby</string>
-    <string name="mc_theme_kimoby_green">Kimoby Vert</string>
-    <string name="mc_theme_kimoby_purple">Kimoby Pourpre</string>
-    <string name="mc_theme_slate">Ardoise</string>
-    <string name="mc_theme_clay">Argile</string>
-    <string name="mc_theme_neon">Néon</string>
-    <string name="mc_theme_sky">Ciel</string>
-    <string name="mc_theme_galaxy">Galaxie</string>
-    <string name="mc_theme_nebula">Nébuleuse Bleue</string>
-    <string name="mc_theme_emerald_star">Étoile d\'Émeraude</string>
-    <string name="mc_theme_midnight">Minuit</string>
 
-    <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">Ciel bleu</string>
-    <string name="mc_theme_sky_sunset">Coucher de soleil</string>
-    <string name="mc_theme_sky_green">Ciel vert</string>
-    <string name="mc_theme_sky_red">Ciel rouge</string>
-    <string name="mc_theme_sky_teal">Ciel sarcelle</string>
+    <!-- Solids -->
+    <string name="mc_theme_s1">Basique</string>
+    <string name="mc_theme_s2">Bleu</string>
+    <string name="mc_theme_s3">Orange</string>
+    <string name="mc_theme_s4">Fuchsia</string>
+    <string name="mc_theme_s5">Marron</string>
+    <string name="mc_theme_s6">Vert</string>
+    <string name="mc_theme_s7">Ardoise</string>
+    <string name="mc_theme_s8">Indigo</string>
+    <string name="mc_theme_s9">Sarcelle</string>
+    <string name="mc_theme_s10">Violet</string>
+
+    <!-- 2-Color Gradients -->
+    <string name="mc_theme_g2_1">Sorbet de Coucher de Soleil</string>
+    <string name="mc_theme_g2_2">Verre de Mer</string>
+    <string name="mc_theme_g2_3">Fruit du Dragon</string>
+    <string name="mc_theme_g2_4">Profondeurs Océaniques</string>
+    <string name="mc_theme_g2_5">Aurore Boréale</string>
+    <string name="mc_theme_g2_6">Bleu Mer</string>
+    <string name="mc_theme_g2_7">Cristal</string>
+    <string name="mc_theme_g2_8">Relief</string>
+    <string name="mc_theme_g2_9">Cuivre</string>
+    <string name="mc_theme_g2_10">Aura</string>
+    <string name="mc_theme_g2_11">Gravier</string>
+    <string name="mc_theme_g2_12">Impulsion Électrique</string>
+    <string name="mc_theme_g2_13">Menthe Vibrante</string>
+    <string name="mc_theme_g2_14">Orchidée Profonde</string>
+    <string name="mc_theme_g2_15">Ombre d\'Ardoise</string>
+    <string name="mc_theme_g2_16">Terre d\'Argile</string>
+    <string name="mc_theme_g2_17">Bleu Poussiéreux</string>
+    <string name="mc_theme_g2_18">Jardin d\'oliviers</string>
+    <string name="mc_theme_g2_19">Rose Pastel</string>
+
+    <!-- 3-Color Gradients -->
+    <string name="mc_theme_g3_1">Néon</string>
+    <string name="mc_theme_g3_2">Ciel</string>
+    <string name="mc_theme_g3_3">Galaxie</string>
+    <string name="mc_theme_g3_4">Nébuleuse Bleue</string>
+    <string name="mc_theme_g3_5">Étoile d\'Émeraude</string>
+    <string name="mc_theme_g3_6">Azur Frais</string>
+    <string name="mc_theme_g3_7">Crépuscule Doré</string>
+    <string name="mc_theme_g3_8">Brume d\'Émeraude</string>
+    <string name="mc_theme_g3_9">Horizon Cramoisi</string>
+    <string name="mc_theme_g3_10">Ciel Océanique</string>
 </resources>

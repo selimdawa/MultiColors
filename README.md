@@ -139,7 +139,7 @@ MultiColorManager.showColorPickerDialog(activity) // Opens the custom picker
 ### Exclude Themes
 Hide specific default themes from the user:
 ```kotlin
-MultiColorManager.excludedThemeIds = setOf("GRADUAL_ONE", "SOLID_WHITE")
+MultiColorManager.excludedThemeIds = setOf("G2_1", "G3_1")
 ```
 
 ### 🆕 Universal Animated Action

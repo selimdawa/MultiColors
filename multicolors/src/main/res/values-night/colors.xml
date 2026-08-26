@@ -38,13 +38,13 @@
     <color name="mc_neon_track">#00B8D4</color>
     <color name="mc_neon_center">#AA00FF</color>
     <color name="mc_neon_tick">#F50057</color>
-    <color name="mc_sky_blue_track">#50A5CD</color>
-    <color name="mc_sky_blue_center">#6392C4</color>
-    <color name="mc_sky_blue_tick">#7586BC</color>
-    <color name="mc_sky_green_track">#27AE60</color>
-    <color name="mc_sky_green_center">#1E8449</color>
-    <color name="mc_sky_red_track">#CD4639</color>
-    <color name="mc_sky_red_center">#943126</color>
-    <color name="mc_sky_teal_track">#16A085</color>
-    <color name="mc_sky_teal_center">#117864</color>
+    <color name="mc_cool_azure_track">#50A5CD</color>
+    <color name="mc_cool_azure_center">#6392C4</color>
+    <color name="mc_cool_azure_tick">#7586BC</color>
+    <color name="mc_emerald_mist_track">#27AE60</color>
+    <color name="mc_emerald_mist_center">#1E8449</color>
+    <color name="mc_crimson_horizon_track">#CD4639</color>
+    <color name="mc_crimson_horizon_center">#943126</color>
+    <color name="mc_oceanic_sky_track">#16A085</color>
+    <color name="mc_oceanic_sky_center">#117864</color>
 </resources>

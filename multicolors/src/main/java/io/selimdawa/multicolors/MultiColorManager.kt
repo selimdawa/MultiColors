@@ -53,7 +53,7 @@ object MultiColorManager {
     private val _currentThemeId = MutableStateFlow("")
     val currentThemeId: StateFlow<String> = _currentThemeId.asStateFlow()
 
-    private const val DEFAULT_THEME_ID = "ONE"
+    private const val DEFAULT_THEME_ID = "S_1"
     var isThemeSafeModeEnabled = true
 
     /**
@@ -109,7 +109,6 @@ object MultiColorManager {
             }
 
             override fun onActivityStarted(activity: Activity) {}
-
             override fun onActivityResumed(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivityStopped(activity: Activity) {}
@@ -252,9 +251,8 @@ object MultiColorManager {
             }
 
             val targetFlexbox = when {
-                theme.colors.size == 3 || theme.id.startsWith("G3_") || theme.id.startsWith("SKY_") -> dialogBinding.gradient3Flexbox
-
-                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                theme.colors.size == 3 || theme.id.startsWith("G3_") -> dialogBinding.gradient3Flexbox
+                theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
             }
             targetFlexbox.addView(itemBinding.root)
@@ -373,9 +371,8 @@ object MultiColorManager {
 
             val root = itemBinding.root
             val targetFlexbox = when {
-                theme.colors.size == 3 || theme.id.startsWith("G3_") || theme.id.startsWith("SKY_") -> dialogBinding.gradient3Flexbox
-
-                theme.id.contains("GRADUAL") || theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
+                theme.colors.size == 3 || theme.id.startsWith("G3_") -> dialogBinding.gradient3Flexbox
+                theme.id.startsWith("G2_") || (theme.colors.size == 2 && theme.colors[0] != theme.colors[1]) -> dialogBinding.gradient2Flexbox
                 else -> dialogBinding.solidFlexbox
             }
             targetFlexbox.addView(root)

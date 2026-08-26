@@ -1,56 +1,59 @@
 <resources>
-    <string name="app_name">Multi Colors</string>
     <string name="mc_select_theme">Seleccionar tema</string>
     <string name="mc_manage_themes">Gestionar temas</string>
     <string name="mc_edit">Editar</string>
     <string name="mc_solid_colors">Colores sólidos</string>
     <string name="mc_gradient_2_colors">Degradados de 2 colores</string>
     <string name="mc_gradient_3_colors">Degradados de 3 colores</string>
-    <string name="mc_gradient_colors">Degradados</string>
     <string name="mc_custom_color">Color personalizado</string>
     <string name="mc_pick_color">Elige un color</string>
     <string name="mc_save_theme">Guardar tema</string>
     <string name="mc_hex_code">Código hexadecimal</string>
     <string name="mc_cancel">Cancelar</string>
-    <string name="mc_theme_one">Básico</string>
-    <string name="mc_theme_two">Azul</string>
-    <string name="mc_theme_three">Naranja</string>
-    <string name="mc_theme_five">Fucsia</string>
-    <string name="mc_theme_seven">Marrón</string>
-    <string name="mc_theme_nine">Verde</string>
-    <string name="mc_theme_gradient_one">Sorbete de Ocaso</string>
-    <string name="mc_theme_gradient_two">Gradual 2</string>
-    <string name="mc_theme_gradient_four">Cristal de Mar</string>
-    <string name="mc_theme_gradient_five">Fruta del Dragón</string>
-    <string name="mc_theme_gradient_six">Profundidades Oceánicas</string>
-    <string name="mc_theme_gradient_seven">Aurora Boreal</string>
     <string name="mc_theme_custom">Personalizado</string>
-    <string name="mc_theme_slate_solid">Slate</string>
-    <string name="mc_theme_indigo_solid">Indigo</string>
-    <string name="mc_theme_teal">Verde azulado</string>
-    <string name="mc_theme_purple">Púrpura</string>
-    <string name="mc_theme_sea_blue">Azul mar</string>
-    <string name="mc_theme_cristal">Cristal</string>
-    <string name="mc_theme_relief">Relieve</string>
-    <string name="mc_theme_copper">Cobre</string>
-    <string name="mc_theme_aura">Aura</string>
-    <string name="mc_theme_grit">Arena</string>
-    <string name="mc_theme_kimoby">Kimoby</string>
-    <string name="mc_theme_kimoby_green">Kimoby Verde</string>
-    <string name="mc_theme_kimoby_purple">Kimoby Púrpura</string>
-    <string name="mc_theme_slate">Pizarra</string>
-    <string name="mc_theme_clay">Arcilla</string>
-    <string name="mc_theme_neon">Neón</string>
-    <string name="mc_theme_sky">Cielo</string>
-    <string name="mc_theme_galaxy">Galaxia</string>
-    <string name="mc_theme_nebula">Nebulosa Azul</string>
-    <string name="mc_theme_emerald_star">Estrella Esmeralda</string>
-    <string name="mc_theme_midnight">Medianoche</string>
 
-    <!-- Sky Themes -->
-    <string name="mc_theme_sky_blue">Cielo azul</string>
-    <string name="mc_theme_sky_sunset">Atardecer</string>
-    <string name="mc_theme_sky_green">Cielo verde</string>
-    <string name="mc_theme_sky_red">Cielo rojo</string>
-    <string name="mc_theme_sky_teal">Cielo verde azulado</string>
+    <!-- Solids -->
+    <string name="mc_theme_s1">Básico</string>
+    <string name="mc_theme_s2">Azul</string>
+    <string name="mc_theme_s3">Naranja</string>
+    <string name="mc_theme_s4">Fucsia</string>
+    <string name="mc_theme_s5">Marrón</string>
+    <string name="mc_theme_s6">Verde</string>
+    <string name="mc_theme_s7">Pizarra</string>
+    <string name="mc_theme_s8">Índigo</string>
+    <string name="mc_theme_s9">Verde azulado</string>
+    <string name="mc_theme_s10">Púrpura</string>
+
+    <!-- 2-Color Gradients -->
+    <string name="mc_theme_g2_1">Sorbete de Ocaso</string>
+    <string name="mc_theme_g2_2">Cristal de Mar</string>
+    <string name="mc_theme_g2_3">Fruta del Dragón</string>
+    <string name="mc_theme_g2_4">Profundidades Oceánicas</string>
+    <string name="mc_theme_g2_5">Aurora Boreal</string>
+    <string name="mc_theme_g2_6">Azul Mar</string>
+    <string name="mc_theme_g2_7">Cristal</string>
+    <string name="mc_theme_g2_8">Relieve</string>
+    <string name="mc_theme_g2_9">Cobre</string>
+    <string name="mc_theme_g2_10">Aura</string>
+    <string name="mc_theme_g2_11">Arena</string>
+    <string name="mc_theme_g2_12">Pulso Eléctrico</string>
+    <string name="mc_theme_g2_13">Menta Vibrante</string>
+    <string name="mc_theme_g2_14">Orquídea Profunda</string>
+    <string name="mc_theme_g2_15">Sombra de Pizarra</string>
+    <string name="mc_theme_g2_16">Tierra de Arcilla</string>
+    <string name="mc_theme_g2_17">Azul Polvoriento</string>
+    <string name="mc_theme_g2_18">Jardín de Olivos</string>
+    <string name="mc_theme_g2_19">Rosa Pastel</string>
+
+    <!-- 3-Color Gradients -->
+    <string name="mc_theme_g3_1">Neón</string>
+    <string name="mc_theme_g3_2">Cielo</string>
+    <string name="mc_theme_g3_3">Galaxia</string>
+    <string name="mc_theme_g3_4">Nebulosa Azul</string>
+    <string name="mc_theme_g3_5">Estrella Esmeralda</string>
+    <string name="mc_theme_g3_6">Azur Fresco</string>
+    <string name="mc_theme_g3_7">Ocaso Dorado</string>
+    <string name="mc_theme_g3_8">Niebla Esmeralda</string>
+    <string name="mc_theme_g3_9">Horizonte Carmesí</string>
+    <string name="mc_theme_g3_10">Cielo Oceánico</string>
 </resources>
