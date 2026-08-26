@@ -31,16 +31,11 @@ class MultiColorButton @JvmOverloads constructor(
         preventCornerOverlap = false
     }
 
-    private var lastClickTime: Long = 0
-    private val clickInterval: Long = 2000 // Prevent double clicking for 2 seconds
 
     private fun setupListeners() {
         setOnClickListener {
-            val currentTime = System.currentTimeMillis()
-            if (currentTime - lastClickTime > clickInterval) {
-                lastClickTime = currentTime
-                findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
-            }
+            // فتح القائمة يجب أن يكون فورياً دائماً
+            findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
         }
     }
 

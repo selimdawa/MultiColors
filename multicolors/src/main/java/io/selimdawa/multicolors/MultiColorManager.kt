@@ -88,9 +88,11 @@ object MultiColorManager {
 
             override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
                 applyTheme(activity)
+                ThemeAnimationHelper.prepareTransition(activity)
             }
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                ThemeAnimationHelper.checkAndPerformRevealAnimation(activity)
                 (activity as? AppCompatActivity)?.let { appCompatActivity ->
                     val themeAtCreation = _currentThemeId.value
                     appCompatActivity.lifecycleScope.launch {
@@ -106,9 +108,7 @@ object MultiColorManager {
                 }
             }
 
-            override fun onActivityStarted(activity: Activity) {
-                ThemeAnimationHelper.checkAndPerformRevealAnimation(activity)
-            }
+            override fun onActivityStarted(activity: Activity) {}
 
             override fun onActivityResumed(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
@@ -225,6 +225,8 @@ object MultiColorManager {
             }
 
             itemBinding.root.setOnClickListener { view ->
+                if (!ThemeAnimationHelper.canPerformAction()) return@setOnClickListener
+                
                 val newThemeId = theme.id
                 val currentId = _currentThemeId.value
                 
@@ -238,6 +240,7 @@ object MultiColorManager {
                 view.getLocationInWindow(location)
                 ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
                 ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
+                ThemeAnimationHelper.shouldAnimateThemeIcon = true
 
                 ThemeAnimationHelper.captureScreenshot(activity) {
                     _currentThemeId.value = newThemeId
@@ -306,6 +309,8 @@ object MultiColorManager {
         dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
 
         dialogBinding.btnSave.setOnClickListener {
+            if (!ThemeAnimationHelper.canPerformAction()) return@setOnClickListener
+            
             val color = colorWheel.getColor()
             val hex = String.format("%06X", (0xFFFFFF and color))
             val newThemeId = "CUSTOM_$hex"

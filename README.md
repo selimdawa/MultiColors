@@ -84,6 +84,7 @@ Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for 
     android:layout_width="34dp"
     android:layout_height="34dp"
     app:mc_dark_icon="@drawable/ic_night"
+    app:mc_icon_color_mode="track"
     app:mc_light_icon="@drawable/ic_light" />
 
 <!-- A view (MaterialCardView-based) that reacts to theme changes -->
@@ -165,6 +166,7 @@ Customizable attributes for `MultiColorAvatarView` and `MultiColorBorderLayout`:
 | `mc_border_rotation_duration` | Time (ms) for a full 360° rotation        | `3000`        |
 | `mc_use_rainbow`              | Force rainbow colors instead of theme     | `false`       |
 | `mc_image_corner_radius`      | Corner radius for the avatar image        | `Pill`        |
+| `mc_icon_color_mode`          | Icon color mode (`track` or `adaptive`)   | `adaptive`    |
 
 ## License
 

@@ -47,12 +47,13 @@
         android:layout_height="34dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:contentDescription="@string/dark_mode"
         android:focusable="true"
         android:padding="5dp"
         app:mc_dark_icon="@drawable/ic_night"
+        app:mc_icon_color_mode="adaptive"
         app:mc_light_icon="@drawable/ic_light" />
 
 </RelativeLayout>

@@ -71,5 +71,9 @@
     <declare-styleable name="MultiColorNightModeButton">
         <attr name="mc_light_icon" format="reference" />
         <attr name="mc_dark_icon" format="reference" />
+        <attr name="mc_icon_color_mode" format="enum">
+            <enum name="track" value="0" />
+            <enum name="adaptive" value="1" />
+        </attr>
     </declare-styleable>
 </resources>
