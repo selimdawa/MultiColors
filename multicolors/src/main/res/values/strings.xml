@@ -22,7 +22,6 @@
     <string name="mc_theme_nine">Green</string>
     <string name="mc_theme_gradient_one">Gradual 1</string>
     <string name="mc_theme_gradient_two">Gradual 2</string>
-    <string name="mc_theme_gradient_three">Gradual 3</string>
     <string name="mc_theme_gradient_four">Gradual 4</string>
     <string name="mc_theme_gradient_five">Gradual 5</string>
     <string name="mc_theme_gradient_six">Gradual 6</string>
@@ -60,16 +59,15 @@
 
     <!-- 3-Color Gradients -->
     <string name="mc_theme_neon">Neon</string>
-    <string name="mc_theme_ocean_deep">Ocean Deep</string>
     <string name="mc_theme_sky">Sky</string>
     <string name="mc_theme_galaxy">Galaxy</string>
 
     <!-- Sky Themes -->
-    <string name="mc_theme_sky_day">Sky Day</string>
-    <string name="mc_theme_sky_night">Sky Night</string>
+    <string name="mc_theme_sky_blue">Sky Blue</string>
     <string name="mc_theme_sky_sunset">Sky Sunset</string>
-    <string name="mc_theme_sky_morning">Sky Morning</string>
-    <string name="mc_theme_sky_storm">Sky Storm</string>
+    <string name="mc_theme_sky_green">Sky Green</string>
+    <string name="mc_theme_sky_red">Sky Red</string>
+    <string name="mc_theme_sky_teal">Sky Teal</string>
 
     <string-array name="mc_theme_entries">
         <item>@string/mc_theme_one</item>
@@ -80,7 +78,6 @@
         <item>@string/mc_theme_nine</item>
         <item>@string/mc_theme_gradient_one</item>
         <item>@string/mc_theme_gradient_two</item>
-        <item>@string/mc_theme_gradient_three</item>
         <item>@string/mc_theme_gradient_four</item>
         <item>@string/mc_theme_gradient_five</item>
         <item>@string/mc_theme_gradient_six</item>

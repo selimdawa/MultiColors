@@ -19,7 +19,6 @@ object ThemeRegistry {
             MultiColorTheme("SEVEN", R.string.mc_theme_seven, R.style.Theme_MC_Seven),
             MultiColorTheme("NINE", R.string.mc_theme_nine, R.style.Theme_MC_Nine),
             MultiColorTheme("GRADUAL_ONE", R.string.mc_theme_gradient_one, R.style.Theme_MC_Gradient_One),
-            MultiColorTheme("GRADUAL_THREE", R.string.mc_theme_gradient_three, R.style.Theme_MC_Gradient_Three),
             MultiColorTheme("GRADUAL_FOUR", R.string.mc_theme_gradient_four, R.style.Theme_MC_Gradient_Four),
             MultiColorTheme("GRADUAL_FIVE", R.string.mc_theme_gradient_five, R.style.Theme_MC_Gradient_Five),
             MultiColorTheme("GRADUAL_SIX", R.string.mc_theme_gradient_six, R.style.Theme_MC_Gradient_Six),
@@ -56,16 +55,15 @@ object ThemeRegistry {
 
             // 3-Color Gradients
             MultiColorTheme("G3_2", R.string.mc_theme_neon, R.style.Theme_MC_G3_2),
-            MultiColorTheme("G3_3", R.string.mc_theme_ocean_deep, R.style.Theme_MC_G3_3),
             MultiColorTheme("G3_5", R.string.mc_theme_sky, R.style.Theme_MC_G3_5),
             MultiColorTheme("G3_9", R.string.mc_theme_galaxy, R.style.Theme_MC_G3_9),
 
             // Sky Themes (3-Color Gradients)
-            MultiColorTheme("SKY_DAY", R.string.mc_theme_sky_day, R.style.Theme_MC_Sky_Day),
-            MultiColorTheme("SKY_NIGHT", R.string.mc_theme_sky_night, R.style.Theme_MC_Sky_Night),
+            MultiColorTheme("SKY_BLUE", R.string.mc_theme_sky_blue, R.style.Theme_MC_Sky_Blue),
             MultiColorTheme("SKY_SUNSET", R.string.mc_theme_sky_sunset, R.style.Theme_MC_Sky_Sunset),
-            MultiColorTheme("SKY_MORNING", R.string.mc_theme_sky_morning, R.style.Theme_MC_Sky_Morning),
-            MultiColorTheme("SKY_STORM", R.string.mc_theme_sky_storm, R.style.Theme_MC_Sky_Storm)
+            MultiColorTheme("SKY_GREEN", R.string.mc_theme_sky_green, R.style.Theme_MC_Sky_Green),
+            MultiColorTheme("SKY_RED", R.string.mc_theme_sky_red, R.style.Theme_MC_Sky_Red),
+            MultiColorTheme("SKY_TEAL", R.string.mc_theme_sky_teal, R.style.Theme_MC_Sky_Teal)
         )
         defaultThemes.forEach { register(it) }
     }

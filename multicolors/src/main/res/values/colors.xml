@@ -49,14 +49,24 @@
     <color name="mc_night_corner_six_2">#00695C</color>
 
     <!-- Neon Theme Colors -->
-    <color name="mc_neon_track">#26C6DA</color>
-    <color name="mc_neon_center">#AB47BC</color>
-    <color name="mc_neon_tick">#EC407A</color>
+    <color name="mc_neon_track">#1D93A3</color>
+    <color name="mc_neon_center">#8E24AA</color>
+    <color name="mc_neon_tick">#C2185B</color>
+
+    <!-- Sky Blue Colors -->
+    <color name="mc_sky_blue_track">#3A8FB7</color>
+    <color name="mc_sky_blue_center">#4D7CAE</color>
+    <color name="mc_sky_blue_tick">#5F70A6</color>
+
+    <!-- Sky Variant Colors -->
+    <color name="mc_sky_green_track">#27AE60</color>
+    <color name="mc_sky_green_center">#1E8449</color>
+    <color name="mc_sky_red_track">#C0392B</color>
+    <color name="mc_sky_red_center">#943126</color>
+    <color name="mc_sky_teal_track">#16A085</color>
+    <color name="mc_sky_teal_center">#117864</color>
 
     <!-- Sky Storm Colors -->
-    <color name="mc_sky_storm_track">#3A8FB7</color>
-    <color name="mc_sky_storm_center">#4D7CAE</color>
-    <color name="mc_sky_storm_tick">#5F70A6</color>
 
     <!-- Custom Avatar Rainbow Colors -->
     <color name="mc_avatar_1">#FF0000</color>

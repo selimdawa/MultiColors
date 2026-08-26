@@ -22,7 +22,6 @@
     <string name="mc_theme_nine">أخضر</string>
     <string name="mc_theme_gradient_one">متدرج 1</string>
     <string name="mc_theme_gradient_two">متدرج 2</string>
-    <string name="mc_theme_gradient_three">متدرج 3</string>
     <string name="mc_theme_gradient_four">متدرج 4</string>
     <string name="mc_theme_gradient_five">متدرج 5</string>
     <string name="mc_theme_gradient_six">متدرج 6</string>
@@ -60,14 +59,13 @@
 
     <!-- 3-Color Gradients -->
     <string name="mc_theme_neon">نيون</string>
-    <string name="mc_theme_ocean_deep">محيط عميق</string>
     <string name="mc_theme_sky">سماء</string>
     <string name="mc_theme_galaxy">مجرة</string>
 
     <!-- Sky Themes -->
-    <string name="mc_theme_sky_day">سماء نهارية</string>
-    <string name="mc_theme_sky_night">سماء ليلية</string>
+    <string name="mc_theme_sky_blue">سماء زرقاء</string>
     <string name="mc_theme_sky_sunset">سماء الغروب</string>
-    <string name="mc_theme_sky_morning">سماء الصباح</string>
-    <string name="mc_theme_sky_storm">سماء عاصفة</string>
+    <string name="mc_theme_sky_green">سماء خضراء</string>
+    <string name="mc_theme_sky_red">سماء حمراء</string>
+    <string name="mc_theme_sky_teal">سماء تركوازية</string>
 </resources>

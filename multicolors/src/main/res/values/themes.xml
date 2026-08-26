@@ -63,12 +63,6 @@
         <item name="mc_track">@color/mc_night_corner_2</item>
     </style>
 
-    <style name="Theme.MC.Gradient.Three" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient</item>
-        <item name="mc_tick">@color/mc_night_corner_two</item>
-        <item name="mc_track">@color/mc_night_corner_two_2</item>
-    </style>
-
     <style name="Theme.MC.Gradient.Four" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient</item>
         <item name="mc_tick">@color/mc_night_corner_three</item>
@@ -255,13 +249,6 @@
         <item name="mc_tick">@color/mc_neon_tick</item>
     </style>
 
-    <style name="Theme.MC.G3_3" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#020024</item>
-        <item name="mc_center">#090979</item>
-        <item name="mc_tick">#00d4ff</item>
-    </style>
-
     <style name="Theme.MC.G3_5" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
         <item name="mc_track">#8E2DE2</item>
@@ -272,24 +259,17 @@
     <!-- 3-Color Gradients (Converted from 4-Color) -->
     <style name="Theme.MC.G3_9" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#1a1a2e</item>
+        <item name="mc_track">#e94560</item>
         <item name="mc_center">#16213e</item>
-        <item name="mc_tick">#e94560</item>
+        <item name="mc_tick">#1a1a2e</item>
     </style>
 
     <!-- Sky Themes (3-Color) -->
-    <style name="Theme.MC.Sky.Day" parent="MC_Base_Theme">
+    <style name="Theme.MC.Sky.Blue" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#6CA6CD</item> <!-- Darker SkyBlue -->
-        <item name="mc_center">#7EB3D3</item>
-        <item name="mc_tick">#009ACD</item>
-    </style>
-
-    <style name="Theme.MC.Sky.Night" parent="MC_Base_Theme">
-        <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#0B1026</item>
-        <item name="mc_center">#121738</item>
-        <item name="mc_tick">#191970</item>
+        <item name="mc_track">@color/mc_sky_blue_track</item>
+        <item name="mc_center">@color/mc_sky_blue_center</item>
+        <item name="mc_tick">@color/mc_sky_blue_tick</item>
     </style>
 
     <style name="Theme.MC.Sky.Sunset" parent="MC_Base_Theme">
@@ -299,18 +279,25 @@
         <item name="mc_tick">#FFC371</item>
     </style>
 
-    <style name="Theme.MC.Sky.Morning" parent="MC_Base_Theme">
+    <style name="Theme.MC.Sky.Green" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">#FF9A9E</item>
-        <item name="mc_center">#FECFEF</item>
-        <item name="mc_tick">#FAD0C4</item>
+        <item name="mc_track">@color/mc_sky_green_track</item>
+        <item name="mc_center">@color/mc_sky_green_center</item>
+        <item name="mc_tick">#000000</item>
     </style>
 
-    <style name="Theme.MC.Sky.Storm" parent="MC_Base_Theme">
+    <style name="Theme.MC.Sky.Red" parent="MC_Base_Theme">
         <item name="mc_bg">@drawable/mc_gradient_3</item>
-        <item name="mc_track">@color/mc_sky_storm_track</item>
-        <item name="mc_center">@color/mc_sky_storm_center</item>
-        <item name="mc_tick">@color/mc_sky_storm_tick</item>
+        <item name="mc_track">@color/mc_sky_red_track</item>
+        <item name="mc_center">@color/mc_sky_red_center</item>
+        <item name="mc_tick">#000000</item>
+    </style>
+
+    <style name="Theme.MC.Sky.Teal" parent="MC_Base_Theme">
+        <item name="mc_bg">@drawable/mc_gradient_3</item>
+        <item name="mc_track">@color/mc_sky_teal_track</item>
+        <item name="mc_center">@color/mc_sky_teal_center</item>
+        <item name="mc_tick">#000000</item>
     </style>
 
 

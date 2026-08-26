@@ -15,12 +15,22 @@
     <color name="mc_indigo">#7986CB</color>
 
     <!-- Neon Theme Colors (Night Mode) -->
-    <color name="mc_neon_track">#00E5FF</color>
-    <color name="mc_neon_center">#D500F9</color>
-    <color name="mc_neon_tick">#FF4081</color>
+    <color name="mc_neon_track">#00B8D4</color>
+    <color name="mc_neon_center">#AA00FF</color>
+    <color name="mc_neon_tick">#F50057</color>
+
+    <!-- Sky Blue Colors (Night Mode) -->
+    <color name="mc_sky_blue_track">#6CA6CD</color>
+    <color name="mc_sky_blue_center">#7EB3D3</color>
+    <color name="mc_sky_blue_tick">#009ACD</color>
+
+    <!-- Sky Variant Colors (Night Mode) -->
+    <color name="mc_sky_green_track">#27AE60</color>
+    <color name="mc_sky_green_center">#1E8449</color>
+    <color name="mc_sky_red_track">#C0392B</color>
+    <color name="mc_sky_red_center">#943126</color>
+    <color name="mc_sky_teal_track">#16A085</color>
+    <color name="mc_sky_teal_center">#117864</color>
 
     <!-- Sky Storm Colors (Night Mode) -->
-    <color name="mc_sky_storm_track">#48C6EF</color>
-    <color name="mc_sky_storm_center">#5BA1E3</color>
-    <color name="mc_sky_storm_tick">#6F86D6</color>
 </resources>

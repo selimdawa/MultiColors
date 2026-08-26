@@ -65,10 +65,15 @@ class MultiColorNightModeButton @JvmOverloads constructor(
                 .setDuration(400)
                 .setInterpolator(DecelerateInterpolator())
                 .start()
+            
+            // Give 100ms head start before capturing screenshot
+            postDelayed({
+                performNightModeTransition(activity, isNightMode)
+            }, 100)
+        } else {
+            // Start transition IMMEDIATELY in parallel for Moon
+            performNightModeTransition(activity, isNightMode)
         }
-        
-        // Start transition IMMEDIATELY in parallel
-        performNightModeTransition(activity, isNightMode)
     }
 
     private fun performNightModeTransition(activity: Activity, isNightMode: Boolean) {
@@ -125,31 +130,39 @@ class MultiColorNightModeButton @JvmOverloads constructor(
             if (isNightMode) {
                 // Sun incoming: Synchronized Rotation (400ms)
                 rotation = -180f
-                alpha = 1f
-                animate()
-                    .rotation(0f)
-                    .alpha(1f)
-                    .scaleX(1.2f)
-                    .scaleY(1.2f)
-                    .setDuration(400)
-                    .setInterpolator(DecelerateInterpolator())
-                    .withEndAction {
-                        animate().scaleX(1.0f).scaleY(1.0f).setDuration(150).start()
-                    }
-                    .start()
+                alpha = 0f
+                scaleX = 0.5f
+                scaleY = 0.5f
             } else {
                 // Moon incoming: No rotation, just scale/fade pop
                 rotation = 0f
                 alpha = 0f
                 scaleX = 0.8f
                 scaleY = 0.8f
-                animate()
-                    .alpha(1f)
-                    .scaleX(1.0f)
-                    .scaleY(1.0f)
-                    .setDuration(400)
-                    .setInterpolator(DecelerateInterpolator())
-                    .start()
+            }
+
+            post {
+                if (isNightMode) {
+                    animate()
+                        .rotation(0f)
+                        .alpha(1f)
+                        .scaleX(1.2f)
+                        .scaleY(1.2f)
+                        .setDuration(400)
+                        .setInterpolator(DecelerateInterpolator())
+                        .withEndAction {
+                            animate().scaleX(1.0f).scaleY(1.0f).setDuration(150).start()
+                        }
+                        .start()
+                } else {
+                    animate()
+                        .alpha(1f)
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(400)
+                        .setInterpolator(DecelerateInterpolator())
+                        .start()
+                }
             }
         } else {
             rotation = 0f

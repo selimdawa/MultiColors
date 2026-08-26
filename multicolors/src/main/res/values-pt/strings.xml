@@ -20,7 +20,6 @@
     <string name="mc_theme_nine">Verde</string>
     <string name="mc_theme_gradient_one">Gradual 1</string>
     <string name="mc_theme_gradient_two">Gradual 2</string>
-    <string name="mc_theme_gradient_three">Gradual 3</string>
     <string name="mc_theme_gradient_four">Gradual 4</string>
     <string name="mc_theme_gradient_five">Gradual 5</string>
     <string name="mc_theme_gradient_six">Gradual 6</string>
@@ -50,7 +49,13 @@
     <string name="mc_theme_clay">Argila</string>
     <string name="mc_theme_midnight">Azul Meia-noite</string>
     <string name="mc_theme_neon">Neon</string>
-    <string name="mc_theme_ocean_deep">Oceano profundo</string>
     <string name="mc_theme_sky">Céu</string>
     <string name="mc_theme_galaxy">Galáxia</string>
+
+    <!-- Sky Themes -->
+    <string name="mc_theme_sky_blue">Céu azul</string>
+    <string name="mc_theme_sky_sunset">Pôr do sol</string>
+    <string name="mc_theme_sky_green">Céu verde</string>
+    <string name="mc_theme_sky_red">Céu vermelho</string>
+    <string name="mc_theme_sky_teal">Céu verde-azulado</string>
 </resources>
