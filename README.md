@@ -5,6 +5,7 @@
 ## Features
 
 - ✅ **Smooth Transitions**: Circular reveal animations for a premium user experience when changing themes. Now usable for ANY action (like Night Mode toggle).
+- ✅ **MultiColorNightModeButton**: Specialized button with Telegram-style animations that requires custom sun/moon icons from the app.
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
 - ✅ **Memory Optimized**: Automatic bitmap recycling and lifecycle-aware collectors to prevent memory leaks.
 - ✅ **Advanced Preloading**: Uses `IdleHandler` to preload theme backgrounds for zero-lag UI.
@@ -75,8 +76,15 @@ Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for 
 ```xml
 <!-- Clickable button that automatically opens the theme management dialog -->
 <io.selimdawa.multicolors.MultiColorButton
-    android:layout_width="48dp"
-    android:layout_height="48dp" />
+    android:layout_width="34dp"
+    android:layout_height="34dp" />
+
+<!-- 🆕 MultiColorNightModeButton: Specialized button for Night/Light mode -->
+<io.selimdawa.multicolors.MultiColorNightModeButton
+    android:layout_width="34dp"
+    android:layout_height="34dp"
+    app:mc_dark_icon="@drawable/ic_night"
+    app:mc_light_icon="@drawable/ic_light" />
 
 <!-- A view (MaterialCardView-based) that reacts to theme changes -->
 <io.selimdawa.multicolors.MultiColorView

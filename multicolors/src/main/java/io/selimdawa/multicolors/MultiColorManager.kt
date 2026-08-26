@@ -228,7 +228,7 @@ object MultiColorManager {
                 val newThemeId = theme.id
                 val currentId = _currentThemeId.value
                 
-                // 1. منع النقر المتكرر إذا كان هو الثيم المختار حالياً
+                // 1. Prevent double clicking if it is the currently selected theme
                 if (newThemeId.equals(currentId, ignoreCase = true)) {
                     dialog.dismiss()
                     return@setOnClickListener
@@ -310,7 +310,7 @@ object MultiColorManager {
             val hex = String.format("%06X", (0xFFFFFF and color))
             val newThemeId = "CUSTOM_$hex"
             
-            // منع إعادة تعيين نفس اللون المخصص حالياً
+            // Prevent re-applying the same custom color
             if (newThemeId.equals(_currentThemeId.value, ignoreCase = true)) {
                 dialog.dismiss()
                 return@setOnClickListener

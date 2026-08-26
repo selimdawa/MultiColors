@@ -67,4 +67,9 @@
         <attr name="mc_glow_radius" />
         <attr name="mc_glow_alpha" />
     </declare-styleable>
+
+    <declare-styleable name="MultiColorNightModeButton">
+        <attr name="mc_light_icon" format="reference" />
+        <attr name="mc_dark_icon" format="reference" />
+    </declare-styleable>
 </resources>

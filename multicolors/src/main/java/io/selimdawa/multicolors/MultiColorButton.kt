@@ -32,7 +32,7 @@ class MultiColorButton @JvmOverloads constructor(
     }
 
     private var lastClickTime: Long = 0
-    private val clickInterval: Long = 1000 // 1 second
+    private val clickInterval: Long = 2000 // Prevent double clicking for 2 seconds
 
     private fun setupListeners() {
         setOnClickListener {

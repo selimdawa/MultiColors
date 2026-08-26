@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -40,7 +41,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ImageView
+    <io.selimdawa.multicolors.MultiColorNightModeButton
         android:id="@+id/btnThemeToggle"
         android:layout_width="34dp"
         android:layout_height="34dp"
@@ -51,6 +52,7 @@
         android:contentDescription="@string/dark_mode"
         android:focusable="true"
         android:padding="5dp"
-        android:src="@drawable/ic_night" />
+        app:mc_dark_icon="@drawable/ic_night"
+        app:mc_light_icon="@drawable/ic_light" />
 
 </RelativeLayout>

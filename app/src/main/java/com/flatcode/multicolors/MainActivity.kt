@@ -64,17 +64,17 @@ class MainActivity : BaseActivity() {
 
         updateNightModeButton()
 
-        binding.btnNightMode.setOnClickListener { toggleNightMode() }
-        binding.tvNightMode.setOnClickListener { toggleNightMode() }
+        binding.btnNightMode.setOnClickListener { toggleNightMode(it) }
+        binding.tvNightMode.setOnClickListener { toggleNightMode(it) }
 
-        // إعدادات البوردر المتحرك الجديد
+        // New animated border settings
         binding.redBlueBorder.apply {
-            setAnimationSpeed(2000L) // سرعة الدوران
-            setBorderThickness(5f)   // سمك الخط
-            setCornerRadius(20f)    // انحناء الحواف
-            setGlowRadius(12f)      // قوة التوهج (Neon Glow)
+            setAnimationSpeed(2000L) // Rotation speed
+            setBorderThickness(5f)   // Border thickness
+            setCornerRadius(20f)    // Corner radius
+            setGlowRadius(12f)      // Glow intensity (Neon Glow)
             
-            // الانتقال عند النقر
+            // Transition on click
             setOnClickListener {
                 val intent = Intent(this@MainActivity, TestActivity::class.java)
                 startActivity(intent)
