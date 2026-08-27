@@ -27,7 +27,7 @@ class RedBlueBorderLayout @JvmOverloads constructor(
             attrs, R.styleable.MultiColorBorderLayout, 0, 0
         ).apply {
             try {
-                val thickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, dpToPx(4f))
+                val thickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, context.dpToPx(4f))
                 val glowRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_glow_radius, 0f)
                 
                 // Add padding to ensure border and glow are not clipped
@@ -74,11 +74,7 @@ class RedBlueBorderLayout @JvmOverloads constructor(
 
     private fun updateInternalPadding() {
         // This is a simplification; ideally we'd store the latest values
-        val padding = dpToPx(8f).toInt() 
+        val padding = context.dpToPxInt(8f) 
         setPadding(padding, padding, padding, padding)
     }
-
-    private fun dpToPx(dp: Float): Float = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

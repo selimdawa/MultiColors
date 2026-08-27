@@ -5,7 +5,6 @@ import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.shape.RelativeCornerSize
@@ -26,7 +25,7 @@ class MultiColorButton @JvmOverloads constructor(
             .build()
         setCardBackgroundColor(ColorStateList.valueOf(Color.TRANSPARENT))
         strokeColor = ContextCompat.getColor(context, R.color.mc_border_color)
-        strokeWidth = dpToPx(1f).toInt()
+        strokeWidth = context.dpToPxInt(1f)
         elevation = 0f
         preventCornerOverlap = false
     }
@@ -49,8 +48,4 @@ class MultiColorButton @JvmOverloads constructor(
         }
         return null
     }
-
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

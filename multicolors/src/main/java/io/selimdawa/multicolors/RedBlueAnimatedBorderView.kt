@@ -15,8 +15,8 @@ class RedBlueAnimatedBorderView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var borderThickness = dpToPx(4f)
-    private var cornerRadius = dpToPx(12f)
+    private var borderThickness = context.dpToPx(4f)
+    private var cornerRadius = context.dpToPx(12f)
     private var glowRadius = 0f
     private var glowAlpha = 0.5f
     private var rotationAngle = 0f
@@ -45,8 +45,8 @@ class RedBlueAnimatedBorderView @JvmOverloads constructor(
             attrs, R.styleable.MultiColorBorderLayout, 0, 0
         ).apply {
             try {
-                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, dpToPx(4f))
-                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, dpToPx(12f))
+                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, context.dpToPx(4f))
+                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, context.dpToPx(12f))
                 glowRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_glow_radius, 0f)
                 glowAlpha = getFloat(R.styleable.MultiColorBorderLayout_mc_glow_alpha, 0.5f)
                 val duration = getInteger(R.styleable.MultiColorBorderLayout_mc_border_rotation_duration, 2000).toLong()
@@ -114,7 +114,7 @@ class RedBlueAnimatedBorderView @JvmOverloads constructor(
     }
 
     fun setBorderThickness(thicknessDp: Float) {
-        borderThickness = dpToPx(thicknessDp)
+        borderThickness = context.dpToPx(thicknessDp)
         paint.strokeWidth = borderThickness
         updateGlowSettings()
         updateShader()
@@ -122,7 +122,7 @@ class RedBlueAnimatedBorderView @JvmOverloads constructor(
     }
 
     fun setCornerRadius(radiusDp: Float) {
-        cornerRadius = dpToPx(radiusDp)
+        cornerRadius = context.dpToPx(radiusDp)
         invalidate()
     }
 
@@ -131,14 +131,10 @@ class RedBlueAnimatedBorderView @JvmOverloads constructor(
     }
 
     fun setGlowRadius(radiusDp: Float) {
-        glowRadius = dpToPx(radiusDp)
+        glowRadius = context.dpToPx(radiusDp)
         updateGlowSettings()
         invalidate()
     }
-
-    private fun dpToPx(dp: Float): Float = android.util.TypedValue.applyDimension(
-        android.util.TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()

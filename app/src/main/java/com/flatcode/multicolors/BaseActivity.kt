@@ -35,12 +35,13 @@ open class BaseActivity : AppCompatActivity() {
             val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
                     Configuration.UI_MODE_NIGHT_YES
             
-            ThemeAnimationHelper.shouldAnimateThemeIcon = true
             // Set reverse animation (OUTWARD) when switching TO night mode
             val animationType = if (isNightMode) 
                 ThemeAnimationHelper.AnimationType.INWARD else ThemeAnimationHelper.AnimationType.OUTWARD
 
-            ThemeAnimationHelper.performAnimatedAction(this, view, animationType) {
+            ThemeAnimationHelper.performAnimatedAction(
+                this, view, animationType, ThemeAnimationHelper.AnimationSource.NIGHT_MODE_CHANGE
+            ) {
                 performNightModeChange()
             }
         } else {

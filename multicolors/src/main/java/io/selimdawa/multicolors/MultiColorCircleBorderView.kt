@@ -11,9 +11,7 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.SweepGradient
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +29,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var themeJob: Job? = null
-    private var borderThickness = dpToPx(4f)
+    private var borderThickness = context.dpToPx(4f)
     private var useRainbow = false
     private var alwaysWhite = false
     private var showContrast = false
@@ -39,7 +37,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     private var customColors: IntArray? = null
     private var glowRadius = 0f
     private var glowAlpha = 0.5f
-    
+
     /**
      * The rotation of the gradient colors in degrees.
      * Animated by MultiColorAvatarView.
@@ -71,7 +69,7 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         ).apply {
             try {
                 borderThickness = getDimension(
-                    R.styleable.MultiColorAvatarView_mc_border_thickness, dpToPx(4f)
+                    R.styleable.MultiColorAvatarView_mc_border_thickness, context.dpToPx(4f)
                 )
                 useRainbow = getBoolean(
                     R.styleable.MultiColorAvatarView_mc_use_rainbow, false
@@ -248,9 +246,11 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
 
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
         val colors = MultiColorManager.getThemeColors(context, theme)
-        
-        val isNightMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-        val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
+
+        val isNightMode =
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val contrastColor =
+            if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
         return if (colors.size == 1 || (colors.size == 2 && colors[0] == colors[1])) {
             if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
@@ -291,8 +291,4 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
         }
         canvas.drawCircle(width / 2f, height / 2f, radius, paint)
     }
-
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

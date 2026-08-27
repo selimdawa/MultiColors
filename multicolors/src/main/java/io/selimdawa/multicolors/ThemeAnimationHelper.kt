@@ -22,10 +22,17 @@ object ThemeAnimationHelper {
     private var lastScreenshot: Bitmap? = null
     private var capturingActivityClassName: String? = null
     private var currentCaptureId: Long = 0
-    var shouldAnimateThemeIcon: Boolean = false
     var animationStartX: Int = 0
     var animationStartY: Int = 0
     var isTransitioning: Boolean = false
+
+    enum class AnimationSource {
+        NONE,
+        THEME_CHANGE,
+        NIGHT_MODE_CHANGE
+    }
+
+    var activeAnimationSource: AnimationSource = AnimationSource.NONE
 
     enum class AnimationType {
         INWARD,  // From edges to center (reveals new theme from corners)
@@ -68,11 +75,13 @@ object ThemeAnimationHelper {
         activity: Activity,
         triggerView: View,
         type: AnimationType = AnimationType.INWARD,
+        source: AnimationSource = AnimationSource.NONE,
         action: () -> Unit
     ) {
         if (!canPerformAction()) return
 
         this.animationType = type
+        this.activeAnimationSource = source
         setAnimationSource(triggerView)
         captureScreenshot(activity) {
             action()
@@ -255,13 +264,13 @@ object ThemeAnimationHelper {
         capturingActivityClassName = null
         isTransitioning = false
         animationType = AnimationType.INWARD
+        activeAnimationSource = AnimationSource.NONE
     }
 
     private fun cleanupOverlay(overlay: ImageView) {
         if (overlay.parent != null) {
             (overlay.parent as ViewGroup).removeView(overlay)
         }
-        shouldAnimateThemeIcon = false
         overlay.setImageDrawable(null)
         isTransitioning = false
     }

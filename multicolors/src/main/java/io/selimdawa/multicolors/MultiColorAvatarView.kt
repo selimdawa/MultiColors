@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -84,7 +83,7 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 updateImageShape()
 
                 val thickness =
-                    getDimension(R.styleable.MultiColorAvatarView_mc_border_thickness, dpToPx(4f))
+                    getDimension(R.styleable.MultiColorAvatarView_mc_border_thickness, context.dpToPx(4f))
                 borderView.setBorderThickness(thickness)
                 borderView.setGlowRadius(glowRadius)
 
@@ -107,7 +106,7 @@ class MultiColorAvatarView @JvmOverloads constructor(
                 lp.setMargins(margin, margin, margin, margin)
                 imageView.layoutParams = lp
                 imageView.setPadding(
-                    dpToPx(1f).toInt(), dpToPx(1f).toInt(), dpToPx(1f).toInt(), dpToPx(1f).toInt()
+                    context.dpToPxInt(1f), context.dpToPxInt(1f), context.dpToPxInt(1f), context.dpToPxInt(1f)
                 )
 
             } finally {
@@ -207,8 +206,4 @@ class MultiColorAvatarView @JvmOverloads constructor(
     fun setColors(colors: List<Int>) {
         borderView.setColors(colors)
     }
-
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

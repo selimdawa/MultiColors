@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 
@@ -44,7 +43,7 @@ class MultiColorBorderLayout @JvmOverloads constructor(
                 borderDuration = getInteger(R.styleable.MultiColorBorderLayout_mc_border_rotation_duration, 3000).toLong()
                 borderDirection = getInt(R.styleable.MultiColorBorderLayout_mc_border_rotation_direction, 1)
                 
-                val thickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, dpToPx(2f))
+                val thickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, context.dpToPx(2f))
                 val glowRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_glow_radius, 0f)
                 
                 // Add padding to ensure border and glow are not clipped by the container bounds
@@ -95,8 +94,4 @@ class MultiColorBorderLayout @JvmOverloads constructor(
     fun resetToThemeColors() {
         borderView.resetToThemeColors()
     }
-
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

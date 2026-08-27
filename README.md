@@ -9,7 +9,6 @@
 - ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
 - ✅ **Memory Optimized**: Automatic bitmap recycling and lifecycle-aware collectors to prevent memory leaks.
 - ✅ **Advanced Preloading**: Uses `IdleHandler` to preload theme backgrounds for zero-lag UI.
-- ✅ **Custom Color Picker**: Integrated UI for users to create and save their own solid color themes.
 - ✅ **Theme Management**: Built-in dialog to manage, hide, or prioritize themes in the selection list.
 - ✅ **Safe Mode**: Automatic fallback to a default theme if registration errors or resource issues occur.
 - ✅ **Unified Theme API**: Simplified theme registration with support for XML styles or programmatic gradients.
@@ -132,8 +131,6 @@ Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for 
 Change the theme manually from anywhere in your code:
 ```kotlin
 MultiColorManager.showThemeDialog(activity) // Opens the selector
-// OR
-MultiColorManager.showColorPickerDialog(activity) // Opens the custom picker
 ```
 
 ### Exclude Themes

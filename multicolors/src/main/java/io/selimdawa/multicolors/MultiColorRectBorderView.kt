@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.toColorInt
@@ -26,8 +25,8 @@ class MultiColorRectBorderView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var themeJob: Job? = null
-    private var borderThickness = dpToPx(2f)
-    private var cornerRadius = dpToPx(8f)
+    private var borderThickness = context.dpToPx(2f)
+    private var cornerRadius = context.dpToPx(8f)
     private var useRainbow = false
     private var alwaysWhite = false
     private var showContrast = false
@@ -67,8 +66,8 @@ class MultiColorRectBorderView @JvmOverloads constructor(
             attrs, R.styleable.MultiColorBorderLayout, 0, 0
         ).apply {
             try {
-                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, dpToPx(2f))
-                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, dpToPx(8f))
+                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, context.dpToPx(2f))
+                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, context.dpToPx(8f))
                 useRainbow = getBoolean(R.styleable.MultiColorBorderLayout_mc_use_rainbow, false)
                 alwaysWhite = getBoolean(R.styleable.MultiColorBorderLayout_mc_always_white, false)
                 showContrast = getBoolean(R.styleable.MultiColorBorderLayout_mc_show_contrast, false)
@@ -226,8 +225,4 @@ class MultiColorRectBorderView @JvmOverloads constructor(
         }
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint)
     }
-
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
 }

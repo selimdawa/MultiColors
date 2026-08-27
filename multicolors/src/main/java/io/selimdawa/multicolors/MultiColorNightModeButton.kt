@@ -77,12 +77,12 @@ class MultiColorNightModeButton @JvmOverloads constructor(
     }
 
     private fun performNightModeTransition(activity: Activity, isNightMode: Boolean) {
-        ThemeAnimationHelper.shouldAnimateThemeIcon = true
-
         val animationType = if (isNightMode)
             ThemeAnimationHelper.AnimationType.INWARD else ThemeAnimationHelper.AnimationType.OUTWARD
 
-        ThemeAnimationHelper.performAnimatedAction(activity, this, animationType) {
+        ThemeAnimationHelper.performAnimatedAction(
+            activity, this, animationType, ThemeAnimationHelper.AnimationSource.NIGHT_MODE_CHANGE
+        ) {
             AppCompatDelegate.setDefaultNightMode(
                 if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
             )
@@ -91,10 +91,8 @@ class MultiColorNightModeButton @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        updateIcon(ThemeAnimationHelper.shouldAnimateThemeIcon)
-        if (ThemeAnimationHelper.shouldAnimateThemeIcon) {
-            ThemeAnimationHelper.shouldAnimateThemeIcon = false
-        }
+        val shouldAnimate = ThemeAnimationHelper.activeAnimationSource == ThemeAnimationHelper.AnimationSource.NIGHT_MODE_CHANGE
+        updateIcon(shouldAnimate)
 
         if (iconColorMode == 0) { // track mode
             themeJob?.cancel()

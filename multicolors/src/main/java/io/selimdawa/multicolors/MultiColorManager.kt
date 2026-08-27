@@ -27,7 +27,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
-import io.selimdawa.multicolors.databinding.DialogColorPickerBinding
 import io.selimdawa.multicolors.databinding.DialogThemeSelectorBinding
 import io.selimdawa.multicolors.databinding.ItemThemeBinding
 import io.selimdawa.multicolors.databinding.ItemThemeManageBinding
@@ -239,9 +238,9 @@ object MultiColorManager {
                 view.getLocationInWindow(location)
                 ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
                 ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
-                ThemeAnimationHelper.shouldAnimateThemeIcon = true
-
+                
                 ThemeAnimationHelper.captureScreenshot(activity) {
+                    ThemeAnimationHelper.activeAnimationSource = ThemeAnimationHelper.AnimationSource.THEME_CHANGE
                     _currentThemeId.value = newThemeId
                     managerScope.launch {
                         activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
@@ -269,63 +268,6 @@ object MultiColorManager {
         dialogBinding.btnEditThemes.setOnClickListener {
             dialog.dismiss()
             showManageThemesDialog(activity)
-        }
-
-        dialogBinding.btnCustomTheme.setOnClickListener {
-            dialog.dismiss()
-            showColorPickerDialog(activity)
-        }
-    }
-
-    private fun showColorPickerDialog(activity: AppCompatActivity) {
-        val dialogBinding = DialogColorPickerBinding.inflate(activity.layoutInflater)
-        val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
-        dialog.window?.setBackgroundDrawableResource(AndroidR.color.transparent)
-        dialog.show()
-
-        val width = (activity.resources.displayMetrics.widthPixels * 0.9).toInt()
-        dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-        val colorWheel = dialogBinding.colorWheelView
-        val preview = dialogBinding.colorPreview
-        val hexInput = dialogBinding.hexEditText
-
-        // Initialize with current color if it's custom
-        val currentTheme = getCurrentTheme(activity)
-        if (currentTheme.id.startsWith("CUSTOM_")) {
-            val color = currentTheme.colors[0]
-            colorWheel.setColor(color)
-            preview.setBackgroundColor(color)
-            hexInput.setText(String.format("#%06X", (0xFFFFFF and color)))
-        }
-
-        colorWheel.setOnColorChangeListener { color ->
-            preview.setBackgroundColor(color)
-            hexInput.setText(String.format("#%06X", (0xFFFFFF and color)))
-        }
-
-        dialogBinding.btnCancel.setOnClickListener { dialog.dismiss() }
-
-        dialogBinding.btnSave.setOnClickListener {
-            if (!ThemeAnimationHelper.canPerformAction()) return@setOnClickListener
-            
-            val color = colorWheel.getColor()
-            val hex = String.format("%06X", (0xFFFFFF and color))
-            val newThemeId = "CUSTOM_$hex"
-            
-            // Prevent re-applying the same custom color
-            if (newThemeId.equals(_currentThemeId.value, ignoreCase = true)) {
-                dialog.dismiss()
-                return@setOnClickListener
-            }
-
-            ThemeAnimationHelper.captureScreenshot(activity) {
-                _currentThemeId.value = newThemeId
-                managerScope.launch {
-                    activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }
-                }
-            }
-            dialog.dismiss()
         }
     }
 

@@ -89,7 +89,9 @@ open class MultiColorView @JvmOverloads constructor(
         val theme = MultiColorManager.getCurrentTheme(context)
         val background = MultiColorManager.getThemeBackground(context, theme)
         
-        if (ThemeAnimationHelper.shouldAnimateThemeIcon) {
+        val shouldAnimate = ThemeAnimationHelper.activeAnimationSource == ThemeAnimationHelper.AnimationSource.THEME_CHANGE
+        
+        if (shouldAnimate) {
             // Animation for the new activity's entry
             val travelDistance = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics

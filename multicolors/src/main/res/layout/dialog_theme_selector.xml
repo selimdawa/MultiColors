@@ -41,16 +41,6 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCustomTheme"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/btnEditThemes"
-                android:text="@string/mc_custom_color"
-                android:visibility="gone"
-                app:icon="@android:drawable/ic_menu_add" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditThemes"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
