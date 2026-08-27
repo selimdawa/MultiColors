@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import io.selimdawa.multicolors.MultiColorNightModeButton
-import io.selimdawa.multicolors.ThemeAnimationHelper
+import io.selimdawa.multicolors.NightModeAnimationHelper
 
 /**
  * Base activity that handles theme initialization and shared UI logic.
@@ -37,10 +37,10 @@ open class BaseActivity : AppCompatActivity() {
             
             // Set reverse animation (OUTWARD) when switching TO night mode
             val animationType = if (isNightMode) 
-                ThemeAnimationHelper.AnimationType.INWARD else ThemeAnimationHelper.AnimationType.OUTWARD
+                NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
 
-            ThemeAnimationHelper.performAnimatedAction(
-                this, view, animationType, ThemeAnimationHelper.AnimationSource.NIGHT_MODE_CHANGE
+            NightModeAnimationHelper.performAnimatedAction(
+                this, view, animationType
             ) {
                 performNightModeChange()
             }

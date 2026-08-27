@@ -19,9 +19,9 @@ import androidx.core.os.HandlerCompat
 import kotlin.math.hypot
 
 /**
- * Specialized helper for handling MultiColor Theme transitions with slow circular reveal animations.
+ * Specialized helper for handling Night/Light mode transitions with circular reveal animations.
  */
-object ThemeAnimationHelper {
+object NightModeAnimationHelper {
     private var lastScreenshot: Bitmap? = null
     private var capturingActivityClassName: String? = null
     private var currentCaptureId: Long = 0
@@ -39,7 +39,7 @@ object ThemeAnimationHelper {
     private var animationType: AnimationType = AnimationType.INWARD
 
     private var lastActionTime: Long = 0
-    private const val ACTION_INTERVAL: Long = 1200 
+    private const val ACTION_INTERVAL: Long = 800 
 
     fun canPerformAction(): Boolean {
         if (isTransitioning) return false
@@ -120,23 +120,9 @@ object ThemeAnimationHelper {
         }
     }
 
-    fun startThemeChangeAnimation(activity: Activity) {
-        isTransitioning = true
-        activity.recreate()
-        if (activity is AppCompatActivity) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                activity.overrideActivityTransition(
-                    Activity.OVERRIDE_TRANSITION_OPEN, 0, 0
-                )
-                activity.overrideActivityTransition(
-                    Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0
-                )
-            } else {
-                @Suppress("DEPRECATION") activity.overridePendingTransition(0, 0)
-            }
-        }
-    }
-
+    /**
+     * Called in ActivityLifecycleCallbacks.onActivityPreCreated
+     */
     fun prepareTransition(activity: Activity) {
         val screenshot = lastScreenshot
         if (screenshot != null && !screenshot.isRecycled && capturingActivityClassName == activity::class.qualifiedName) {
@@ -144,6 +130,9 @@ object ThemeAnimationHelper {
         }
     }
 
+    /**
+     * Called in ActivityLifecycleCallbacks.onActivityCreated
+     */
     fun checkAndPerformRevealAnimation(activity: Activity) {
         val screenshot = lastScreenshot
         val activityClass = capturingActivityClassName
@@ -207,7 +196,7 @@ object ThemeAnimationHelper {
             targetView, animationStartX, animationStartY, startRadius, endRadius
         )
 
-        anim.duration = 1000 // Slow for theme change
+        anim.duration = 400 // Fast for night mode
         anim.addListener(object : android.animation.AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: android.animation.Animator) {
                 if (type == AnimationType.INWARD) {

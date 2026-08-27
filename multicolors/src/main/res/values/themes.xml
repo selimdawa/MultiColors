@@ -16,6 +16,16 @@
         <item name="mc_tick">@color/mc_basic</item>
         <item name="mc_track">@color/mc_basic</item>
         <item name="mc_center">@color/mc_basic</item>
+        <item name="multiColorButtonStyle">@style/Widget.MultiColors.Button</item>
+    </style>
+
+    <style name="Widget.MultiColors.Button" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@android:color/transparent</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="shapeAppearanceOverlay">@style/CircleShape</item>
+        <item name="strokeColor">@color/mc_white</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 
     <!-- Solids -->

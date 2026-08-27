@@ -261,14 +261,22 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     private fun getRainbowColors() = intArrayOf(
-        "#FF0000".toColorInt(), // Red
-        "#FF7F00".toColorInt(), // Orange
-        "#FFFF00".toColorInt(), // Yellow
-        "#00FF00".toColorInt(), // Green
-        "#0000FF".toColorInt(), // Blue
-        "#4B0082".toColorInt(), // Indigo
-        "#8B00FF".toColorInt()  // Violet
+        "#FF0000".toColorInt(),
+        "#FF7F00".toColorInt(),
+        "#FFFF00".toColorInt(),
+        "#00FF00".toColorInt(),
+        "#0000FF".toColorInt(),
+        "#4B0082".toColorInt(),
+        "#8B00FF".toColorInt()
     )
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val size = min(measuredWidth, measuredHeight)
+        if (size > 0) {
+            setMeasuredDimension(size, size)
+        }
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -276,7 +284,8 @@ class MultiColorCircleBorderView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val radius = (min(width, height) - borderThickness - (glowRadius * 2)) / 2f
+        // Leave 1px safety margin to prevent clipping at the very edge
+        val radius = (min(width, height) - borderThickness - (glowRadius * 2) - 2f) / 2f
 
         // Apply rotation only to the colors (shader), not the canvas
         val shader = paint.shader

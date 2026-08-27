@@ -4,7 +4,6 @@
     android:layout_width="100dp"
     android:layout_height="100dp">
 
-    <!-- The colorful border -->
     <io.selimdawa.multicolors.MultiColorCircleBorderView
         android:id="@+id/colorfulBorder"
         android:layout_width="match_parent"
@@ -12,7 +11,6 @@
         app:mc_border_thickness="5dp"
         app:mc_use_rainbow="true" />
 
-    <!-- The Avatar Image (Clipped to circle) -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatarImage"
         android:layout_width="match_parent"

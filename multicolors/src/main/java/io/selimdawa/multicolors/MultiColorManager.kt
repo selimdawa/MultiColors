@@ -88,10 +88,12 @@ object MultiColorManager {
             override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
                 applyTheme(activity)
                 ThemeAnimationHelper.prepareTransition(activity)
+                NightModeAnimationHelper.prepareTransition(activity)
             }
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 ThemeAnimationHelper.checkAndPerformRevealAnimation(activity)
+                NightModeAnimationHelper.checkAndPerformRevealAnimation(activity)
                 (activity as? AppCompatActivity)?.let { appCompatActivity ->
                     val themeAtCreation = _currentThemeId.value
                     appCompatActivity.lifecycleScope.launch {
@@ -223,24 +225,18 @@ object MultiColorManager {
             }
 
             itemBinding.root.setOnClickListener { view ->
-                if (!ThemeAnimationHelper.canPerformAction()) return@setOnClickListener
-                
                 val newThemeId = theme.id
                 val currentId = _currentThemeId.value
                 
-                // 1. Prevent double clicking if it is the currently selected theme
+                // 1. Prevent double-clicking if it is the currently selected theme
                 if (newThemeId.equals(currentId, ignoreCase = true)) {
                     dialog.dismiss()
                     return@setOnClickListener
                 }
 
-                val location = IntArray(2)
-                view.getLocationInWindow(location)
-                ThemeAnimationHelper.animationStartX = location[0] + view.width / 2
-                ThemeAnimationHelper.animationStartY = location[1] + view.height / 2
-                
-                ThemeAnimationHelper.captureScreenshot(activity) {
-                    ThemeAnimationHelper.activeAnimationSource = ThemeAnimationHelper.AnimationSource.THEME_CHANGE
+                ThemeAnimationHelper.performAnimatedAction(
+                    activity, view, ThemeAnimationHelper.AnimationType.INWARD
+                ) {
                     _currentThemeId.value = newThemeId
                     managerScope.launch {
                         activity.multiColorDataStore.edit { prefs -> prefs[themeKey] = newThemeId }

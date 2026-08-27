@@ -76,4 +76,6 @@
             <enum name="adaptive" value="1" />
         </attr>
     </declare-styleable>
+
+    <attr name="multiColorButtonStyle" format="reference" />
 </resources>

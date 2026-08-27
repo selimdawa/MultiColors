@@ -2,38 +2,22 @@ package io.selimdawa.multicolors
 
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.android.material.shape.RelativeCornerSize
-import com.google.android.material.shape.ShapeAppearanceModel
 
 class MultiColorButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : MultiColorView(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
-        setupDefaultStyle()
+        LayoutInflater.from(context).inflate(R.layout.mc_button_layout, this, true)
         setupListeners()
     }
 
-    private fun setupDefaultStyle() {
-        shapeAppearanceModel = ShapeAppearanceModel.builder()
-            .setAllCornerSizes(RelativeCornerSize(0.5f))
-            .build()
-        setCardBackgroundColor(ColorStateList.valueOf(Color.TRANSPARENT))
-        strokeColor = ContextCompat.getColor(context, R.color.mc_border_color)
-        strokeWidth = context.dpToPxInt(1f)
-        elevation = 0f
-        preventCornerOverlap = false
-    }
-
-
     private fun setupListeners() {
         setOnClickListener {
-            // فتح القائمة يجب أن يكون فورياً دائماً
             findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
         }
     }

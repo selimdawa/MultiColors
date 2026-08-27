@@ -5,10 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import androidx.core.view.isEmpty
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.card.MaterialCardView
@@ -35,11 +32,13 @@ open class MultiColorView @JvmOverloads constructor(
     }
 
     init {
-        setCardBackgroundColor(android.graphics.Color.TRANSPARENT)
         clipToOutline = true
+        clipChildren = false
+        clipToPadding = false
         preventCornerOverlap = false
-        if (isEmpty()) {
-            addView(mcInnerView)
+        // Add mcInnerView as the first child to serve as the background
+        if (mcInnerView.parent == null) {
+            addView(mcInnerView, 0)
         }
     }
 
@@ -89,29 +88,9 @@ open class MultiColorView @JvmOverloads constructor(
         val theme = MultiColorManager.getCurrentTheme(context)
         val background = MultiColorManager.getThemeBackground(context, theme)
         
-        val shouldAnimate = ThemeAnimationHelper.activeAnimationSource == ThemeAnimationHelper.AnimationSource.THEME_CHANGE
-        
-        if (shouldAnimate) {
-            // Animation for the new activity's entry
-            val travelDistance = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 30f, resources.displayMetrics
-            )
-            
-            mcInnerView.translationY = travelDistance
-            mcInnerView.alpha = 0f
-            mcInnerView.setImageDrawable(background)
-            
-            mcInnerView.animate()
-                .translationY(0f)
-                .alpha(1f)
-                .setDuration(500)
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        } else {
-            mcInnerView.translationY = 0f
-            mcInnerView.alpha = 1f
-            mcInnerView.setImageDrawable(background)
-        }
+        mcInnerView.translationY = 0f
+        mcInnerView.alpha = 1f
+        mcInnerView.setImageDrawable(background)
     }
 
     private fun findActivity(context: Context): Activity? {

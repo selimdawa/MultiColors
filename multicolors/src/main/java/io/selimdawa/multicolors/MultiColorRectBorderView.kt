@@ -209,7 +209,8 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val inset = borderThickness / 2f + glowRadius
+        // Leave 1px safety margin to prevent clipping
+        val inset = borderThickness / 2f + glowRadius + 1f
         rect.set(inset, inset, width - inset, height - inset)
 
         // Apply rotation only to the colors (shader), not the canvas
