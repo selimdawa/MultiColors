@@ -1,6 +1,19 @@
 # Multi Colors 🎨
 
-**Multi Colors** is a professional and reactive theme management library for Android. It allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence and smooth UI transitions.
+<p align="center">
+  <b>A professional and reactive theme management library for Android.</b>
+</p>
+
+<p align="center">
+  Multi Colors allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence and smooth UI transitions.
+</p>
+
+<p align="center">
+ <a><img alt="Min SDK" src="https://img.shields.io/badge/Min SDK-24-020290?logo=android&logoColor=white"/></a>
+ <a><img alt="Target SDK" src="https://img.shields.io/badge/Target SDK-37-0EB265?logo=android&logoColor=0EB265"/></a>
+ <a href="https://kotlinlang.org"><img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.4.10-blue?logo=kotlin&logoColor=white"/></a>
+ <a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-CC9900?logo=apache&logoColor=white"/></a>
+</p>
 
 ## Features
 
