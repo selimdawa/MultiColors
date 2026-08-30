@@ -16,8 +16,8 @@ import android.os.MessageQueue
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.graphics.toColorInt
@@ -94,9 +94,9 @@ object MultiColorManager {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 ThemeAnimationHelper.checkAndPerformRevealAnimation(activity)
                 NightModeAnimationHelper.checkAndPerformRevealAnimation(activity)
-                (activity as? AppCompatActivity)?.let { appCompatActivity ->
+                (activity as? ComponentActivity)?.let { componentActivity ->
                     val themeAtCreation = _currentThemeId.value
-                    appCompatActivity.lifecycleScope.launch {
+                    componentActivity.lifecycleScope.launch {
                         currentThemeId.collectLatest { themeId ->
                             // Only recreate if the theme has actually changed since this activity was created
                             if (themeAtCreation.isNotEmpty() && themeAtCreation != themeId) {
@@ -155,7 +155,7 @@ object MultiColorManager {
         if (isThemeSafeModeEnabled) {
             try {
                 performApplyTheme(context, themeId)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Safe Mode: Fallback to default theme
                 _currentThemeId.value = DEFAULT_THEME_ID
                 context.setTheme(R.style.MC_Base_Theme)
@@ -182,7 +182,7 @@ object MultiColorManager {
         }
     }
 
-    fun showThemeDialog(activity: AppCompatActivity) {
+    fun showThemeDialog(activity: ComponentActivity) {
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
 
@@ -267,7 +267,7 @@ object MultiColorManager {
         }
     }
 
-    private fun showManageThemesDialog(activity: AppCompatActivity) {
+    private fun showManageThemesDialog(activity: ComponentActivity) {
         val allThemes = ThemeRegistry.getAllThemes().filter { it.id !in excludedThemeIds }
         val currentThemeId = _currentThemeId.value
 

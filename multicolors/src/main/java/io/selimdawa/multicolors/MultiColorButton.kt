@@ -5,7 +5,7 @@ import android.content.ContextWrapper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 
 class MultiColorButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -18,14 +18,14 @@ class MultiColorButton @JvmOverloads constructor(
 
     private fun setupListeners() {
         setOnClickListener {
-            findAppCompatActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
+            findActivity(context)?.let { MultiColorManager.showThemeDialog(it) }
         }
     }
 
-    private fun findAppCompatActivity(context: Context): AppCompatActivity? {
+    private fun findActivity(context: Context): ComponentActivity? {
         var currentContext = context
         while (currentContext is ContextWrapper) {
-            if (currentContext is AppCompatActivity) {
+            if (currentContext is ComponentActivity) {
                 return currentContext
             }
             currentContext = currentContext.baseContext

@@ -12,7 +12,8 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.core.view.isNotEmpty
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.HandlerCompat
@@ -123,7 +124,7 @@ object ThemeAnimationHelper {
     fun startThemeChangeAnimation(activity: Activity) {
         isTransitioning = true
         activity.recreate()
-        if (activity is AppCompatActivity) {
+        if (activity is ComponentActivity) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 activity.overrideActivityTransition(
                     Activity.OVERRIDE_TRANSITION_OPEN, 0, 0
@@ -156,7 +157,7 @@ object ThemeAnimationHelper {
         val decorView = activity.window.decorView as ViewGroup
 
         if (animationType == AnimationType.OUTWARD) {
-            val contentView = if (decorView.childCount > 0) decorView.getChildAt(0) else decorView
+            val contentView = if (decorView.isNotEmpty()) decorView.getChildAt(0) else decorView
             decorView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
                     decorView.viewTreeObserver.removeOnPreDrawListener(this)

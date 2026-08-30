@@ -27,11 +27,12 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
 }
 
 mavenPublishing {
-    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.0.8-beta")
+    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.0.8-beta2")
 
     // publishToMavenCentral(automaticRelease = true)
 
@@ -76,4 +77,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.flexbox)
+    //Compose support
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 }
