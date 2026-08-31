@@ -168,6 +168,31 @@
 
             </io.selimdawa.multicolors.RedBlueBorderLayout>
 
+            <io.selimdawa.multicolors.MultiColorBorderLayout
+                android:id="@+id/btnComposeTest"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:mc_animate_border="true"
+                app:mc_border_thickness="4dp"
+                app:mc_corner_radius="10dp"
+                app:mc_glow_radius="8dp"
+                app:mc_use_rainbow="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Test Compose UI"
+                    android:textColor="?colorError"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </io.selimdawa.multicolors.MultiColorBorderLayout>
+
         </LinearLayout>
 
     </ScrollView>

@@ -74,5 +74,10 @@ class MainActivity : BaseActivity() {
                 startActivity(intent)
             }
         }
+
+        binding.btnComposeTest.setOnClickListener {
+            val intent = Intent(this, ComposeTestActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

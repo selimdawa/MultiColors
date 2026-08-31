@@ -27,6 +27,11 @@
             android:name=".TestActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ComposeTestActivity"
+            android:exported="false"
+            android:label="Compose Test"
+            android:theme="@style/Theme.MC.S1" />
     </application>
 
 </manifest>
