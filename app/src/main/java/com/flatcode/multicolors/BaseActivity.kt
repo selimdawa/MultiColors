@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import io.selimdawa.multicolors.MultiColorManager
 import io.selimdawa.multicolors.MultiColorNightModeButton
 import io.selimdawa.multicolors.NightModeAnimationHelper
 
@@ -32,12 +33,12 @@ open class BaseActivity : AppCompatActivity() {
 
     protected fun toggleNightMode(view: View? = null) {
         if (view != null) {
-            val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                    Configuration.UI_MODE_NIGHT_YES
-            
+            val isNightMode =
+                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
             // Set reverse animation (OUTWARD) when switching TO night mode
-            val animationType = if (isNightMode) 
-                NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
+            val animationType =
+                if (isNightMode) NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
 
             NightModeAnimationHelper.performAnimatedAction(
                 this, view, animationType
@@ -50,10 +51,10 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun performNightModeChange() {
-        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-                Configuration.UI_MODE_NIGHT_YES
-        AppCompatDelegate.setDefaultNightMode(
+        val isNightMode =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val newMode =
             if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-        )
+        MultiColorManager.setNightMode(this, newMode)
     }
 }

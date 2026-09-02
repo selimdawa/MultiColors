@@ -83,9 +83,8 @@ class MultiColorNightModeButton @JvmOverloads constructor(
         NightModeAnimationHelper.performAnimatedAction(
             activity, this, animationType
         ) {
-            AppCompatDelegate.setDefaultNightMode(
-                if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-            )
+            val newMode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+            MultiColorManager.setNightMode(context, newMode)
         }
     }
 

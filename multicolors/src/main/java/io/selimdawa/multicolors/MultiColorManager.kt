@@ -5,8 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.R as AndroidR
-import androidx.appcompat.R as AppCompatR
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -18,11 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isNotEmpty
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -41,11 +41,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import android.R as AndroidR
+import androidx.appcompat.R as AppCompatR
 
 val Context.multiColorDataStore by preferencesDataStore(name = "multicolor_prefs")
 
 object MultiColorManager {
     private val themeKey = stringPreferencesKey("color_option")
+    private val nightModeKey = intPreferencesKey("night_mode")
     private val hiddenThemesKey = stringSetPreferencesKey("hidden_themes")
     private val managerScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -62,13 +65,18 @@ object MultiColorManager {
     var excludedThemeIds: Set<String> = emptySet()
 
     fun init(application: Application) {
-        // Read initial value synchronously to avoid race condition on first activity startup
-        val savedThemeId = runBlocking {
-            application.multiColorDataStore.data.map {
-                it[themeKey] ?: DEFAULT_THEME_ID
-            }.first()
+        // Read initial values synchronously to avoid race condition on first activity startup
+        val savedThemeId: String
+        val savedNightMode: Int
+
+        runBlocking {
+            val prefs = application.multiColorDataStore.data.first()
+            savedThemeId = prefs[themeKey] ?: DEFAULT_THEME_ID
+            savedNightMode = prefs[nightModeKey] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
+
         _currentThemeId.value = savedThemeId
+        AppCompatDelegate.setDefaultNightMode(savedNightMode)
 
         preloadThemesIdle(application)
 
@@ -182,6 +190,20 @@ object MultiColorManager {
         }
     }
 
+    /**
+     * Updates the night mode and persists the preference to DataStore.
+     * @param context The context used to access DataStore.
+     * @param mode One of [AppCompatDelegate.MODE_NIGHT_NO], [AppCompatDelegate.MODE_NIGHT_YES], or [AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM].
+     */
+    fun setNightMode(context: Context, mode: Int) {
+        AppCompatDelegate.setDefaultNightMode(mode)
+        managerScope.launch {
+            context.multiColorDataStore.edit { prefs ->
+                prefs[nightModeKey] = mode
+            }
+        }
+    }
+
     fun showThemeDialog(activity: ComponentActivity) {
         val dialogBinding = DialogThemeSelectorBinding.inflate(activity.layoutInflater)
         val dialog = AlertDialog.Builder(activity).setView(dialogBinding.root).create()
@@ -227,7 +249,7 @@ object MultiColorManager {
             itemBinding.root.setOnClickListener { view ->
                 val newThemeId = theme.id
                 val currentId = _currentThemeId.value
-                
+
                 // 1. Prevent double-clicking if it is the currently selected theme
                 if (newThemeId.equals(currentId, ignoreCase = true)) {
                     dialog.dismiss()
