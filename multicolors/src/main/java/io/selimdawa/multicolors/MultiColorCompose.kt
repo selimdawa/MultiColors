@@ -40,15 +40,13 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInWindow
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -56,8 +54,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -135,9 +136,7 @@ fun MultiColorCircleBorder(
         contrastSize,
         configuration.uiMode
     ) {
-        if (customColors != null) {
-            customColors
-        } else if (useRainbow) {
+        customColors ?: if (useRainbow) {
             MultiColorCompose.rainbowColors
         } else {
             val themeColors = MultiColorManager.getThemeColors(context, theme).map { Color(it) }
@@ -164,7 +163,7 @@ fun MultiColorCircleBorder(
             ), label = "Rotation"
         )
     } else {
-        remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+        remember { mutableFloatStateOf(0f) }
     }
 
     Canvas(modifier = modifier) {
@@ -192,7 +191,6 @@ fun MultiColorCircleBorder(
                 val shaderColors = sweepColors.map { it.toArgb() }.toIntArray()
 
                 // Handle contrast size positions if colors size is 3 (solid + contrast)
-                var positions: FloatArray? = null
                 if (colors.size == 3 && colors[0] == colors[2]) {
                     val halfSize = contrastSize / 2f
                     val expandedColors = intArrayOf(
@@ -202,7 +200,7 @@ fun MultiColorCircleBorder(
                         shaderColors[2],
                         shaderColors[2]
                     )
-                    positions = floatArrayOf(0f, 0.5f - halfSize, 0.5f, 0.5f + halfSize, 1f)
+                    val positions = floatArrayOf(0f, 0.5f - halfSize, 0.5f, 0.5f + halfSize, 1f)
                     frameworkPaint.shader = SweepGradient(
                         size.width / 2, size.height / 2, expandedColors, positions
                     )
@@ -280,9 +278,7 @@ fun MultiColorRectBorder(
         contrastSize,
         configuration.uiMode
     ) {
-        if (customColors != null) {
-            customColors
-        } else if (useRainbow) {
+        customColors ?: if (useRainbow) {
             MultiColorCompose.rainbowColors
         } else {
             val themeColors = MultiColorManager.getThemeColors(context, theme).map { Color(it) }
@@ -309,7 +305,7 @@ fun MultiColorRectBorder(
             ), label = "Rotation"
         )
     } else {
-        remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+        remember { mutableFloatStateOf(0f) }
     }
 
     Canvas(modifier = modifier) {
@@ -431,56 +427,51 @@ fun MultiColorNightModeButton(
     }
 
     // Icon rotation animation
-    var iconRotation by remember { mutableStateOf(0f) }
+    var iconRotation by remember { mutableFloatStateOf(0f) }
     val animatedRotation by animateFloatAsState(
-        targetValue = iconRotation,
-        animationSpec = tween(400),
-        label = "NightModeButtonRotation"
+        targetValue = iconRotation, animationSpec = tween(400), label = "NightModeButtonRotation"
     )
 
     var positionInWindow by remember { mutableStateOf(Offset.Zero) }
     var size by remember { mutableStateOf(IntSize.Zero) }
 
-    IconButton(
-        onClick = {
-            if (NightModeAnimationHelper.isTransitioning) return@IconButton
-            val activity = findActivity(context) ?: return@IconButton
+    IconButton(onClick = {
+        if (NightModeAnimationHelper.isTransitioning) return@IconButton
+        val activity = findActivity(context) ?: return@IconButton
 
-            // Start icon rotation
-            if (isNightMode) iconRotation += 180f
+        // Start icon rotation
+        if (isNightMode) iconRotation += 180f
 
-            val animationType =
-                if (isNightMode) NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
+        val animationType =
+            if (isNightMode) NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
 
-            val startX = (positionInWindow.x + size.width / 2f).toInt()
-            val startY = (positionInWindow.y + size.height / 2f).toInt()
+        val startX = (positionInWindow.x + size.width / 2f).toInt()
+        val startY = (positionInWindow.y + size.height / 2f).toInt()
 
-            // Small delay for Sun rotation (matching View version's 100ms)
-            val delay = if (isNightMode) 100L else 0L
+        // Small delay for Sun rotation (matching View version's 100ms)
+        val delay = if (isNightMode) 100L else 0L
 
-            val performAction = {
-                val newMode =
-                    if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-                
-                NightModeAnimationHelper.performAnimatedAction(
-                    activity, startX, startY, animationType
-                ) {
-                    MultiColorManager.setNightMode(context, newMode)
-                    // MultiColorManager now handles automatic recreation for all activity types
-                }
+        val performAction = {
+            val newMode =
+                if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+
+            NightModeAnimationHelper.performAnimatedAction(
+                activity, startX, startY, animationType
+            ) {
+                MultiColorManager.setNightMode(context, newMode)
+                // MultiColorManager now handles automatic recreation for all activity types
             }
-
-            if (delay > 0) {
-                activity.window.decorView.postDelayed({ performAction() }, delay)
-            } else {
-                performAction()
-            }
-        },
-        modifier = modifier.onGloballyPositioned { coordinates ->
-            positionInWindow = coordinates.positionInWindow()
-            size = coordinates.size
         }
-    ) {
+
+        if (delay > 0) {
+            activity.window.decorView.postDelayed({ performAction() }, delay)
+        } else {
+            performAction()
+        }
+    }, modifier = modifier.onGloballyPositioned { coordinates ->
+        positionInWindow = coordinates.positionInWindow()
+        size = coordinates.size
+    }) {
         Icon(
             painter = painterResource(if (isNightMode) lightIconRes else darkIconRes),
             contentDescription = "Toggle Night Mode",
@@ -642,7 +633,8 @@ object MultiColorCompose {
         @Composable get() {
             val context = LocalContext.current
             val theme = theme
-            return remember(theme) {
+            val uiMode = LocalConfiguration.current.uiMode
+            return remember(theme, uiMode) {
                 MultiColorManager.getThemeColors(context, theme).map { Color(it) }
             }
         }

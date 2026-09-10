@@ -1,6 +1,6 @@
 package io.selimdawa.multicolors
 
-import android.graphics.Color
+import androidx.core.graphics.toColorInt
 
 object ThemeRegistry {
     private val themes = mutableMapOf<String, MultiColorTheme>()
@@ -19,10 +19,10 @@ object ThemeRegistry {
             MultiColorTheme("S_4", R.string.mc_theme_s4, R.style.Theme_MC_S4),
             MultiColorTheme("S_5", R.string.mc_theme_s5, R.style.Theme_MC_S5),
             MultiColorTheme("S_6", R.string.mc_theme_s6, R.style.Theme_MC_S6),
-            MultiColorTheme("S_7", R.string.mc_theme_s7, R.style.Theme_MC_S7, listOf(Color.parseColor("#607D8B"), Color.parseColor("#607D8B"))),
-            MultiColorTheme("S_8", R.string.mc_theme_s8, R.style.Theme_MC_S8, listOf(Color.parseColor("#5C6BC0"), Color.parseColor("#5C6BC0"))),
-            MultiColorTheme("S_9", R.string.mc_theme_s9, R.style.Theme_MC_S9, listOf(Color.parseColor("#008080"), Color.parseColor("#008080"))),
-            MultiColorTheme("S_10", R.string.mc_theme_s10, R.style.Theme_MC_S10, listOf(Color.parseColor("#800080"), Color.parseColor("#800080"))),
+            MultiColorTheme("S_7", R.string.mc_theme_s7, R.style.Theme_MC_S7),
+            MultiColorTheme("S_8", R.string.mc_theme_s8, R.style.Theme_MC_S8),
+            MultiColorTheme("S_9", R.string.mc_theme_s9, R.style.Theme_MC_S9),
+            MultiColorTheme("S_10", R.string.mc_theme_s10, R.style.Theme_MC_S10),
 
             // 2-Color Gradients
             MultiColorTheme("G2_1", R.string.mc_theme_g2_1, R.style.Theme_MC_G2_1),
@@ -68,9 +68,9 @@ object ThemeRegistry {
         if (id.startsWith("CUSTOM_")) {
             try {
                 val colorHex = id.substringAfter("CUSTOM_")
-                val color = Color.parseColor("#$colorHex")
-                return MultiColorTheme(id, R.string.mc_theme_custom, colors = listOf(color, color))
-            } catch (e: Exception) {
+                val color = "#$colorHex".toColorInt()
+                return MultiColorTheme(id, R.string.mc_theme_custom, colors = listOf(color))
+            } catch (_: Exception) {
                 // Fallback
             }
         }

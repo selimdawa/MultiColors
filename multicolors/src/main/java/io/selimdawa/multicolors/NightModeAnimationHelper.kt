@@ -16,6 +16,7 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import androidx.core.view.isNotEmpty
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.HandlerCompat
@@ -139,7 +140,7 @@ object NightModeAnimationHelper {
                         safeComplete()
                     }, handler
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 val canvas = Canvas(bitmap)
                 view.draw(canvas)
                 lastScreenshot = bitmap
@@ -178,7 +179,7 @@ object NightModeAnimationHelper {
         val decorView = activity.window.decorView as ViewGroup
 
         if (animationType == AnimationType.OUTWARD) {
-            val contentView = if (decorView.childCount > 0) decorView.getChildAt(0) else decorView
+            val contentView = if (decorView.isNotEmpty()) decorView.getChildAt(0) else decorView
             decorView.viewTreeObserver.addOnPreDrawListener(object :
                 ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
@@ -255,7 +256,7 @@ object NightModeAnimationHelper {
                 }
             })
             anim.start()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             // Fallback if reveal fails
             if (type == AnimationType.INWARD && targetView is ImageView) {
                 cleanupOverlay(targetView)

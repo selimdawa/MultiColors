@@ -216,6 +216,7 @@ object MultiColorManager {
         }
     }
 
+    @Suppress("DEPRECATION")
     fun applyNightMode(context: Context) {
         val mode = _nightMode.value
         val resources = context.resources
@@ -434,8 +435,25 @@ object MultiColorManager {
 
         val styleRes = theme.styleRes
         val drawable = when {
+            isNightMode && theme.darkColors.isNotEmpty() -> {
+                if (theme.darkColors.size == 1) {
+                    GradientDrawable().apply {
+                        setColor(theme.darkColors[0])
+                        shape = GradientDrawable.RECTANGLE
+                    }
+                } else {
+                    GradientDrawable(theme.orientation, theme.darkColors.toIntArray())
+                }
+            }
             theme.colors.isNotEmpty() -> {
-                GradientDrawable(theme.orientation, theme.colors.toIntArray())
+                if (theme.colors.size == 1) {
+                    GradientDrawable().apply {
+                        setColor(theme.colors[0])
+                        shape = GradientDrawable.RECTANGLE
+                    }
+                } else {
+                    GradientDrawable(theme.orientation, theme.colors.toIntArray())
+                }
             }
 
             styleRes != null -> {
@@ -519,8 +537,12 @@ object MultiColorManager {
         themeColorsCache[cacheKey]?.let { return it }
 
         val styleRes = theme.styleRes
-        val colors = if (theme.colors.isNotEmpty()) {
-            theme.colors.toIntArray()
+        val colors = if (isNightMode && theme.darkColors.isNotEmpty()) {
+            if (theme.darkColors.size == 1) intArrayOf(theme.darkColors[0], theme.darkColors[0])
+            else theme.darkColors.toIntArray()
+        } else if (theme.colors.isNotEmpty()) {
+            if (theme.colors.size == 1) intArrayOf(theme.colors[0], theme.colors[0])
+            else theme.colors.toIntArray()
         } else if (styleRes != null) {
             val typedValue = TypedValue()
             val themeObj = context.resources.newTheme().apply { applyStyle(styleRes, true) }
