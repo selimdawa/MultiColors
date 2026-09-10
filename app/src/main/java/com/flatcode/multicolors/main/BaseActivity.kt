@@ -1,4 +1,4 @@
-package com.flatcode.multicolors
+package com.flatcode.multicolors.main
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.flatcode.multicolors.R
 import io.selimdawa.multicolors.MultiColorManager
 import io.selimdawa.multicolors.MultiColorNightModeButton
 import io.selimdawa.multicolors.NightModeAnimationHelper

@@ -74,7 +74,7 @@ class RedBlueBorderLayout @JvmOverloads constructor(
 
     private fun updateInternalPadding() {
         // This is a simplification; ideally we'd store the latest values
-        val padding = context.dpToPxInt(8f) 
+        val padding = context.dpToPxInt(8f)
         setPadding(padding, padding, padding, padding)
     }
 }

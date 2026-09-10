@@ -29,6 +29,7 @@ open class MultiColorView @JvmOverloads constructor(
             LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT
         )
         scaleType = ImageView.ScaleType.CENTER_CROP
+        strokeWidth = 0f // Fix black edges
     }
 
     init {
@@ -36,10 +37,14 @@ open class MultiColorView @JvmOverloads constructor(
         clipChildren = false
         clipToPadding = false
         preventCornerOverlap = false
+        
         // Add mcInnerView as the first child to serve as the background
         if (mcInnerView.parent == null) {
             addView(mcInnerView, 0)
         }
+
+        // Ensure inner view matches the card shape
+        mcInnerView.shapeAppearanceModel = shapeAppearanceModel
     }
 
     override fun setShapeAppearanceModel(shapeAppearanceModel: ShapeAppearanceModel) {

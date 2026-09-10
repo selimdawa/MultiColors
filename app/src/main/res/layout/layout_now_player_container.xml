@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nowPlayerBottom"
-        android:name="com.flatcode.multicolors.NowPlayerFragment"
+        android:name="com.flatcode.multicolors.musicTest.NowPlayerFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

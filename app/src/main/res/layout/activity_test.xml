@@ -18,7 +18,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/songsFragmentContainer"
-        android:name="com.flatcode.multicolors.SongsFragment"
+        android:name="com.flatcode.multicolors.musicTest.SongsFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@id/fragBottomPlayer"

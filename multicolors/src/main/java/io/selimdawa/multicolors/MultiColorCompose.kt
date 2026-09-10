@@ -1,4 +1,5 @@
 @file:Suppress("unused", "DiscouragedApi")
+
 package io.selimdawa.multicolors
 
 import android.app.Activity
@@ -6,6 +7,8 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.graphics.BlurMaskFilter
+import android.graphics.Matrix
+import android.graphics.SweepGradient
 import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
@@ -107,16 +110,41 @@ fun MultiColorCircleBorder(
     animate: Boolean = false,
     animationDuration: Int = 3000,
     useRainbow: Boolean = false,
+    alwaysWhite: Boolean = false,
+    showContrast: Boolean = false,
+    contrastSize: Float = 0.3f,
     customColors: List<Color>? = null
 ) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
     val theme = MultiColorCompose.theme
-    val colors = remember(theme, useRainbow, customColors) {
-        customColors
-            ?: if (useRainbow) MultiColorCompose.rainbowColors else MultiColorManager.getThemeColors(
-                context,
-                theme
-            ).map { Color(it) }
+    val colors = remember(
+        theme,
+        useRainbow,
+        customColors,
+        alwaysWhite,
+        showContrast,
+        contrastSize,
+        configuration.uiMode
+    ) {
+        if (customColors != null) {
+            customColors
+        } else if (useRainbow) {
+            MultiColorCompose.rainbowColors
+        } else {
+            val themeColors = MultiColorManager.getThemeColors(context, theme).map { Color(it) }
+            val isNightMode =
+                (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            val contrastColor =
+                if (alwaysWhite) Color.White else if (isNightMode) Color.White else Color.Black
+
+            if (themeColors.size == 1 || (themeColors.size == 2 && themeColors[0] == themeColors[1])) {
+                if (showContrast) listOf(themeColors[0], contrastColor, themeColors[0])
+                else listOf(themeColors[0], themeColors[0])
+            } else {
+                themeColors
+            }
+        }
     }
 
     val infiniteTransition = rememberInfiniteTransition(label = "MultiColor_Border_Rotation")
@@ -142,20 +170,39 @@ fun MultiColorCircleBorder(
 
         drawIntoCanvas { canvas ->
             if (glowPx > 0f) {
-                val frameworkPaint = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
-                    this.style = android.graphics.Paint.Style.STROKE
-                    this.strokeWidth = strokeWidth + (glowPx * 0.5f)
-                    this.maskFilter = BlurMaskFilter(glowPx, BlurMaskFilter.Blur.NORMAL)
-                    this.alpha = (glowAlpha * 255).toInt()
-                }
+                val frameworkPaint =
+                    android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
+                        this.style = android.graphics.Paint.Style.STROKE
+                        this.strokeWidth = strokeWidth + (glowPx * 0.5f)
+                        this.maskFilter = BlurMaskFilter(glowPx, BlurMaskFilter.Blur.NORMAL)
+                        this.alpha = (glowAlpha * 255).toInt()
+                    }
 
                 canvas.nativeCanvas.save()
                 canvas.nativeCanvas.rotate(rotation - 90f, size.width / 2, size.height / 2)
 
                 val shaderColors = sweepColors.map { it.toArgb() }.toIntArray()
-                frameworkPaint.shader = android.graphics.SweepGradient(
-                    size.width / 2, size.height / 2, shaderColors, null
-                )
+
+                // Handle contrast size positions if colors size is 3 (solid + contrast)
+                var positions: FloatArray? = null
+                if (colors.size == 3 && colors[0] == colors[2]) {
+                    val halfSize = contrastSize / 2f
+                    val expandedColors = intArrayOf(
+                        shaderColors[0],
+                        shaderColors[0],
+                        shaderColors[1],
+                        shaderColors[2],
+                        shaderColors[2]
+                    )
+                    positions = floatArrayOf(0f, 0.5f - halfSize, 0.5f, 0.5f + halfSize, 1f)
+                    frameworkPaint.shader = SweepGradient(
+                        size.width / 2, size.height / 2, expandedColors, positions
+                    )
+                } else {
+                    frameworkPaint.shader = SweepGradient(
+                        size.width / 2, size.height / 2, shaderColors, null
+                    )
+                }
 
                 canvas.nativeCanvas.drawCircle(
                     size.width / 2,
@@ -169,11 +216,27 @@ fun MultiColorCircleBorder(
             canvas.nativeCanvas.save()
             canvas.nativeCanvas.rotate(rotation - 90f, size.width / 2, size.height / 2)
 
-            drawCircle(
-                brush = brush,
-                radius = (size.minDimension - strokeWidth - glowPx * 2) / 2,
-                style = Stroke(width = strokeWidth)
-            )
+            // For the main border, we can use the same logic if it's solid+contrast
+            if (colors.size == 3 && colors[0] == colors[2]) {
+                val halfSize = contrastSize / 2f
+                drawCircle(
+                    brush = Brush.sweepGradient(
+                        0f to colors[0],
+                        (0.5f - halfSize) to colors[0],
+                        0.5f to colors[1],
+                        (0.5f + halfSize) to colors[2],
+                        1f to colors[2]
+                    ),
+                    radius = (size.minDimension - strokeWidth - glowPx * 2) / 2,
+                    style = Stroke(width = strokeWidth)
+                )
+            } else {
+                drawCircle(
+                    brush = brush,
+                    radius = (size.minDimension - strokeWidth - glowPx * 2) / 2,
+                    style = Stroke(width = strokeWidth)
+                )
+            }
             canvas.nativeCanvas.restore()
         }
     }
@@ -192,16 +255,41 @@ fun MultiColorRectBorder(
     animate: Boolean = false,
     animationDuration: Int = 3000,
     useRainbow: Boolean = false,
+    alwaysWhite: Boolean = false,
+    showContrast: Boolean = false,
+    contrastSize: Float = 0.3f,
     customColors: List<Color>? = null
 ) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
     val theme = MultiColorCompose.theme
-    val colors = remember(theme, useRainbow, customColors) {
-        customColors
-            ?: if (useRainbow) MultiColorCompose.rainbowColors else MultiColorManager.getThemeColors(
-                context,
-                theme
-            ).map { Color(it) }
+    val colors = remember(
+        theme,
+        useRainbow,
+        customColors,
+        alwaysWhite,
+        showContrast,
+        contrastSize,
+        configuration.uiMode
+    ) {
+        if (customColors != null) {
+            customColors
+        } else if (useRainbow) {
+            MultiColorCompose.rainbowColors
+        } else {
+            val themeColors = MultiColorManager.getThemeColors(context, theme).map { Color(it) }
+            val isNightMode =
+                (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            val contrastColor =
+                if (alwaysWhite) Color.White else if (isNightMode) Color.White else Color.Black
+
+            if (themeColors.size == 1 || (themeColors.size == 2 && themeColors[0] == themeColors[1])) {
+                if (showContrast) listOf(themeColors[0], contrastColor, themeColors[0])
+                else listOf(themeColors[0], themeColors[0])
+            } else {
+                themeColors
+            }
+        }
     }
 
     val infiniteTransition = rememberInfiniteTransition(label = "MultiColor_Rect_Rotation")
@@ -230,10 +318,24 @@ fun MultiColorRectBorder(
             val rect = android.graphics.RectF(inset, inset, size.width - inset, size.height - inset)
 
             val shaderColors = sweepColors.map { it.toArgb() }.toIntArray()
-            val shader =
-                android.graphics.SweepGradient(size.width / 2, size.height / 2, shaderColors, null)
-            val matrix = android.graphics.Matrix()
+
+            val matrix = Matrix()
             matrix.postRotate(rotation - 90f, size.width / 2, size.height / 2)
+
+            val shader = if (colors.size == 3 && colors[0] == colors[2]) {
+                val halfSize = contrastSize / 2f
+                val expandedColors = intArrayOf(
+                    shaderColors[0],
+                    shaderColors[0],
+                    shaderColors[1],
+                    shaderColors[2],
+                    shaderColors[2]
+                )
+                val positions = floatArrayOf(0f, 0.5f - halfSize, 0.5f, 0.5f + halfSize, 1f)
+                SweepGradient(size.width / 2, size.height / 2, expandedColors, positions)
+            } else {
+                SweepGradient(size.width / 2, size.height / 2, shaderColors, null)
+            }
             shader.setLocalMatrix(matrix)
 
             if (glowPx > 0f) {
@@ -269,6 +371,9 @@ fun MultiColorAvatar(
     glowRadius: Dp = 4.dp,
     animateBorder: Boolean = true,
     useRainbow: Boolean = false,
+    alwaysWhite: Boolean = false,
+    showContrast: Boolean = false,
+    contrastSize: Float = 0.3f,
     shape: Shape = CircleShape
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
@@ -277,7 +382,10 @@ fun MultiColorAvatar(
             thickness = borderThickness,
             glowRadius = glowRadius,
             animate = animateBorder,
-            useRainbow = useRainbow
+            useRainbow = useRainbow,
+            alwaysWhite = alwaysWhite,
+            showContrast = showContrast,
+            contrastSize = contrastSize
         )
 
         val padding = borderThickness + glowRadius + 2.dp
@@ -305,9 +413,9 @@ fun MultiColorNightModeButton(
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
-    val isNightMode = (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
-            Configuration.UI_MODE_NIGHT_YES
-    
+    val isNightMode =
+        (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
     val trackColor = MultiColorCompose.colors.firstOrNull() ?: Color.Gray
 
     val tint = when (iconColorMode) {
@@ -318,17 +426,17 @@ fun MultiColorNightModeButton(
     IconButton(
         onClick = {
             val activity = findActivity(context) ?: return@IconButton
-            val animationType = if (isNightMode)
-                NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
+            val animationType =
+                if (isNightMode) NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
 
             NightModeAnimationHelper.performAnimatedAction(
                 activity, activity.window.decorView, animationType
             ) {
-                val newMode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+                val newMode =
+                    if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
                 MultiColorManager.setNightMode(context, newMode)
             }
-        },
-        modifier = modifier
+        }, modifier = modifier
     ) {
         Icon(
             painter = painterResource(if (isNightMode) lightIconRes else darkIconRes),
@@ -349,6 +457,11 @@ fun MultiColorBorderBox(
     glowRadius: Dp = 0.dp,
     animate: Boolean = true,
     animationDuration: Int = 3000,
+    useRainbow: Boolean = false,
+    alwaysWhite: Boolean = false,
+    showContrast: Boolean = false,
+    contrastSize: Float = 0.3f,
+    customColors: List<Color>? = null,
     content: @Composable () -> Unit
 ) {
     val padding = thickness + (glowRadius * 1.5f)
@@ -359,7 +472,12 @@ fun MultiColorBorderBox(
             cornerRadius = cornerRadius,
             glowRadius = glowRadius,
             animate = animate,
-            animationDuration = animationDuration
+            animationDuration = animationDuration,
+            useRainbow = useRainbow,
+            alwaysWhite = alwaysWhite,
+            showContrast = showContrast,
+            contrastSize = contrastSize,
+            customColors = customColors
         )
         Box(modifier = Modifier.padding(padding)) {
             content()
@@ -473,7 +591,7 @@ object MultiColorCompose {
     val mc_image_background @Composable get() = rememberColor(R.attr.mc_image_background)
 
     val theme: MultiColorTheme
-        @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current 
+        @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current
             ?: MultiColorTheme("default", 0) // Fallback theme if not provided
 
     val colors: List<Color>

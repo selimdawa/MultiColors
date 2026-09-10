@@ -1,10 +1,12 @@
-package com.flatcode.multicolors
+package com.flatcode.multicolors.musicTest
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
+import com.flatcode.multicolors.main.BaseActivity
+import com.flatcode.multicolors.R
 import com.flatcode.multicolors.databinding.ActivityTestBinding
 
 class TestActivity : BaseActivity() {

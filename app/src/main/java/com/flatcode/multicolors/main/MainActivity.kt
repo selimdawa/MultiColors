@@ -1,4 +1,4 @@
-package com.flatcode.multicolors
+package com.flatcode.multicolors.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import coil.load
-import io.selimdawa.multicolors.R as MultiColorR
+import com.flatcode.multicolors.R
+import com.flatcode.multicolors.compose.ComposeTestActivity
 import com.flatcode.multicolors.databinding.ActivityMainBinding
+import com.flatcode.multicolors.musicTest.TestActivity
 
 class MainActivity : BaseActivity() {
 
@@ -28,16 +30,16 @@ class MainActivity : BaseActivity() {
         binding.colorfulAvatar.imageView.load("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&q=80")
 
         val myCustomColors = listOf(
-            getColor(MultiColorR.color.mc_avatar_1),
-            getColor(MultiColorR.color.mc_avatar_2),
-            getColor(MultiColorR.color.mc_avatar_3),
-            getColor(MultiColorR.color.mc_avatar_4),
-            getColor(MultiColorR.color.mc_avatar_5),
-            getColor(MultiColorR.color.mc_avatar_6),
-            getColor(MultiColorR.color.mc_avatar_7),
-            getColor(MultiColorR.color.mc_avatar_8),
-            getColor(MultiColorR.color.mc_avatar_9),
-            getColor(MultiColorR.color.mc_avatar_10)
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_1),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_2),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_3),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_4),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_5),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_6),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_7),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_8),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_9),
+            getColor(io.selimdawa.multicolors.R.color.mc_avatar_10)
         )
 
         binding.colorfulAvatar.setOnLongClickListener {
@@ -50,14 +52,12 @@ class MainActivity : BaseActivity() {
         }
 
         binding.trans.setOnClickListener {
-            android.util.Log.d("Navigation", "trans clicked")
             val intent = Intent(this, TestActivity::class.java)
             startActivity(intent)
         }
 
         binding.transOld.setOnClickListener {
-            android.util.Log.d("Navigation", "transOld clicked")
-            val intent = Intent(this, TestActivity::class.java)
+            val intent = Intent(this, ComposeTestActivity::class.java)
             startActivity(intent)
         }
 
@@ -67,7 +67,7 @@ class MainActivity : BaseActivity() {
             setBorderThickness(5f)   // Border thickness
             setCornerRadius(20f)    // Corner radius
             setGlowRadius(12f)      // Glow intensity (Neon Glow)
-            
+
             // Transition on click
             setOnClickListener {
                 val intent = Intent(this@MainActivity, TestActivity::class.java)
@@ -75,9 +75,5 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        binding.btnComposeTest.setOnClickListener {
-            val intent = Intent(this, ComposeTestActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

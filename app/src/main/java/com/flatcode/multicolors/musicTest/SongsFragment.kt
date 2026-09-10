@@ -1,4 +1,4 @@
-package com.flatcode.multicolors
+package com.flatcode.multicolors.musicTest
 
 import android.os.Bundle
 import android.view.LayoutInflater

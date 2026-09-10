@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="0dp"
-    app:cardPreventCornerOverlap="true"
+    app:cardMaxElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false"
     app:shapeAppearanceOverlay="@style/CircleShape"
     app:strokeColor="@android:color/white"
     app:strokeWidth="1dp">
@@ -16,6 +18,9 @@
         android:layout_height="match_parent"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
         app:shapeAppearanceOverlay="@style/CircleShape"
         app:strokeWidth="0dp" />
 
