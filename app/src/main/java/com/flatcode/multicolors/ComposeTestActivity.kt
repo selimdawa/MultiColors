@@ -26,8 +26,8 @@ class ComposeTestActivity : ComponentActivity() {
         setContent {
             MultiColorTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize().multiColorBackground(),
+                    color = Color.Transparent
                 ) {
                     ComposeTestContent()
                 }

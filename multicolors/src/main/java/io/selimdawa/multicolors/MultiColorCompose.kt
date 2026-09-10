@@ -1,3 +1,4 @@
+@file:Suppress("unused", "DiscouragedApi")
 package io.selimdawa.multicolors
 
 import android.app.Activity
@@ -6,6 +7,7 @@ import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.graphics.BlurMaskFilter
 import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -51,12 +53,34 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 
 /**
  * CompositionLocal to provide the current MultiColorTheme.
  */
 val LocalMultiColorTheme = compositionLocalOf<MultiColorTheme> {
     error("No MultiColorTheme provided")
+}
+
+/**
+ * Data class to hold the colors of the current theme for Compose.
+ */
+data class MultiColorColorScheme(
+    val background: Color,
+    val track: Color,
+    val tick: Color,
+    val center: Color,
+    val primary: Color,
+    val onBackground: Color,
+    val error: Color,
+    val imageBackground: Color
+)
+
+/**
+ * CompositionLocal to provide the current MultiColorColorScheme.
+ */
+val LocalMultiColorColorScheme = compositionLocalOf<MultiColorColorScheme> {
+    error("No MultiColorColorScheme provided")
 }
 
 /**
@@ -73,7 +97,23 @@ fun MultiColorTheme(
         MultiColorManager.getCurrentTheme(context)
     }
 
-    CompositionLocalProvider(LocalMultiColorTheme provides theme) {
+    val colorScheme = remember(currentThemeId) {
+        MultiColorColorScheme(
+            background = resolveColorAttr(context, R.attr.mc_bg),
+            track = resolveColorAttr(context, R.attr.mc_track),
+            tick = resolveColorAttr(context, R.attr.mc_tick),
+            center = resolveColorAttr(context, R.attr.mc_center),
+            primary = resolveColorAttr(context, "colorPrimary"),
+            onBackground = resolveColorAttr(context, "colorOnBackground"),
+            error = resolveColorAttr(context, "colorError"),
+            imageBackground = resolveColorAttr(context, R.attr.mc_image_background)
+        )
+    }
+
+    CompositionLocalProvider(
+        LocalMultiColorTheme provides theme,
+        LocalMultiColorColorScheme provides colorScheme
+    ) {
         content()
     }
 }
@@ -410,6 +450,36 @@ fun Modifier.multiColorBorder(
  * Access the current MultiColorTheme properties.
  */
 object MultiColorCompose {
+    /**
+     * Access the current color scheme provided by MultiColorTheme.
+     */
+    val colorScheme: MultiColorColorScheme
+        @Composable @ReadOnlyComposable get() = LocalMultiColorColorScheme.current
+
+    /** Shortcut for mc_bg */
+    val mc_bg @Composable get() = colorScheme.background
+
+    /** Shortcut for mc_track */
+    val mc_track @Composable get() = colorScheme.track
+
+    /** Shortcut for mc_tick */
+    val mc_tick @Composable get() = colorScheme.tick
+
+    /** Shortcut for mc_center */
+    val mc_center @Composable get() = colorScheme.center
+
+    /** Shortcut for colorPrimary */
+    val colorPrimary @Composable get() = colorScheme.primary
+
+    /** Shortcut for colorOnBackground */
+    val colorOnBackground @Composable get() = colorScheme.onBackground
+
+    /** Shortcut for colorError */
+    val colorError @Composable get() = colorScheme.error
+
+    /** Shortcut for mc_image_background */
+    val mc_image_background @Composable get() = colorScheme.imageBackground
+
     val theme: MultiColorTheme
         @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current
 
@@ -495,6 +565,29 @@ object MultiColorCompose {
             GradientDrawable.Orientation.TL_BR -> Brush.linearGradient(colors)
         }
     }
+}
+
+private fun resolveColorAttr(context: Context, attrId: Int): Color {
+    val typedValue = TypedValue()
+    return if (context.theme.resolveAttribute(attrId, typedValue, true)) {
+        if (typedValue.type >= TypedValue.TYPE_FIRST_COLOR_INT && typedValue.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            Color(typedValue.data)
+        } else if (typedValue.resourceId != 0) {
+            Color(ContextCompat.getColor(context, typedValue.resourceId))
+        } else {
+            Color.Unspecified
+        }
+    } else {
+        Color.Unspecified
+    }
+}
+
+private fun resolveColorAttr(context: Context, attrName: String): Color {
+    var attrId = context.resources.getIdentifier(attrName, "attr", context.packageName)
+    if (attrId == 0) {
+        attrId = context.resources.getIdentifier(attrName, "attr", "io.selimdawa.multicolors")
+    }
+    return if (attrId != 0) resolveColorAttr(context, attrId) else Color.Unspecified
 }
 
 private fun findActivity(context: Context): Activity? {
