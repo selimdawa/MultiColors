@@ -16,13 +16,11 @@ class ComposeTestActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MultiColorTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MultiColorCompose.colorOnBackground
-                ) {
-                    ComposeTestContent()
-                }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MultiColorCompose.colorOnBackground
+            ) {
+                ComposeTestContent()
             }
         }
     }

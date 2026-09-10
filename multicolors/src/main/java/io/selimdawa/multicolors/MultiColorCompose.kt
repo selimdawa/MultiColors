@@ -36,7 +36,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
@@ -118,6 +117,7 @@ fun MultiColorCircleBorder(
     glowAlpha: Float = 0.5f,
     animate: Boolean = false,
     animationDuration: Int = 3000,
+    rotationDirection: Int = 1,
     useRainbow: Boolean = false,
     alwaysWhite: Boolean = false,
     showContrast: Boolean = false,
@@ -157,10 +157,13 @@ fun MultiColorCircleBorder(
     val infiniteTransition = rememberInfiniteTransition(label = "MultiColor_Border_Rotation")
     val rotation by if (animate) {
         infiniteTransition.animateFloat(
-            initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
+            initialValue = 0f,
+            targetValue = 360f * rotationDirection,
+            animationSpec = infiniteRepeatable(
                 animation = tween(animationDuration, easing = LinearEasing),
                 repeatMode = RepeatMode.Restart
-            ), label = "Rotation"
+            ),
+            label = "Rotation"
         )
     } else {
         remember { mutableFloatStateOf(0f) }
@@ -260,6 +263,7 @@ fun MultiColorRectBorder(
     glowAlpha: Float = 0.5f,
     animate: Boolean = false,
     animationDuration: Int = 3000,
+    rotationDirection: Int = 1,
     useRainbow: Boolean = false,
     alwaysWhite: Boolean = false,
     showContrast: Boolean = false,
@@ -299,10 +303,13 @@ fun MultiColorRectBorder(
     val infiniteTransition = rememberInfiniteTransition(label = "MultiColor_Rect_Rotation")
     val rotation by if (animate) {
         infiniteTransition.animateFloat(
-            initialValue = 0f, targetValue = 360f, animationSpec = infiniteRepeatable(
+            initialValue = 0f,
+            targetValue = 360f * rotationDirection,
+            animationSpec = infiniteRepeatable(
                 animation = tween(animationDuration, easing = LinearEasing),
                 repeatMode = RepeatMode.Restart
-            ), label = "Rotation"
+            ),
+            label = "Rotation"
         )
     } else {
         remember { mutableFloatStateOf(0f) }
@@ -372,31 +379,60 @@ fun MultiColorAvatar(
     modifier: Modifier = Modifier,
     image: @Composable () -> Unit,
     borderThickness: Dp = 4.dp,
-    glowRadius: Dp = 4.dp,
-    animateBorder: Boolean = true,
+    glowRadius: Dp = 0.dp,
+    glowAlpha: Float = 0.5f,
+    animateBorder: Boolean = false,
+    animateImage: Boolean = false,
+    borderRotationDuration: Int = 3000,
+    imageRotationDuration: Int = 5000,
+    borderRotationDirection: Int = 1,
+    imageRotationDirection: Int = 1,
     useRainbow: Boolean = false,
     alwaysWhite: Boolean = false,
     showContrast: Boolean = false,
     contrastSize: Float = 0.3f,
+    customColors: List<Color>? = null,
+    imageBackground: Color = Color.Transparent,
     shape: Shape = CircleShape
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "MultiColor_Avatar_Image_Rotation")
+    val imageRotation by if (animateImage) {
+        infiniteTransition.animateFloat(
+            initialValue = 0f,
+            targetValue = 360f * imageRotationDirection,
+            animationSpec = infiniteRepeatable(
+                animation = tween(imageRotationDuration, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart
+            ),
+            label = "ImageRotation"
+        )
+    } else {
+        remember { mutableFloatStateOf(0f) }
+    }
+
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         MultiColorCircleBorder(
             modifier = Modifier.matchParentSize(),
             thickness = borderThickness,
             glowRadius = glowRadius,
+            glowAlpha = glowAlpha,
             animate = animateBorder,
+            animationDuration = borderRotationDuration,
+            rotationDirection = borderRotationDirection,
             useRainbow = useRainbow,
             alwaysWhite = alwaysWhite,
             showContrast = showContrast,
-            contrastSize = contrastSize
+            contrastSize = contrastSize,
+            customColors = customColors
         )
 
-        val padding = borderThickness + glowRadius + 2.dp
+        val padding = borderThickness + glowRadius + 1.dp
         Box(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
+                .graphicsLayer(rotationZ = imageRotation)
+                .background(imageBackground, shape)
                 .clip(shape)
         ) {
             image()
@@ -492,6 +528,7 @@ fun MultiColorBorderBox(
     glowRadius: Dp = 0.dp,
     animate: Boolean = true,
     animationDuration: Int = 3000,
+    rotationDirection: Int = 1,
     useRainbow: Boolean = false,
     alwaysWhite: Boolean = false,
     showContrast: Boolean = false,
@@ -508,6 +545,7 @@ fun MultiColorBorderBox(
             glowRadius = glowRadius,
             animate = animate,
             animationDuration = animationDuration,
+            rotationDirection = rotationDirection,
             useRainbow = useRainbow,
             alwaysWhite = alwaysWhite,
             showContrast = showContrast,
@@ -517,22 +555,6 @@ fun MultiColorBorderBox(
         Box(modifier = Modifier.padding(padding)) {
             content()
         }
-    }
-}
-
-/**
- * A Composable that displays a box with the current MultiColorTheme background.
- */
-@Composable
-fun MultiColorBox(
-    modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(0.dp),
-    content: @Composable () -> Unit = {}
-) {
-    Box(
-        modifier = modifier.multiColorBackground(shape), contentAlignment = Alignment.Center
-    ) {
-        content()
     }
 }
 
@@ -626,8 +648,15 @@ object MultiColorCompose {
     val mc_image_background @Composable get() = rememberColor(R.attr.mc_image_background)
 
     val theme: MultiColorTheme
-        @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current
-            ?: MultiColorTheme("default", 0) // Fallback theme if not provided
+        @Composable get() {
+            val context = LocalContext.current
+            val providedTheme = LocalMultiColorTheme.current
+            val currentThemeId by MultiColorManager.currentThemeId.collectAsState()
+
+            return remember(providedTheme, currentThemeId) {
+                providedTheme ?: MultiColorManager.getCurrentTheme(context)
+            }
+        }
 
     val colors: List<Color>
         @Composable get() {

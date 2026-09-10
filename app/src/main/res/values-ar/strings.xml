@@ -43,4 +43,6 @@
     <string name="premium_design">تصميم مميز</string>
     <string name="multi">متعدد</string>
     <string name="colors">الألوان</string>
+    <string name="test_main_ui">اختبار الواجهة الرئيسية</string>
+    <string name="test_compose_ui">اختبار واجهة الكومبوز</string>
 </resources>
