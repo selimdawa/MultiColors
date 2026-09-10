@@ -16,6 +16,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -43,7 +44,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -55,6 +62,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 
@@ -417,31 +425,67 @@ fun MultiColorNightModeButton(
         (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
     val trackColor = MultiColorCompose.colors.firstOrNull() ?: Color.Gray
-
     val tint = when (iconColorMode) {
         0 -> trackColor
         else -> if (isNightMode) Color.White else Color.Black
     }
 
+    // Icon rotation animation
+    var iconRotation by remember { mutableStateOf(0f) }
+    val animatedRotation by animateFloatAsState(
+        targetValue = iconRotation,
+        animationSpec = tween(400),
+        label = "NightModeButtonRotation"
+    )
+
+    var positionInWindow by remember { mutableStateOf(Offset.Zero) }
+    var size by remember { mutableStateOf(IntSize.Zero) }
+
     IconButton(
         onClick = {
+            if (NightModeAnimationHelper.isTransitioning) return@IconButton
             val activity = findActivity(context) ?: return@IconButton
+
+            // Start icon rotation
+            if (isNightMode) iconRotation += 180f
+
             val animationType =
                 if (isNightMode) NightModeAnimationHelper.AnimationType.INWARD else NightModeAnimationHelper.AnimationType.OUTWARD
 
-            NightModeAnimationHelper.performAnimatedAction(
-                activity, activity.window.decorView, animationType
-            ) {
+            val startX = (positionInWindow.x + size.width / 2f).toInt()
+            val startY = (positionInWindow.y + size.height / 2f).toInt()
+
+            // Small delay for Sun rotation (matching View version's 100ms)
+            val delay = if (isNightMode) 100L else 0L
+
+            val performAction = {
                 val newMode =
                     if (isNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-                MultiColorManager.setNightMode(context, newMode)
+                
+                NightModeAnimationHelper.performAnimatedAction(
+                    activity, startX, startY, animationType
+                ) {
+                    MultiColorManager.setNightMode(context, newMode)
+                    // MultiColorManager now handles automatic recreation for all activity types
+                }
             }
-        }, modifier = modifier
+
+            if (delay > 0) {
+                activity.window.decorView.postDelayed({ performAction() }, delay)
+            } else {
+                performAction()
+            }
+        },
+        modifier = modifier.onGloballyPositioned { coordinates ->
+            positionInWindow = coordinates.positionInWindow()
+            size = coordinates.size
+        }
     ) {
         Icon(
             painter = painterResource(if (isNightMode) lightIconRes else darkIconRes),
             contentDescription = "Toggle Night Mode",
-            tint = tint
+            tint = tint,
+            modifier = Modifier.graphicsLayer(rotationZ = animatedRotation)
         )
     }
 }

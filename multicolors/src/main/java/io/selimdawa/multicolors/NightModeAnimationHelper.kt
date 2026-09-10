@@ -1,6 +1,10 @@
 package io.selimdawa.multicolors
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -26,7 +30,7 @@ object NightModeAnimationHelper {
     private var currentCaptureId: Long = 0
     private var animationStartX: Int = 0
     private var animationStartY: Int = 0
-    
+
     var isTransitioning: Boolean = false
         private set
 
@@ -38,7 +42,7 @@ object NightModeAnimationHelper {
     private var animationType: AnimationType = AnimationType.INWARD
 
     private var lastActionTime: Long = 0
-    private const val ACTION_INTERVAL: Long = 800 
+    private const val ACTION_INTERVAL: Long = 800
 
     fun canPerformAction(): Boolean {
         if (isTransitioning) return false
@@ -73,6 +77,24 @@ object NightModeAnimationHelper {
         }
     }
 
+    fun performAnimatedAction(
+        activity: Activity,
+        startX: Int,
+        startY: Int,
+        type: AnimationType = AnimationType.INWARD,
+        action: () -> Unit
+    ) {
+        if (!canPerformAction()) return
+
+        this.animationType = type
+        this.isTransitioning = true
+        animationStartX = startX
+        animationStartY = startY
+        captureScreenshot(activity) {
+            action()
+        }
+    }
+
     private fun captureScreenshot(activity: Activity, onComplete: () -> Unit = {}) {
         val view = activity.window.decorView
         if (view.width <= 0 || view.height <= 0) {
@@ -85,6 +107,18 @@ object NightModeAnimationHelper {
         lastScreenshot = null
         capturingActivityClassName = activity::class.qualifiedName
         val bitmap = createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+
+        var completed = false
+        val safeComplete = {
+            if (!completed) {
+                completed = true
+                onComplete()
+            }
+        }
+
+        // Safety timeout for PixelCopy
+        val handler = HandlerCompat.createAsync(Looper.getMainLooper())
+        handler.postDelayed({ safeComplete() }, 500)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val location = IntArray(2)
@@ -102,20 +136,20 @@ object NightModeAnimationHelper {
                                 lastScreenshot = bitmap
                             }
                         }
-                        onComplete()
-                    }, HandlerCompat.createAsync(Looper.getMainLooper())
+                        safeComplete()
+                    }, handler
                 )
-            } catch (_: IllegalArgumentException) {
+            } catch (e: Exception) {
                 val canvas = Canvas(bitmap)
                 view.draw(canvas)
                 lastScreenshot = bitmap
-                onComplete()
+                safeComplete()
             }
         } else {
             val canvas = Canvas(bitmap)
             view.draw(canvas)
             lastScreenshot = bitmap
-            onComplete()
+            safeComplete()
         }
     }
 
@@ -145,7 +179,8 @@ object NightModeAnimationHelper {
 
         if (animationType == AnimationType.OUTWARD) {
             val contentView = if (decorView.childCount > 0) decorView.getChildAt(0) else decorView
-            decorView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            decorView.viewTreeObserver.addOnPreDrawListener(object :
+                ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
                     decorView.viewTreeObserver.removeOnPreDrawListener(this)
                     if (!activity.isFinishing) {
@@ -162,9 +197,12 @@ object NightModeAnimationHelper {
                 translationZ = 9999f
             }
 
-            decorView.addView(overlay, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            decorView.addView(
+                overlay, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+            )
 
-            decorView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            decorView.viewTreeObserver.addOnPreDrawListener(object :
+                ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
                     decorView.viewTreeObserver.removeOnPreDrawListener(this)
                     activity.window.setBackgroundDrawable(null)
@@ -183,7 +221,11 @@ object NightModeAnimationHelper {
         val height = decorView.height
 
         if (width <= 0 || height <= 0) {
-            decorView.post { startReveal(targetView, decorView, type) }
+            if (decorView.isAttachedToWindow) {
+                decorView.post { startReveal(targetView, decorView, type) }
+            } else {
+                cleanupResources()
+            }
             return
         }
 
@@ -191,23 +233,45 @@ object NightModeAnimationHelper {
         val startRadius = if (type == AnimationType.INWARD) finalRadius else 0f
         val endRadius = if (type == AnimationType.INWARD) 0f else finalRadius
 
-        val anim = ViewAnimationUtils.createCircularReveal(
-            targetView, animationStartX, animationStartY, startRadius, endRadius
-        )
+        try {
+            val anim = ViewAnimationUtils.createCircularReveal(
+                targetView, animationStartX, animationStartY, startRadius, endRadius
+            )
 
-        anim.duration = 400 // Fast for night mode
-        anim.addListener(object : android.animation.AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: android.animation.Animator) {
-                if (type == AnimationType.INWARD) {
-                    cleanupOverlay(targetView as ImageView)
-                } else {
-                    val activity = targetView.context as? Activity
-                    activity?.window?.setBackgroundDrawable(null)
-                    cleanupResources()
+            anim.duration = 400
+            anim.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    if (type == AnimationType.INWARD) {
+                        if (targetView is ImageView) {
+                            cleanupOverlay(targetView)
+                        } else {
+                            cleanupResources()
+                        }
+                    } else {
+                        val activity = findActivity(targetView.context)
+                        activity?.window?.setBackgroundDrawable(null)
+                        cleanupResources()
+                    }
                 }
+            })
+            anim.start()
+        } catch (e: Exception) {
+            // Fallback if reveal fails
+            if (type == AnimationType.INWARD && targetView is ImageView) {
+                cleanupOverlay(targetView)
+            } else {
+                cleanupResources()
             }
-        })
-        anim.start()
+        }
+    }
+
+    private fun findActivity(context: Context): Activity? {
+        var currentContext = context
+        while (currentContext is ContextWrapper) {
+            if (currentContext is Activity) return currentContext
+            currentContext = currentContext.baseContext
+        }
+        return null
     }
 
     private fun cleanupResources() {

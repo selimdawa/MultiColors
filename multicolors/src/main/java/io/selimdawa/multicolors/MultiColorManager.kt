@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
@@ -55,6 +56,9 @@ object MultiColorManager {
     private val _currentThemeId = MutableStateFlow("")
     val currentThemeId: StateFlow<String> = _currentThemeId.asStateFlow()
 
+    private val _nightMode = MutableStateFlow(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    val nightMode: StateFlow<Int> = _nightMode.asStateFlow()
+
     private const val DEFAULT_THEME_ID = "S_1"
     var isThemeSafeModeEnabled = true
 
@@ -76,16 +80,22 @@ object MultiColorManager {
         }
 
         _currentThemeId.value = savedThemeId
+        _nightMode.value = savedNightMode
         AppCompatDelegate.setDefaultNightMode(savedNightMode)
 
         preloadThemesIdle(application)
 
         managerScope.launch {
-            application.multiColorDataStore.data.map {
-                it[themeKey] ?: DEFAULT_THEME_ID
-            }.collectLatest { themeId ->
+            application.multiColorDataStore.data.collectLatest { prefs ->
+                val themeId = prefs[themeKey] ?: DEFAULT_THEME_ID
                 if (_currentThemeId.value != themeId) {
                     _currentThemeId.value = themeId
+                }
+
+                val mode = prefs[nightModeKey] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                if (_nightMode.value != mode) {
+                    _nightMode.value = mode
+                    AppCompatDelegate.setDefaultNightMode(mode)
                 }
             }
         }
@@ -94,6 +104,7 @@ object MultiColorManager {
             Application.ActivityLifecycleCallbacks {
 
             override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
+                applyNightMode(activity)
                 applyTheme(activity)
                 ThemeAnimationHelper.prepareTransition(activity)
                 NightModeAnimationHelper.prepareTransition(activity)
@@ -104,12 +115,27 @@ object MultiColorManager {
                 NightModeAnimationHelper.checkAndPerformRevealAnimation(activity)
                 (activity as? ComponentActivity)?.let { componentActivity ->
                     val themeAtCreation = _currentThemeId.value
+                    val modeAtCreation = _nightMode.value
+
                     componentActivity.lifecycleScope.launch {
                         currentThemeId.collectLatest { themeId ->
-                            // Only recreate if the theme has actually changed since this activity was created
                             if (themeAtCreation.isNotEmpty() && themeAtCreation != themeId) {
                                 if (!activity.isFinishing && !activity.isDestroyed) {
                                     ThemeAnimationHelper.startThemeChangeAnimation(activity)
+                                }
+                            }
+                        }
+                    }
+
+                    componentActivity.lifecycleScope.launch {
+                        nightMode.collectLatest { mode ->
+                            if (modeAtCreation != mode) {
+                                if (!activity.isFinishing && !activity.isDestroyed) {
+                                    // AppCompatActivity is already handled by AppCompatDelegate.setDefaultNightMode
+                                    if (activity !is AppCompatActivity) {
+                                        applyNightMode(activity)
+                                        activity.recreate()
+                                    }
                                 }
                             }
                         }
@@ -190,12 +216,31 @@ object MultiColorManager {
         }
     }
 
+    fun applyNightMode(context: Context) {
+        val mode = _nightMode.value
+        val resources = context.resources
+        val config = resources.configuration
+        val newNightMode = when (mode) {
+            AppCompatDelegate.MODE_NIGHT_YES -> Configuration.UI_MODE_NIGHT_YES
+            AppCompatDelegate.MODE_NIGHT_NO -> Configuration.UI_MODE_NIGHT_NO
+            else -> return
+        }
+        if ((config.uiMode and Configuration.UI_MODE_NIGHT_MASK) != newNightMode) {
+            config.uiMode =
+                (config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or newNightMode
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
+    }
+
     /**
      * Updates the night mode and persists the preference to DataStore.
      * @param context The context used to access DataStore.
      * @param mode One of [AppCompatDelegate.MODE_NIGHT_NO], [AppCompatDelegate.MODE_NIGHT_YES], or [AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM].
      */
     fun setNightMode(context: Context, mode: Int) {
+        if (_nightMode.value == mode) return
+
+        _nightMode.value = mode
         AppCompatDelegate.setDefaultNightMode(mode)
         managerScope.launch {
             context.multiColorDataStore.edit { prefs ->
