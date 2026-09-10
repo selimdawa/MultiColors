@@ -56,11 +56,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 
 /**
- * CompositionLocal to provide the current MultiColorTheme.
+ * CompositionLocal to provide the current MultiColorTheme data.
  */
-val LocalMultiColorTheme = compositionLocalOf<MultiColorTheme> {
-    error("No MultiColorTheme provided")
-}
+val LocalMultiColorTheme = compositionLocalOf<MultiColorTheme?> { null }
 
 /**
  * Data class to hold the colors of the current theme for Compose.
@@ -77,13 +75,6 @@ data class MultiColorColorScheme(
 )
 
 /**
- * CompositionLocal to provide the current MultiColorColorScheme.
- */
-val LocalMultiColorColorScheme = compositionLocalOf<MultiColorColorScheme> {
-    error("No MultiColorColorScheme provided")
-}
-
-/**
  * A Composable wrapper that provides the current MultiColor theme to its content.
  */
 @Composable
@@ -97,22 +88,8 @@ fun MultiColorTheme(
         MultiColorManager.getCurrentTheme(context)
     }
 
-    val colorScheme = remember(currentThemeId) {
-        MultiColorColorScheme(
-            background = resolveColorAttr(context, R.attr.mc_bg),
-            track = resolveColorAttr(context, R.attr.mc_track),
-            tick = resolveColorAttr(context, R.attr.mc_tick),
-            center = resolveColorAttr(context, R.attr.mc_center),
-            primary = resolveColorAttr(context, "colorPrimary"),
-            onBackground = resolveColorAttr(context, "colorOnBackground"),
-            error = resolveColorAttr(context, "colorError"),
-            imageBackground = resolveColorAttr(context, R.attr.mc_image_background)
-        )
-    }
-
     CompositionLocalProvider(
-        LocalMultiColorTheme provides theme,
-        LocalMultiColorColorScheme provides colorScheme
+        LocalMultiColorTheme provides theme
     ) {
         content()
     }
@@ -451,37 +428,53 @@ fun Modifier.multiColorBorder(
  */
 object MultiColorCompose {
     /**
-     * Access the current color scheme provided by MultiColorTheme.
+     * Internal helper to resolve theme colors efficiently in Compose.
      */
-    val colorScheme: MultiColorColorScheme
-        @Composable @ReadOnlyComposable get() = LocalMultiColorColorScheme.current
+    @Composable
+    private fun rememberColor(attrId: Int): Color {
+        val context = LocalContext.current
+        val themeId by MultiColorManager.currentThemeId.collectAsState()
+        return remember(themeId, attrId) {
+            resolveColorAttr(context, attrId)
+        }
+    }
+
+    @Composable
+    private fun rememberColor(attrName: String): Color {
+        val context = LocalContext.current
+        val themeId by MultiColorManager.currentThemeId.collectAsState()
+        return remember(themeId, attrName) {
+            resolveColorAttr(context, attrName)
+        }
+    }
 
     /** Shortcut for mc_bg */
-    val mc_bg @Composable get() = colorScheme.background
+    val mc_bg @Composable get() = rememberColor(R.attr.mc_bg)
 
     /** Shortcut for mc_track */
-    val mc_track @Composable get() = colorScheme.track
+    val mc_track @Composable get() = rememberColor(R.attr.mc_track)
 
     /** Shortcut for mc_tick */
-    val mc_tick @Composable get() = colorScheme.tick
+    val mc_tick @Composable get() = rememberColor(R.attr.mc_tick)
 
     /** Shortcut for mc_center */
-    val mc_center @Composable get() = colorScheme.center
+    val mc_center @Composable get() = rememberColor(R.attr.mc_center)
 
     /** Shortcut for colorPrimary */
-    val colorPrimary @Composable get() = colorScheme.primary
+    val colorPrimary @Composable get() = rememberColor("colorPrimary")
 
     /** Shortcut for colorOnBackground */
-    val colorOnBackground @Composable get() = colorScheme.onBackground
+    val colorOnBackground @Composable get() = rememberColor("colorOnBackground")
 
     /** Shortcut for colorError */
-    val colorError @Composable get() = colorScheme.error
+    val colorError @Composable get() = rememberColor("colorError")
 
     /** Shortcut for mc_image_background */
-    val mc_image_background @Composable get() = colorScheme.imageBackground
+    val mc_image_background @Composable get() = rememberColor(R.attr.mc_image_background)
 
     val theme: MultiColorTheme
-        @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current
+        @Composable @ReadOnlyComposable get() = LocalMultiColorTheme.current 
+            ?: MultiColorTheme("default", 0) // Fallback theme if not provided
 
     val colors: List<Color>
         @Composable get() {
