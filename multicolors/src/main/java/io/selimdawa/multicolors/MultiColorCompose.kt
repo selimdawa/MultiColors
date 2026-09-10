@@ -700,7 +700,20 @@ object MultiColorCompose {
             val colors = colors
             val theme = theme
             return remember(colors, theme) {
-                createBrush(colors, theme.orientation)
+                // Check if this is explicitly defined as a 3-color theme
+                val isExplicitlyThreeColors = theme.id.startsWith("G3_") ||
+                        theme.colors.size == 3 ||
+                        theme.darkColors.size == 3
+
+                // If it has 3 colors but isn't explicitly a 3-color theme, 
+                // it might be inheriting a default 'mc_center' color. 
+                // We filter it for mc_bg to keep 2-color gradients clean.
+                val effectiveColors = if (colors.size == 3 && !isExplicitlyThreeColors) {
+                    listOf(colors.first(), colors.last())
+                } else {
+                    colors
+                }
+                createBrush(effectiveColors, theme.orientation)
             }
         }
 
