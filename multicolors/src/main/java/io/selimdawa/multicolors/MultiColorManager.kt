@@ -565,7 +565,8 @@ object MultiColorManager {
                 if (track == tick) {
                     intArrayOf(track, track)
                 } else {
-                    if (center != null && center != track && center != tick) {
+                    // Only include center if it's explicitly defined and different
+                    if (center != null && center != 0 && center != track && center != tick) {
                         intArrayOf(track, center, tick)
                     } else {
                         intArrayOf(track, tick)

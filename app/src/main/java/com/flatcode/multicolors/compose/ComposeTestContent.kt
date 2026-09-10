@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -121,7 +120,7 @@ fun ComposeTestContent() {
             Text(
                 text = stringResource(AppR.string.new_version),
                 color = MultiColorCompose.mc_track,
-                style = MaterialTheme.typography.labelLarge,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 10.dp)
             )
@@ -151,9 +150,9 @@ fun ComposeTestContent() {
             Text(
                 text = stringResource(AppR.string.old_version),
                 color = Color.Gray,
-                style = MaterialTheme.typography.labelLarge,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 0.dp) // Removed padding top 20
+                modifier = Modifier.padding(top = 0.dp)
             )
 
             MultiColorBorderBox(
@@ -170,7 +169,7 @@ fun ComposeTestContent() {
             ) {
                 Text(
                     text = stringResource(AppR.string.test_main_ui),
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(12.dp),
                     color = MultiColorCompose.colorError,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
@@ -181,7 +180,7 @@ fun ComposeTestContent() {
             Text(
                 text = stringResource(AppR.string.red_blue_border),
                 color = MultiColorCompose.mc_track,
-                style = MaterialTheme.typography.labelLarge,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 10.dp)
             )

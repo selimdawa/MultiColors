@@ -623,14 +623,41 @@ object MultiColorCompose {
         }
     }
 
-    /** Shortcut for mc_bg */
-    val mc_bg @Composable get() = rememberColor(R.attr.mc_bg)
+    /** Shortcut for mc_bg (Theme Background Gradient) */
+    val mc_bg @Composable get() = brush
 
     /** Shortcut for mc_track */
     val mc_track @Composable get() = rememberColor(R.attr.mc_track)
 
     /** Shortcut for mc_tick */
     val mc_tick @Composable get() = rememberColor(R.attr.mc_tick)
+
+    /** Shortcut for mc_gradient as a Brush */
+    val mc_gradient: Brush @Composable get() {
+        val theme = theme
+        val colors = colors
+        return remember(colors, theme) {
+            // Ensure we only use 2 colors for mc_gradient to keep it "straight"
+            val gradientColors = if (colors.size >= 2) {
+                listOf(colors.first(), colors.last())
+            } else if (colors.isNotEmpty()) {
+                listOf(colors[0], colors[0])
+            } else {
+                listOf(Color.Transparent, Color.Transparent)
+            }
+            Brush.verticalGradient(gradientColors)
+        }
+    }
+
+    /** Shortcut for mc_gradient_3 as a Brush */
+    val mc_gradient_3: Brush @Composable get() {
+        val track = mc_track
+        val center = mc_center
+        val tick = mc_tick
+        return remember(track, center, tick) {
+            Brush.verticalGradient(listOf(track, center, tick))
+        }
+    }
 
     /** Shortcut for mc_center */
     val mc_center @Composable get() = rememberColor(R.attr.mc_center)

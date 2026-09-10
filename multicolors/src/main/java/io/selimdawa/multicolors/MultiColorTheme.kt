@@ -12,5 +12,5 @@ data class MultiColorTheme(
     @get:StyleRes val styleRes: Int? = null,
     val colors: List<Int> = emptyList(),
     val darkColors: List<Int> = emptyList(),
-    val orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.TL_BR
+    val orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.TOP_BOTTOM
 )
