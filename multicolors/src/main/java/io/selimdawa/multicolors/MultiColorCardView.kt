@@ -24,6 +24,9 @@ class MultiColorCardView @JvmOverloads constructor(
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
+    private var customBackgroundRes: Int = 0
+    private var customBackgroundColor: Int? = null
+
     init {
         context.withStyledAttributes(attrs, R.styleable.MultiColorCardView, defStyleAttr, 0) {
             // Load custom attributes with sensible defaults
@@ -43,6 +46,12 @@ class MultiColorCardView @JvmOverloads constructor(
             } else {
                 strokeWidth = 0
             }
+
+            customBackgroundRes = getResourceId(R.styleable.MultiColorCardView_mc_card_background, 0)
+            if (customBackgroundRes == 0 && hasValue(R.styleable.MultiColorCardView_mc_card_background)) {
+                customBackgroundColor =
+                    getColor(R.styleable.MultiColorCardView_mc_card_background, Color.TRANSPARENT)
+            }
         }
 
         // MaterialCardView specific settings
@@ -60,14 +69,41 @@ class MultiColorCardView @JvmOverloads constructor(
      * Forces the background to update based on the current MultiColor theme.
      */
     fun updateThemeBackground() {
-        val typedValue = TypedValue()
-        if (context.theme.resolveAttribute(R.attr.mc_bg, typedValue, true)) {
-            if (typedValue.resourceId != 0) {
-                bgView.setBackgroundResource(typedValue.resourceId)
+        if (customBackgroundRes != 0) {
+            bgView.setBackgroundResource(customBackgroundRes)
+        } else if (customBackgroundColor != null) {
+            bgView.setBackgroundColor(customBackgroundColor!!)
+        } else {
+            val typedValue = TypedValue()
+            if (context.theme.resolveAttribute(R.attr.mc_bg, typedValue, true)) {
+                if (typedValue.resourceId != 0) {
+                    bgView.setBackgroundResource(typedValue.resourceId)
+                } else {
+                    bgView.setBackgroundColor(typedValue.data)
+                }
             } else {
-                bgView.setBackgroundColor(typedValue.data)
+                // Fallback to library default if theme attribute mc_bg is not found
+                bgView.setBackgroundResource(R.color.mc_basic)
             }
         }
+    }
+
+    /**
+     * Set a custom background color for the card.
+     */
+    fun setMcCardBackground(color: Int) {
+        customBackgroundColor = color
+        customBackgroundRes = 0
+        updateThemeBackground()
+    }
+
+    /**
+     * Set a custom background resource for the card.
+     */
+    fun setMcCardBackgroundResource(resId: Int) {
+        customBackgroundRes = resId
+        customBackgroundColor = null
+        updateThemeBackground()
     }
 
     /**

@@ -48,6 +48,7 @@
                 app:mc_card_border_enabled="true"
                 app:mc_card_corner_radius="15dp"
                 app:mc_card_elevation="0dp"
+                app:mc_card_background="?mc_bg"
                 app:mc_card_stroke_color="?attr/colorError"
                 app:mc_card_stroke_width="1dp" />
 

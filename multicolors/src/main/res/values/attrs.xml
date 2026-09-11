@@ -83,6 +83,7 @@
         <attr name="mc_card_stroke_width" format="dimension" />
         <attr name="mc_card_stroke_color" format="color" />
         <attr name="mc_card_border_enabled" format="boolean" />
+        <attr name="mc_card_background" format="reference|color" />
     </declare-styleable>
 
     <attr name="multiColorButtonStyle" format="reference" />
