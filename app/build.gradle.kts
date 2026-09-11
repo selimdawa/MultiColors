@@ -11,8 +11,8 @@ android {
         applicationId = "com.flatcode.multicolors"
         minSdk = 24
         targetSdk = 37
-        versionCode = 10
-        versionName = "1.0.9-bata"
+        versionCode = 11
+        versionName = "1.0.9"
     }
 
     buildTypes {
@@ -38,7 +38,6 @@ android {
 
 dependencies {
     implementation(project(":multicolors"))
-    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
@@ -50,7 +49,5 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
 }
