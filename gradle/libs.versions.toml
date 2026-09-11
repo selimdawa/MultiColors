@@ -9,7 +9,7 @@ datastore = "1.2.1"
 activityCompose = "1.13.0"
 coil = "2.7.0"
 composeBom = "2026.09.00"
-kotlin = "2.4.10"
+kotlin = "2.4.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
