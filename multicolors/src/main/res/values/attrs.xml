@@ -78,7 +78,11 @@
     </declare-styleable>
 
     <declare-styleable name="MultiColorCardView">
-        <!-- Add custom attributes for the card here if needed -->
+        <attr name="mc_card_corner_radius" format="dimension" />
+        <attr name="mc_card_elevation" format="dimension" />
+        <attr name="mc_card_stroke_width" format="dimension" />
+        <attr name="mc_card_stroke_color" format="color" />
+        <attr name="mc_card_border_enabled" format="boolean" />
     </declare-styleable>
 
     <attr name="multiColorButtonStyle" format="reference" />

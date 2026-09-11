@@ -44,7 +44,12 @@
             <io.selimdawa.multicolors.MultiColorCardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                app:mc_card_border_enabled="true"
+                app:mc_card_corner_radius="15dp"
+                app:mc_card_elevation="0dp"
+                app:mc_card_stroke_color="?attr/colorError"
+                app:mc_card_stroke_width="1dp" />
 
             <TextView
                 android:layout_width="wrap_content"
