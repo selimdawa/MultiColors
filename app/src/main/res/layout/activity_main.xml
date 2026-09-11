@@ -41,21 +41,10 @@
                 app:mc_show_contrast="true"
                 app:mc_use_rainbow="false" />
 
-            <com.google.android.material.card.MaterialCardView
+            <io.selimdawa.multicolors.MultiColorCardView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="true"
-                app:strokeWidth="0dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?mc_bg" />
-
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
