@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<io.selimdawa.multicolors.MultiColorCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardElevation="0dp"
-    app:cardMaxElevation="0dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false"
-    app:shapeAppearanceOverlay="@style/CircleShape"
-    app:strokeColor="@android:color/white"
-    app:strokeWidth="1dp">
-
-    <io.selimdawa.multicolors.MultiColorView
-        android:id="@+id/multiColorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="0dp"
-        app:cardMaxElevation="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="false"
-        app:shapeAppearanceOverlay="@style/CircleShape"
-        app:strokeWidth="0dp" />
-
-</com.google.android.material.card.MaterialCardView>
+    app:mc_card_background="?mc_bg"
+    app:mc_card_border_enabled="true"
+    app:mc_card_corner_radius="circle"
+    app:mc_card_elevation="0dp"
+    app:mc_card_stroke_color="?attr/colorError"
+    app:mc_card_stroke_width="1dp" />

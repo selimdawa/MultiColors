@@ -78,7 +78,9 @@
     </declare-styleable>
 
     <declare-styleable name="MultiColorCardView">
-        <attr name="mc_card_corner_radius" format="dimension" />
+        <attr name="mc_card_corner_radius" format="dimension|enum">
+            <enum name="circle" value="-1" />
+        </attr>
         <attr name="mc_card_elevation" format="dimension" />
         <attr name="mc_card_stroke_width" format="dimension" />
         <attr name="mc_card_stroke_color" format="color" />

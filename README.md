@@ -83,7 +83,7 @@ class MyApp : Application() {
 
 ### 2. Add to your Layout
 
-Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for a themed reactive container:
+Use `MultiColorButton` for an automated theme selector, or `MultiColorCardView` for a themed reactive container:
 
 ```xml
 <!-- Clickable button that automatically opens the theme management dialog -->
@@ -100,10 +100,10 @@ Use `MultiColorButton` for an automated theme selector, or `MultiColorView` for 
     app:mc_light_icon="@drawable/ic_light" />
 
 <!-- A view (MaterialCardView-based) that reacts to theme changes -->
-<io.selimdawa.multicolors.MultiColorView
+<io.selimdawa.multicolors.MultiColorCardView
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    app:cardCornerRadius="16dp" />
+    app:mc_card_corner_radius="16dp" />
 
 <!-- 🆕 MultiColorAvatarView: Profile image with rotating colorful border -->
 <io.selimdawa.multicolors.MultiColorAvatarView

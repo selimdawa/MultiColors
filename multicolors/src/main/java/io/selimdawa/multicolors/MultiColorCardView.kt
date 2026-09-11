@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.RelativeCornerSize
 
 /**
  * A custom CardView that automatically applies the theme's [3 Colors Gradient] background.
@@ -30,9 +31,20 @@ class MultiColorCardView @JvmOverloads constructor(
     init {
         context.withStyledAttributes(attrs, R.styleable.MultiColorCardView, defStyleAttr, 0) {
             // Load custom attributes with sensible defaults
-            radius = getDimension(
-                R.styleable.MultiColorCardView_mc_card_corner_radius, context.dpToPx(10f)
-            )
+            val radiusIndex = R.styleable.MultiColorCardView_mc_card_corner_radius
+            val value = peekValue(radiusIndex)
+
+            // Check if the value is the enum "circle" (-1) or a dimension
+            if (value != null && value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT && value.data == -1) {
+                // "circle" case
+                radius = 1000f // Large enough to be a capsule/circle
+                shapeAppearanceModel = shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(RelativeCornerSize(0.5f))
+                    .build()
+            } else {
+                radius = getDimension(radiusIndex, context.dpToPx(10f))
+            }
+
             cardElevation = getDimension(R.styleable.MultiColorCardView_mc_card_elevation, 0f)
 
             val borderEnabled =
