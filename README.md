@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  Multi Colors allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence and smooth UI transitions.
+  Multi Colors allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence, smooth UI transitions, and full support for both XML Views and Jetpack Compose.
 </p>
 
 <p align="center">
@@ -15,22 +15,20 @@
  <a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-CC9900?logo=apache&logoColor=white"/></a>
 </p>
 
-## Features
+## ✨ Key Features
 
-- ✅ **Smooth Transitions**: Circular reveal animations for a premium user experience when changing themes. Now usable for ANY action (like Night Mode toggle).
-- ✅ **MultiColorNightModeButton**: Specialized button with Telegram-style animations that requires custom sun/moon icons from the app.
-- ✅ **Automatic Persistence**: Saves the user's selected theme using Jetpack DataStore.
-- ✅ **Memory Optimized**: Automatic bitmap recycling and lifecycle-aware collectors to prevent memory leaks.
-- ✅ **Advanced Preloading**: Uses `IdleHandler` to preload theme backgrounds for zero-lag UI.
-- ✅ **Theme Management**: Built-in dialog to manage, hide, or prioritize themes in the selection list.
-- ✅ **Safe Mode**: Automatic fallback to a default theme if registration errors or resource issues occur.
-- ✅ **Unified Theme API**: Simplified theme registration with support for XML styles or programmatic gradients.
-- ✅ **Edge-to-Edge Ready**: Built-in support for status and navigation bar color synchronization.
-- ✅ **New UI Components**: `MultiColorAvatarView`, `MultiColorBorderLayout`, and `RedBlueBorderLayout` for stunning visual effects.
-- ✅ **Animated Borders**: Rotating gradient borders with customizable speed, direction, and neon glow.
-- ✅ **Rainbow Mode**: Optional rainbow color cycle for borders independent of the current theme.
+- 🚀 **Full Jetpack Compose Support**: Premium composables, modifiers, and theme providers designed for modern Android development.
+- 🎭 **Telegram-Style Animations**: Specialized circular reveal transitions for theme changes and night mode toggling.
+- 🌓 **Smart Night Mode**: Unified management for light/dark modes with persistence and smooth cross-fade animations.
+- 🌈 **Dynamic Animated Borders**: Rotating gradient borders for Avatars and Layouts with customizable speed, direction, and neon glow.
+- ⚡ **Zero-Lag Preloading**: Intelligent `IdleHandler` preloading to ensure theme switching is instantaneous.
+- 🛠️ **Advanced Theme Registry**: Register themes from XML, programmatic gradients, or even dynamic network sources.
+- 📱 **Edge-to-Edge Synergy**: Automatic synchronization with system bars (Status/Navigation) for a truly immersive experience.
+- 💾 **DataStore Persistence**: Lightweight and reactive state management for theme and night mode settings.
 
-## Installation
+---
+
+## 📦 Installation
 
 Add JitPack to your root `settings.gradle`:
 
@@ -50,9 +48,103 @@ dependencies {
 }
 ```
 
-## Usage
+---
 
-### 1. Initialize and Register Themes
+## 🚀 Usage: Jetpack Compose (Recommended)
+
+### 1. Wrap your App
+Provide the theme context to your composables:
+
+```kotlin
+MultiColorTheme { // Collects theme state automatically
+    Surface(modifier = Modifier.fillMaxSize()) {
+        MyContent()
+    }
+}
+```
+
+### 2. Use Premium Composables
+
+```kotlin
+// 🆕 Animated Avatar with Rotating Border
+MultiColorAvatar(
+    image = { AsyncImage(model = "...", contentDescription = null) },
+    animateBorder = true,
+    glowRadius = 8.dp,
+    borderThickness = 4.dp
+)
+
+// 🆕 BorderBox for Premium Containers
+MultiColorBorderBox(
+    thickness = 2.dp,
+    animate = true,
+    cornerRadius = 12.dp
+) {
+    Text("Premium Content")
+}
+
+// 🆕 Night Mode Toggle with Circular Reveal
+MultiColorNightModeButton(
+    lightIconRes = R.drawable.ic_sun,
+    darkIconRes = R.drawable.ic_moon
+)
+```
+
+### 3. Reactive Modifiers
+Make any standard composable reactive to theme changes:
+
+```kotlin
+Box(
+    modifier = Modifier
+        .size(100.dp)
+        .multiColorBackground(CircleShape) // Automatically uses theme gradient
+        .multiColorBorder(2.dp, CircleShape)
+)
+```
+
+---
+
+## 🏗️ Usage: XML Views
+
+### Specialized Components
+```xml
+<!-- Clickable button that automatically opens the theme selector -->
+<io.selimdawa.multicolors.MultiColorButton
+    android:layout_width="40dp"
+    android:layout_height="40dp" />
+
+<!-- 🆕 MultiColorAvatarView: Profile image with rotating neon border -->
+<io.selimdawa.multicolors.MultiColorAvatarView
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    app:mc_animate_border="true"
+    app:mc_animate_image="true"
+    app:mc_glow_radius="10dp"
+    app:mc_image_src="@drawable/profile" />
+
+<!-- 🆕 MultiColorBorderLayout: Container with animated borders -->
+<io.selimdawa.multicolors.MultiColorBorderLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mc_border_thickness="3dp"
+    app:mc_corner_radius="16dp"
+    app:mc_animate_border="true">
+    
+    <TextView ... />
+    
+</io.selimdawa.multicolors.MultiColorBorderLayout>
+
+<!-- 🆕 RedBlueBorderLayout: Specialized container with rotating Red/Blue neon border -->
+<io.selimdawa.multicolors.RedBlueBorderLayout
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    app:mc_border_thickness="5dp"
+    app:mc_glow_radius="12dp" />
+```
+
+---
+
+## ⚙️ Configuration & Initialization
 
 In your `Application` class:
 
@@ -60,125 +152,73 @@ In your `Application` class:
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        
-        // 1. (Optional) Configure Manager
-        MultiColorManager.isThemeSafeModeEnabled = true
-        MultiColorManager.excludedThemeIds = setOf("SOME_ID")
 
-        // 2. Register Custom Themes
+        // 1. Register Themes
         ThemeRegistry.register(
             MultiColorTheme(
-                id = "SUNSET",
-                name = "Sunset",
-                colors = listOf(Color.RED, Color.YELLOW),
-                orientation = GradientDrawable.Orientation.TOP_BOTTOM
+                id = "GOLDEN",
+                name = "Golden Hour",
+                colors = listOf(Color.parseColor("#FFD700"), Color.parseColor("#FF8C00"))
             )
         )
 
-        // 3. Initialize the manager
+        // 2. Initialize (Handles persistence and lifecycle)
         MultiColorManager.init(this)
+        
+        // 3. (Optional) Preload for zero-lag
+        MultiColorManager.preloadThemesIdle(this)
     }
 }
 ```
 
-### 2. Add to your Layout
+---
 
-Use `MultiColorButton` for an automated theme selector, or `MultiColorCardView` for a themed reactive container:
+## 🛠️ Advanced APIs
 
-```xml
-<!-- Clickable button that automatically opens the theme management dialog -->
-<io.selimdawa.multicolors.MultiColorButton
-    android:layout_width="34dp"
-    android:layout_height="34dp" />
-
-<!-- 🆕 MultiColorNightModeButton: Specialized button for Night/Light mode -->
-<io.selimdawa.multicolors.MultiColorNightModeButton
-    android:layout_width="34dp"
-    android:layout_height="34dp"
-    app:mc_dark_icon="@drawable/ic_night"
-    app:mc_icon_color_mode="track"
-    app:mc_light_icon="@drawable/ic_light" />
-
-<!-- A view (MaterialCardView-based) that reacts to theme changes -->
-<io.selimdawa.multicolors.MultiColorCardView
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    app:mc_card_corner_radius="16dp" />
-
-<!-- 🆕 MultiColorAvatarView: Profile image with rotating colorful border -->
-<io.selimdawa.multicolors.MultiColorAvatarView
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    app:mc_animate_border="true"
-    app:mc_border_thickness="4dp"
-    app:mc_glow_radius="8dp"
-    app:mc_image_src="@drawable/my_profile" />
-
-<!-- 🆕 MultiColorBorderLayout: A container with a rotating colorful border -->
-<io.selimdawa.multicolors.MultiColorBorderLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:mc_animate_border="true"
-    app:mc_border_thickness="2dp"
-    app:mc_corner_radius="12dp">
-    
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Premium Button" />
-        
-</io.selimdawa.multicolors.MultiColorBorderLayout>
-
-<!-- 🆕 RedBlueBorderLayout: A specialized container with a rotating Red/Blue neon border -->
-<io.selimdawa.multicolors.RedBlueBorderLayout
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    app:mc_border_rotation_duration="2000"
-    app:mc_border_thickness="5dp"
-    app:mc_glow_radius="12dp" />
-```
-
-## Advanced APIs
-
-### Programmatic Control
-Change the theme manually from anywhere in your code:
-```kotlin
-MultiColorManager.showThemeDialog(activity) // Opens the selector
-```
-
-### Exclude Themes
-Hide specific default themes from the user:
-```kotlin
-MultiColorManager.excludedThemeIds = setOf("G2_1", "G3_1")
-```
-
-### 🆕 Universal Animated Action
-You can now use the library's premium circular reveal animation for any UI change (like switching to Night Mode or changing Languages):
+### Programmatic Animation
+Perform the premium circular reveal animation for *any* custom action (like changing language or toggling a setting):
 
 ```kotlin
 ThemeAnimationHelper.performAnimatedAction(activity, triggerView) {
-    // 1. Perform your UI change (e.g. toggle night mode)
-    toggleNightMode()
-    // 2. The library will take a screenshot, calculate reveal center from triggerView, 
-    // and perform a smooth transition!
+    // Perform your logic here
+    // The library handles the screenshot and smooth reveal!
 }
 ```
 
-## XML Attributes
+### Night Mode Management
+```kotlin
+// Toggle night mode with persistence
+MultiColorManager.setNightMode(context, AppCompatDelegate.MODE_NIGHT_YES)
 
-Customizable attributes for `MultiColorAvatarView` and `MultiColorBorderLayout`:
+// Access current state
+val isNight = MultiColorManager.nightMode.value == AppCompatDelegate.MODE_NIGHT_YES
+```
 
-| Attribute                     | Description                               | Default       |
-|-------------------------------|-------------------------------------------|---------------|
-| `mc_animate_border`           | Enables/Disables border rotation          | `false`       |
-| `mc_border_thickness`         | Thickness of the colorful border          | `4dp` / `2dp` |
-| `mc_glow_radius`              | Adds a neon glow effect around the border | `0dp`         |
-| `mc_border_rotation_duration` | Time (ms) for a full 360° rotation        | `3000`        |
-| `mc_use_rainbow`              | Force rainbow colors instead of theme     | `false`       |
-| `mc_image_corner_radius`      | Corner radius for the avatar image        | `Pill`        |
-| `mc_icon_color_mode`          | Icon color mode (`track` or `adaptive`)   | `adaptive`    |
+### Theme Management Dialogs
+```kotlin
+MultiColorManager.showThemeDialog(activity)       // Simple selector
+MultiColorManager.showManageThemesDialog(activity) // Advanced management (hide/show themes)
+```
 
-## License
+---
+
+## 🎨 XML Attributes
+
+| Attribute                     | Description                               | Default    |
+|-------------------------------|-------------------------------------------|------------|
+| `mc_animate_border`           | Enables/Disables border rotation          | `false`    |
+| `mc_animate_image`            | Enables/Disables image rotation (Avatar)  | `false`    |
+| `mc_border_thickness`         | Thickness of the colorful border          | `2dp`      |
+| `mc_glow_radius`              | Adds a neon glow effect around the border | `0dp`      |
+| `mc_border_rotation_duration` | Time (ms) for a full 360° rotation        | `3000`     |
+| `mc_image_rotation_duration`  | Time (ms) for image rotation (Avatar)     | `5000`     |
+| `mc_use_rainbow`              | Force rainbow colors instead of theme     | `false`    |
+| `mc_corner_radius`            | Corner radius for layouts                 | `8dp`      |
+| `mc_icon_color_mode`          | Icon color mode (`track` or `adaptive`)   | `adaptive` |
+
+---
+
+## 📄 License
 
 ```
 Copyright 2026 Selim Dawa
