@@ -1,19 +1,19 @@
 # Multi Colors 🎨
 
-<p align="center">
+<div style="text-align: center;">
   <b>A professional and reactive theme management library for Android.</b>
-</p>
+</div>
 
-<p align="center">
+<div style="text-align: center;">
   Multi Colors allows you to easily implement and switch between multiple themes (colors and gradients) in your application with automatic persistence, smooth UI transitions, and full support for both XML Views and Jetpack Compose.
-</p>
+</div>
 
-<p align="center">
+<div style="text-align: center;">
  <a><img alt="Min SDK" src="https://img.shields.io/badge/Min SDK-24-020290?logo=android&logoColor=white"/></a>
  <a><img alt="Target SDK" src="https://img.shields.io/badge/Target SDK-37-0EB265?logo=android&logoColor=0EB265"/></a>
  <a href="https://kotlinlang.org"><img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.4.20-blue?logo=kotlin&logoColor=white"/></a>
  <a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-CC9900?logo=apache&logoColor=white"/></a>
-</p>
+</div>
 
 ## ✨ Key Features
 
@@ -110,27 +110,68 @@ Box(
 ```xml
 <!-- Clickable button that automatically opens the theme selector -->
 <io.selimdawa.multicolors.MultiColorButton
-    android:layout_width="40dp"
-    android:layout_height="40dp" />
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:contentDescription="Open Theme Selector"
+    style="@style/Widget.Material3.Button.IconButton" />
 
-<!-- 🆕 MultiColorAvatarView: Profile image with rotating neon border -->
+<!-- 🆕 MultiColorNightModeButton: Toggles Light/Dark mode with premium circular reveal -->
+<io.selimdawa.multicolors.MultiColorNightModeButton
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    app:mc_light_icon="@drawable/ic_sun"
+    app:mc_dark_icon="@drawable/ic_moon"
+    app:mc_icon_color_mode="adaptive" /> <!-- 'adaptive' (Black/White) or 'track' (Theme Color) -->
+
+<!-- 🆕 MultiColorAvatarView: Profile image with rotating neon border and all premium features -->
 <io.selimdawa.multicolors.MultiColorAvatarView
     android:layout_width="120dp"
     android:layout_height="120dp"
+    app:mc_image_src="@drawable/profile_pic"
+    app:mc_image_background="?mc_track"
+    app:mc_image_scale_type="centerCrop"
+    app:mc_image_corner_radius="60dp"
     app:mc_animate_border="true"
-    app:mc_animate_image="true"
+    app:mc_border_rotation_duration="3000"
+    app:mc_border_rotation_direction="clockwise"
+    app:mc_animate_image="false"
+    app:mc_image_rotation_duration="5000"
+    app:mc_border_thickness="4dp"
     app:mc_glow_radius="10dp"
-    app:mc_image_src="@drawable/profile" />
+    app:mc_glow_alpha="0.6"
+    app:mc_use_rainbow="false"
+    app:mc_show_contrast="true"
+    app:mc_contrast_size="0.3"
+    app:mc_always_white="false" />
 
-<!-- 🆕 MultiColorBorderLayout: Container with animated borders -->
+<!-- 🆕 MultiColorCardView: Premium Card with reactive theme background and adaptive corners -->
+<io.selimdawa.multicolors.MultiColorCardView
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:mc_card_background="?mc_bg"
+    app:mc_card_corner_radius="24dp"
+    app:mc_card_elevation="4dp"
+    app:mc_card_border_enabled="true"
+    app:mc_card_stroke_width="2dp"
+    app:mc_card_stroke_color="?mc_tick" />
+
+<!-- 🆕 MultiColorBorderLayout: Container with animated rotating borders -->
 <io.selimdawa.multicolors.MultiColorBorderLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:mc_animate_border="true"
     app:mc_border_thickness="3dp"
     app:mc_corner_radius="16dp"
-    app:mc_animate_border="true">
+    app:mc_glow_radius="8dp"
+    app:mc_glow_alpha="0.5"
+    app:mc_border_rotation_duration="4000"
+    app:mc_border_rotation_direction="counter_clockwise">
     
-    <TextView ... />
+    <!-- Your content here -->
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Premium Container" />
     
 </io.selimdawa.multicolors.MultiColorBorderLayout>
 
@@ -139,7 +180,8 @@ Box(
     android:layout_width="200dp"
     android:layout_height="wrap_content"
     app:mc_border_thickness="5dp"
-    app:mc_glow_radius="12dp" />
+    app:mc_glow_radius="12dp"
+    app:mc_corner_radius="20dp" />
 ```
 
 ---
@@ -153,7 +195,7 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // 1. Register Themes
+        // 1. Register Custom Themes (Optional)
         ThemeRegistry.register(
             MultiColorTheme(
                 id = "GOLDEN",
@@ -162,10 +204,16 @@ class MyApp : Application() {
             )
         )
 
-        // 2. Initialize (Handles persistence and lifecycle)
+        // 2. Configure Manager Settings
+        MultiColorManager.apply {
+            excludedThemeIds = setOf("S_12", "G2_5") // Hide specific themes from the UI
+            isThemeSafeModeEnabled = true           // Fallback to default on crash
+        }
+
+        // 3. Initialize (Handles persistence and lifecycle)
         MultiColorManager.init(this)
         
-        // 3. (Optional) Preload for zero-lag
+        // 4. Preload for zero-lag switching (Intelligent IdleHandler)
         MultiColorManager.preloadThemesIdle(this)
     }
 }
@@ -204,17 +252,50 @@ MultiColorManager.showManageThemesDialog(activity) // Advanced management (hide/
 
 ## 🎨 XML Attributes
 
-| Attribute                     | Description                               | Default    |
-|-------------------------------|-------------------------------------------|------------|
-| `mc_animate_border`           | Enables/Disables border rotation          | `false`    |
-| `mc_animate_image`            | Enables/Disables image rotation (Avatar)  | `false`    |
-| `mc_border_thickness`         | Thickness of the colorful border          | `2dp`      |
-| `mc_glow_radius`              | Adds a neon glow effect around the border | `0dp`      |
-| `mc_border_rotation_duration` | Time (ms) for a full 360° rotation        | `3000`     |
-| `mc_image_rotation_duration`  | Time (ms) for image rotation (Avatar)     | `5000`     |
-| `mc_use_rainbow`              | Force rainbow colors instead of theme     | `false`    |
-| `mc_corner_radius`            | Corner radius for layouts                 | `8dp`      |
-| `mc_icon_color_mode`          | Icon color mode (`track` or `adaptive`)   | `adaptive` |
+### Global & Shared Attributes
+| Attribute             | Description                                            | Default              |
+|:----------------------|:-------------------------------------------------------|:---------------------|
+| `mc_bg`               | Theme background attribute (reference or color)        | `?attr/colorSurface` |
+| `mc_track`            | Theme primary/start color                              | `-`                  |
+| `mc_center`           | Theme center color (for 3-color gradients)             | `-`                  |
+| `mc_tick`             | Theme accent/end color                                 | `-`                  |
+| `mc_border_thickness` | Thickness of the colorful border                       | `2dp`                |
+| `mc_use_rainbow`      | Forces rainbow colors instead of current theme         | `false`              |
+| `mc_always_white`     | Forces contrast stripes to be white regardless of mode | `false`              |
+| `mc_show_contrast`    | Enables high-contrast center stripe in the border      | `false`              |
+| `mc_contrast_size`    | Width of the contrast stripe (0.0 to 1.0)              | `0.3`                |
+
+### MultiColorAvatarView & MultiColorBorderLayout
+| Attribute                      | Description                                     | Default      |
+|:-------------------------------|:------------------------------------------------|:-------------|
+| `mc_animate_border`            | Enables/Disables border rotation animation      | `false`      |
+| `mc_border_rotation_duration`  | Time (ms) for a full 360° border rotation       | `3000`       |
+| `mc_border_rotation_direction` | `clockwise` or `counter_clockwise`              | `clockwise`  |
+| `mc_glow_radius`               | Radius of the neon glow effect                  | `0dp`        |
+| `mc_glow_alpha`                | Alpha intensity of the glow (0.0 to 1.0)        | `0.5`        |
+| `mc_corner_radius`             | Corner radius for layouts and borders           | `8dp`        |
+| `mc_image_src`                 | Profile image resource (Avatar only)            | `-`          |
+| `mc_image_background`          | Background color for the image (Avatar only)    | `-`          |
+| `mc_image_scale_type`          | Scale type (centerCrop, fitXY, etc.)            | `centerCrop` |
+| `mc_animate_image`             | Enables rotating the image itself (Avatar only) | `false`      |
+| `mc_image_rotation_duration`   | Time (ms) for image rotation (Avatar only)      | `5000`       |
+
+### MultiColorCardView
+| Attribute                | Description                               | Default       |
+|:-------------------------|:------------------------------------------|:--------------|
+| `mc_card_background`     | Background color or resource for the card | `?mc_bg`      |
+| `mc_card_corner_radius`  | Corner radius dimension or `circle`       | `10dp`        |
+| `mc_card_elevation`      | Card elevation (shadow)                   | `0dp`         |
+| `mc_card_border_enabled` | Enables the stroke border                 | `false`       |
+| `mc_card_stroke_width`   | Thickness of the border stroke            | `2dp`         |
+| `mc_card_stroke_color`   | Color of the border stroke                | `Color.WHITE` |
+
+### MultiColorNightModeButton
+| Attribute            | Description                               | Default    |
+|:---------------------|:------------------------------------------|:-----------|
+| `mc_light_icon`      | Icon to show during Light Mode (Sun)      | `-`        |
+| `mc_dark_icon`       | Icon to show during Dark Mode (Moon)      | `-`        |
+| `mc_icon_color_mode` | `track` (theme color) or `adaptive` (B/W) | `adaptive` |
 
 ---
 
