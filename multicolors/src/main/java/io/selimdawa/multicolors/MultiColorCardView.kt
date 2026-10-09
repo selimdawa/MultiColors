@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.RelativeCornerSize
@@ -53,8 +55,17 @@ class MultiColorCardView @JvmOverloads constructor(
                 strokeWidth = getDimensionPixelSize(
                     R.styleable.MultiColorCardView_mc_card_stroke_width, context.dpToPxInt(2f)
                 )
-                strokeColor =
-                    getColor(R.styleable.MultiColorCardView_mc_card_stroke_color, Color.WHITE)
+                val strokeVal = peekValue(R.styleable.MultiColorCardView_mc_card_stroke_color)
+                if (strokeVal != null && strokeVal.type == TypedValue.TYPE_INT_DEC) {
+                    when (strokeVal.data) {
+                        0 -> resolveThemeColor(context, androidx.appcompat.R.attr.colorError)?.let { strokeColor = it }
+                        1 -> strokeColor = Color.WHITE
+                        2 -> resolveThemeColor(context, R.attr.mc_basic)?.let { strokeColor = it }
+                        else -> strokeColor = getColor(R.styleable.MultiColorCardView_mc_card_stroke_color, Color.WHITE)
+                    }
+                } else {
+                    strokeColor = getColor(R.styleable.MultiColorCardView_mc_card_stroke_color, Color.WHITE)
+                }
             } else {
                 strokeWidth = 0
             }
@@ -138,5 +149,34 @@ class MultiColorCardView @JvmOverloads constructor(
     fun setMcCardStroke(widthPx: Int, color: Int) {
         this.strokeWidth = widthPx
         this.strokeColor = color
+    }
+
+    private fun resolveThemeColor(context: Context, @AttrRes attrRes: Int): Int? {
+        val typedValue = TypedValue()
+        var currentAttr = attrRes
+        for (i in 0..5) {
+            if (context.theme.resolveAttribute(currentAttr, typedValue, true)) {
+                if (typedValue.type >= TypedValue.TYPE_FIRST_COLOR_INT && typedValue.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+                    return typedValue.data
+                }
+                if (typedValue.resourceId != 0) {
+                    val resTypeName = try {
+                        context.resources.getResourceTypeName(typedValue.resourceId)
+                    } catch (e: Exception) {
+                        ""
+                    }
+                    if (resTypeName == "attr") {
+                        currentAttr = typedValue.resourceId
+                        continue
+                    }
+                    return ContextCompat.getColor(context, typedValue.resourceId)
+                }
+                if (typedValue.data != 0) {
+                    return typedValue.data
+                }
+            }
+            break
+        }
+        return null
     }
 }

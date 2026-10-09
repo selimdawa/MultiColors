@@ -5,12 +5,20 @@
     <attr name="mc_tick" format="color" />
     <attr name="mc_center" format="color" />
 
+    <attr name="mc_first" format="color" />
+    <attr name="mc_end" format="color" />
+    <attr name="mc_basic" format="color" />
+
     <attr name="mc_border_thickness" format="dimension" />
     <attr name="mc_use_rainbow" format="boolean" />
     <attr name="mc_always_white" format="boolean" />
     <attr name="mc_contrast_size" format="float" />
     <attr name="mc_show_contrast" format="boolean" />
-
+    <attr name="mc_card_stroke_color" format="enum">
+        <enum name="default_color" value="0" />
+        <enum name="white" value="1" />
+        <enum name="mc_basic" value="2" />
+    </attr>
     <declare-styleable name="MultiColorAvatarView">
         <attr name="mc_border_thickness" />
         <attr name="mc_use_rainbow" />
@@ -83,9 +91,13 @@
         </attr>
         <attr name="mc_card_elevation" format="dimension" />
         <attr name="mc_card_stroke_width" format="dimension" />
-        <attr name="mc_card_stroke_color" format="color" />
+        <attr name="mc_card_stroke_color" />
         <attr name="mc_card_border_enabled" format="boolean" />
         <attr name="mc_card_background" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiColorButton">
+        <attr name="mc_card_stroke_color" />
     </declare-styleable>
 
     <attr name="multiColorButtonStyle" format="reference" />

@@ -4,17 +4,21 @@ package io.selimdawa.multicolors
 
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.*
+import android.graphics.BlurMaskFilter
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.RectF
+import android.graphics.SweepGradient
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlin.math.min
 
 /**
  * A rectangular view that draws a gradient border with rounded corners.
@@ -34,7 +38,7 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     private var customColors: IntArray? = null
     private var glowRadius = 0f
     private var glowAlpha = 0.5f
-    
+
     /**
      * The rotation of the gradient colors in degrees.
      * Animated by MultiColorBorderLayout.
@@ -66,11 +70,18 @@ class MultiColorRectBorderView @JvmOverloads constructor(
             attrs, R.styleable.MultiColorBorderLayout, 0, 0
         ).apply {
             try {
-                borderThickness = getDimension(R.styleable.MultiColorBorderLayout_mc_border_thickness, context.dpToPx(2f))
-                cornerRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_corner_radius, context.dpToPx(8f))
+                borderThickness = getDimension(
+                    R.styleable.MultiColorBorderLayout_mc_border_thickness,
+                    context.dpToPx(2f)
+                )
+                cornerRadius = getDimension(
+                    R.styleable.MultiColorBorderLayout_mc_corner_radius,
+                    context.dpToPx(8f)
+                )
                 useRainbow = getBoolean(R.styleable.MultiColorBorderLayout_mc_use_rainbow, false)
                 alwaysWhite = getBoolean(R.styleable.MultiColorBorderLayout_mc_always_white, false)
-                showContrast = getBoolean(R.styleable.MultiColorBorderLayout_mc_show_contrast, false)
+                showContrast =
+                    getBoolean(R.styleable.MultiColorBorderLayout_mc_show_contrast, false)
                 contrastSize = getFloat(R.styleable.MultiColorBorderLayout_mc_contrast_size, 0.3f)
                 glowRadius = getDimension(R.styleable.MultiColorBorderLayout_mc_glow_radius, 0f)
                 glowAlpha = getFloat(R.styleable.MultiColorBorderLayout_mc_glow_alpha, 0.5f)
@@ -187,8 +198,10 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     private fun getThemeColors(theme: MultiColorTheme): IntArray {
         val colors = MultiColorManager.getThemeColors(context, theme)
 
-        val isNightMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-        val contrastColor = if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
+        val isNightMode =
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        val contrastColor =
+            if (alwaysWhite) Color.WHITE else (if (isNightMode) Color.WHITE else Color.BLACK)
 
         return if (colors.size == 1 || (colors.size == 2 && colors[0] == colors[1])) {
             if (showContrast) intArrayOf(colors[0], contrastColor, colors[0])
@@ -199,8 +212,13 @@ class MultiColorRectBorderView @JvmOverloads constructor(
     }
 
     private fun getRainbowColors() = intArrayOf(
-        "#FF0000".toColorInt(), "#FF7F00".toColorInt(), "#FFFF00".toColorInt(),
-        "#00FF00".toColorInt(), "#0000FF".toColorInt(), "#4B0082".toColorInt(), "#8B00FF".toColorInt()
+        "#FF0000".toColorInt(),
+        "#FF7F00".toColorInt(),
+        "#FFFF00".toColorInt(),
+        "#00FF00".toColorInt(),
+        "#0000FF".toColorInt(),
+        "#4B0082".toColorInt(),
+        "#8B00FF".toColorInt()
     )
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

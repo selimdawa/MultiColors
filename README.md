@@ -30,12 +30,13 @@
 
 ## 📦 Installation
 
-Add JitPack to your root `settings.gradle`:
+Add Maven Central to your root `settings.gradle`:
 
 ```kotlin
 dependencyResolutionManagement {
     repositories {
-        maven { url = uri("https://jitpack.io") }
+        google()
+        mavenCentral()
     }
 }
 ```
@@ -44,7 +45,7 @@ Add the dependency to your app's `build.gradle`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.selimdawa:MultiColors:x.y.z")
+    implementation("io.github.selimdawa:multi-colors:x.y.z")
 }
 ```
 
@@ -259,6 +260,9 @@ MultiColorManager.showManageThemesDialog(activity) // Advanced management (hide/
 | `mc_track`            | Theme primary/start color                              | `-`                  |
 | `mc_center`           | Theme center color (for 3-color gradients)             | `-`                  |
 | `mc_tick`             | Theme accent/end color                                 | `-`                  |
+| `mc_first`            | Shortcut attribute equal to `mc_track`                 | `-`                  |
+| `mc_end`              | Shortcut attribute equal to `mc_tick`                  | `-`                  |
+| `mc_basic`            | Shortcut attribute equal to `mc_track`                 | `-`                  |
 | `mc_border_thickness` | Thickness of the colorful border                       | `2dp`                |
 | `mc_use_rainbow`      | Forces rainbow colors instead of current theme         | `false`              |
 | `mc_always_white`     | Forces contrast stripes to be white regardless of mode | `false`              |
@@ -281,14 +285,14 @@ MultiColorManager.showManageThemesDialog(activity) // Advanced management (hide/
 | `mc_image_rotation_duration`   | Time (ms) for image rotation (Avatar only)      | `5000`       |
 
 ### MultiColorCardView
-| Attribute                | Description                               | Default       |
-|:-------------------------|:------------------------------------------|:--------------|
-| `mc_card_background`     | Background color or resource for the card | `?mc_bg`      |
-| `mc_card_corner_radius`  | Corner radius dimension or `circle`       | `10dp`        |
-| `mc_card_elevation`      | Card elevation (shadow)                   | `0dp`         |
-| `mc_card_border_enabled` | Enables the stroke border                 | `false`       |
-| `mc_card_stroke_width`   | Thickness of the border stroke            | `2dp`         |
-| `mc_card_stroke_color`   | Color of the border stroke                | `Color.WHITE` |
+| Attribute                | Description                                          | Default                              |
+|:-------------------------|:-----------------------------------------------------|:-------------------------------------|
+| `mc_card_background`     | Background color or resource for the card            | `?mc_bg`                             |
+| `mc_card_corner_radius`  | Corner radius dimension or `circle`                  | `10dp`                               |
+| `mc_card_elevation`      | Card elevation (shadow)                              | `0dp`                                |
+| `mc_card_border_enabled` | Enables the stroke border                            | `false`                              |
+| `mc_card_stroke_width`   | Thickness of the border stroke                       | `2dp`                                |
+| `mc_card_stroke_color`   | Color or enum (`default_color`, `white`, `mc_basic`) | `default_color` (`?attr/colorError`) |
 
 ### MultiColorNightModeButton
 | Attribute            | Description                               | Default    |

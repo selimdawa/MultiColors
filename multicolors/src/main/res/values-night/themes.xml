@@ -15,6 +15,9 @@
         <item name="mc_tick">@color/mc_basic</item>
         <item name="mc_track">@color/mc_basic</item>
         <item name="mc_center">@color/mc_basic</item>
+        <item name="mc_first">?mc_track</item>
+        <item name="mc_end">?mc_tick</item>
+        <item name="mc_basic">?mc_track</item>
     </style>
 
     <!-- Define the checkbox specific theme override -->

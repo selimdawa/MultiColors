@@ -632,6 +632,15 @@ object MultiColorCompose {
     /** Shortcut for mc_tick */
     val mc_tick @Composable get() = rememberColor(R.attr.mc_tick)
 
+    /** Shortcut for mc_first */
+    val mc_first @Composable get() = rememberColor(R.attr.mc_first)
+
+    /** Shortcut for mc_end */
+    val mc_end @Composable get() = rememberColor(R.attr.mc_end)
+
+    /** Shortcut for mc_basic */
+    val mc_basic @Composable get() = rememberColor(R.attr.mc_basic)
+
     /** Shortcut for mc_gradient as a Brush */
     val mc_gradient: Brush @Composable get() {
         val theme = theme

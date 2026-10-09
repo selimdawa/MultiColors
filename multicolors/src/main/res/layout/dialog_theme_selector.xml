@@ -3,13 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/mc_dialog_bg">
+    android:background="@drawable/mc_dialog_bg"
+    android:scrollbars="vertical"
+    android:fadeScrollbars="true"
+    android:scrollbarThumbVertical="@drawable/mc_scrollbar_thumb"
+    android:scrollbarSize="4dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingHorizontal="16dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

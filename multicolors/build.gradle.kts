@@ -33,15 +33,11 @@ android {
 }
 
 mavenPublishing {
-    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.0.10")
+    coordinates(groupId = "io.github.selimdawa", artifactId = "multi-colors", version = "1.1.0")
 
-    // publishToMavenCentral(automaticRelease = true)
+    publishToMavenCentral(automaticRelease = true)
 
-    // if (!System.getenv("JITPACK").isNullOrEmpty()) {
-    //     // Skip signing on JitPack
-    // } else {
-    //     signAllPublications()
-    // }
+    signAllPublications()
 
     pom {
         name.set("Multi Colors")

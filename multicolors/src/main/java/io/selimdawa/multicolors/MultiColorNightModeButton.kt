@@ -68,11 +68,11 @@ class MultiColorNightModeButton @JvmOverloads constructor(
             
             // Give 100ms head start before capturing screenshot
             postDelayed({
-                performNightModeTransition(activity, isNightMode)
+                performNightModeTransition(activity, true)
             }, 100)
         } else {
             // Start transition IMMEDIATELY in parallel for Moon
-            performNightModeTransition(activity, isNightMode)
+            performNightModeTransition(activity, false)
         }
     }
 

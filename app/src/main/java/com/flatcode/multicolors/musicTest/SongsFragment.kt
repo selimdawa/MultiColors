@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.flatcode.multicolors.R
 import com.flatcode.multicolors.databinding.FragmentSongsBinding
 import com.flatcode.multicolors.databinding.ItemMusicBinding
 
@@ -17,8 +18,7 @@ class SongsFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSongsBinding.inflate(inflater, container, false)
 
@@ -48,7 +48,9 @@ class SongsFragment : Fragment() {
 
         override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
             holder.binding.songName.text = songs[position]
-            holder.binding.songDetails.text = "Artist Name | Album ${position + 1}"
+            holder.binding.songDetails.text = holder.itemView.context.getString(
+                R.string.song_details_format, "Artist Name", "Album ${position + 1}"
+            )
             holder.binding.image.load("https://images.unsplash.com/photo-1507838596018-7270c11f78f6?w=200&q=80")
         }
 
